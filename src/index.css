@@ -12,3 +12,25 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.leaflet-rotated-icon-cua-dung{
+  transition: all .5s linear; 
+}
+
+.leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
+  display: none;
+  border: 2px solid rgba(0,0,0,0.2);
+  background-clip: padding-box;
+}
+
+.leaflet-popup-content p {
+  margin: 4px 0;
+}
+
+.leaflet-popup-content p:first-child {
+  margin-top: 8px;
+}
+
+.css-uwcd5u.SnackbarContainer-top{
+  top: 72px !important;
+}

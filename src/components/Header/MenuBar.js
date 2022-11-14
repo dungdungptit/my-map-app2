@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import { deepOrange, deepPurple } from '@mui/material/colors';
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 
 export default function Appbar() {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -21,6 +22,7 @@ export default function Appbar() {
         setAnchorEl(null);
     };
 
+    const navigate = useNavigate();
 
     return (
         <Box sx={{}}>
@@ -60,7 +62,7 @@ export default function Appbar() {
             >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                <MenuItem onClick={() => navigate("/login")}>Logout</MenuItem>
             </Menu>
         </Box>
     );
