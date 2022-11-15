@@ -265,8 +265,8 @@ const RotatedMarker = forwardRef(({ children, ...props }, forwardRef) => {
 
 });
 
-// const base_url = 'ws://192.168.88.124:3001?id=admin_0'
-const base_url = 'ws://192.168.1.5:3001?id=admin_0'
+const base_url = 'ws://192.168.88.124:3001?id=admin_0'
+// const base_url = 'ws://192.168.1.5:3001?id=admin_0'
 
 
 const ws = new WebSocket(base_url)

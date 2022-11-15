@@ -8,15 +8,13 @@ import AddIcon from '@mui/icons-material/Add';
 
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { 
+import {
     vehiclesSelector,
     getVehiclesDataAsync,
-    deleteVehicleDataAsync,
 } from '../../store/reducers/vehicleSlice';
-import { useState } from 'react';
 
-// import data
-// import { problems } from '../../data/problems';
+import VehicleAction from './VehicleAction';
+
 
 const Vehicles = () => {
 
@@ -44,12 +42,7 @@ const Vehicles = () => {
 
     const columns = [
         { field: 'id', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: 'ID', minWidth: 70, sortable: false, },
-        {
-            field: 'plate', headerClassName: 'super-app-theme--header', headerName: 'License Plate', minWidth: 150, flex: 1, sortable: false,
-            renderCell: (params) => (
-                <Link sx={{ cursor: "pointer" }} onClick={() => handleRowClick(params)}>{params.value}</Link>
-            ),
-        },
+        { field: 'plate', headerClassName: 'super-app-theme--header', headerName: 'License Plate', minWidth: 150, flex: 1, sortable: false, },
         { field: 'model', headerClassName: 'super-app-theme--header', headerName: 'Model', minWidth: 200 },
         { field: 'angle', headerClassName: 'super-app-theme--header', headerName: 'Angle', minWidth: 100, sortable: false },
         { field: 'latitude', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: 'Latitude', minWidth: 150, flex: 1, sortable: false },
@@ -57,30 +50,9 @@ const Vehicles = () => {
         { field: 'status', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: 'Status', minWidth: 100, sortable: true },
         {
             field: 'action', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: 'Action', flex: 1, minWidth: 200, sortable: false,
-            renderCell: (params) => {
-                const onClick = (e) => {
-                    const currentRow = params.row;
-                    return alert(JSON.stringify(currentRow, null, 4));
-                };
-
-                const onEdit = (e) => {
-                    const vehicle = params.row;
-                    navigate(`/vehicles/edit/${vehicle.id}`, { state: vehicle });
-                };
-
-                const onDelete = (e) => {
-                    const vehicleId = params.row.id;
-                    dispatch(deleteVehicleDataAsync(vehicleId))
-                    window.location.reload();
-                };
-
-                return (
-                    <Stack direction="row" spacing={2}>
-                        <Button variant="contained" color="warning" size="small" onClick={onEdit}>Edit</Button>
-                        <Button variant="contained" color="error" size="small" onClick={onDelete}>Delete</Button>
-                    </Stack>
-                );
-            },
+            renderCell: (params) => (
+                <VehicleAction {...{params}} />
+            ),
         },
     ];
 

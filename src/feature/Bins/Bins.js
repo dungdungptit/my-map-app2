@@ -7,6 +7,7 @@ import { binsSelector, getBinsDataAsync } from '../../store/reducers/binSlice';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import BinAction from './BinAction';
 
 const Bins = () => {
     const bins = useSelector(binsSelector);
@@ -33,12 +34,6 @@ const Bins = () => {
 
     const columns = [
         { field: 'id', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: 'ID', minWidth: 70, sortable: false, },
-        {
-            field: 'name', headerClassName: 'super-app-theme--header', headerName: 'Detail', minWidth: 100, flex: 1, sortable: false,
-            renderCell: (params) => (
-                <Link sx={{ cursor: "pointer" }} onClick={() => handleRowClick(params)}>View</Link>
-            ),
-        },
         { field: 'weight', headerClassName: 'super-app-theme--header', headerName: 'Weight', minWidth: 100 },
         { field: 'maxWeight', headerClassName: 'super-app-theme--header', headerName: 'Max Weight', minWidth: 100, sortable: false },
         { field: 'latitude', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: 'Latitude', minWidth: 150, flex: 1, sortable: true },
@@ -46,28 +41,9 @@ const Bins = () => {
         { field: 'status', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: 'Status', minWidth: 100, sortable: true },
         {
             field: 'action', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: 'Action', flex: 1, minWidth: 200, sortable: false,
-            renderCell: (params) => {
-                const onClick = (e) => {
-                    const currentRow = params.row;
-                    return alert(JSON.stringify(currentRow, null, 4));
-                };
-
-                const onEdit = (e) => {
-                    navigate(`/bins/edit/${params.row.id}`, { state: params.row });
-                };
-
-                const onDelete = (e) => {
-                    const currentRow = params.row;
-                    return alert(JSON.stringify(currentRow, null, 4));
-                };
-
-                return (
-                    <Stack direction="row" spacing={2}>
-                        <Button variant="contained" color="warning" size="small" onClick={onEdit}>Edit</Button>
-                        <Button variant="contained" color="error" size="small" onClick={onDelete}>Delete</Button>
-                    </Stack>
-                );
-            },
+            renderCell: (params) => (
+                <BinAction params={params} />
+            )
         },
     ];
 

@@ -3,6 +3,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from './routes/Layout';
 import Map1 from './feature/Map/Map1';
+import Dashboard from './feature/Dashboard/Dashboard';
 import {
   Vehicles,
   VehicleItem,
@@ -28,6 +29,8 @@ const App = () => {
         <Route path="" element={<Layout />} >
           <Route index element={<Map1 />} />
           <Route path="map" element={<Map1 />} />
+
+          <Route path="dashboard" element={<Dashboard />} />
 
           <Route path="vehicles" element={<Vehicles />} />
           <Route path="vehicles/:vehicleId" element={<VehicleItem />} />

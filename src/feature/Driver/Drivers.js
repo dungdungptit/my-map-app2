@@ -7,6 +7,7 @@ import { deleteDriverDataAsync, driversSelector, getDriversDataAsync } from '../
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import DriverAction from './DriverAction';
 
 const Drivers = () => {
   const drivers = useSelector(driversSelector);
@@ -37,11 +38,7 @@ const Drivers = () => {
     {
       field: 'fullname', headerClassName: 'super-app-theme--header', headerName: 'Full Name', minWidth: 160, flex: 1, sortable: true,
       renderCell: (params) => (
-        <Fragment>
-          <Link sx={{ cursor: "pointer" }} onClick={() => handleRowClick(params)} variant="body2">
-            {params.row.firstName} {params.row.lastName}
-          </Link>
-        </Fragment>
+       `${params.row.firstName} ${params.row.lastName}`
       )
     },
     { field: 'email', headerClassName: 'super-app-theme--header', headerName: 'Email', minWidth: 160, flex: 1, sortable: false },
@@ -52,29 +49,9 @@ const Drivers = () => {
     { field: 'gender', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: 'Gender', minWidth: 80, flex: 1, sortable: true },
     {
       field: 'action', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: 'Action', flex: 1, minWidth: 180, sortable: false,
-      renderCell: (params) => {
-        const onClick = (e) => {
-          const currentRow = params.row;
-          return alert(JSON.stringify(currentRow, null, 4));
-        };
-
-        const onEdit = (e) => {
-          navigate(`/drivers/edit/${params.row.id}`, { state: params.row });
-        };
-
-        const onDelete = (e) => {
-          const currentRow = params.row;
-          dispatch(deleteDriverDataAsync(currentRow.id));
-          window.location.reload();
-        };
-
-        return (
-          <Stack direction="row" spacing={2}>
-            <Button variant="contained" color="warning" size="small" onClick={onEdit}>Edit</Button>
-            <Button variant="contained" color="error" size="small" onClick={onDelete}>Delete</Button>
-          </Stack>
-        );
-      },
+      renderCell: (params) => (
+        <DriverAction params={params} /> 
+      )
     },
   ];
 
