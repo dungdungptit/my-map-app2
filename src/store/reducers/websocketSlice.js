@@ -29,6 +29,8 @@ const websocketSlice = createSlice({
 
 const websocketReducer = websocketSlice.reducer;
 
+export const websocketSelector = state => state.websocket;
+
 export const { connect, disconnect } = websocketSlice.actions;
 
 export default websocketReducer;

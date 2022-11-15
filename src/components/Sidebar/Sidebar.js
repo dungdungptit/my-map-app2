@@ -1,6 +1,6 @@
 import { Box, List, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Stack, styled, Typography } from '@mui/material';
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import PublicIcon from '@mui/icons-material/Public';
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -18,22 +18,47 @@ const SidebarBox = styled(Box)({
     flexDirection: 'column',
 })
 
-const Sidebar = () => {
-    const [selectedIndex, setSelectedIndex] = React.useState(0);
+const getIndex = (path) => {
+    // get first part of path
+    const index = path.split('/')[1];
+    switch (index) {
+        case '':
+            return 0;
+        case 'dashboard':
+            return 1;
+        case 'vehicles':
+            return 2;
+        case 'drivers':
+            return 3;
+        case 'bins':
+            return 4;
+        default:
+            return -1;
+    }
+}
 
+const Sidebar = () => {
+    
     const navigate = useNavigate();
+    const location = useLocation();
+    const { pathname } = location;
+    console.log(pathname);
+    const [selectedIndex, setSelectedIndex] = React.useState(getIndex(pathname));
 
     const [open, setOpen] = React.useState(true);
     const { width } = useWindowDimensions();
 
     useEffect(() => {
+        if (pathname === '/') {
+            setOpen(false);
+        }
         // width < 900 ? setOpen(false) : setOpen(true);
-        if (width < 900) {
+        else if (width < 900) {
             setOpen(false);
         } else {
             setOpen(true);
         }
-    }, [width])
+    }, [width, pathname]);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -43,28 +68,12 @@ const Sidebar = () => {
         setOpen(false);
     };
 
+    useEffect(() => {
+        setSelectedIndex(getIndex(pathname));
+    }, [pathname])
+
     const handleListItemClick = (event, index) => {
         setSelectedIndex(index);
-        if (index === 0) {
-            console.log("index = 0");
-            navigate('/');
-        }
-        else if (index === 1) {
-            console.log("index = 1");
-            navigate('/map2');
-        }
-        else if (index === 2) {
-            console.log("index = 2");
-            navigate('/map3');
-        }
-        else if (index === 3) {
-            console.log("index = 3");
-            navigate('/map4');
-        }
-        // else if(index === 4) {
-        //     console.log("index = 4");
-        //     navigate('/map5');
-        // }
     };
 
 

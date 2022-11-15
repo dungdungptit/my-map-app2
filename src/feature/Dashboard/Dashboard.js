@@ -9,7 +9,7 @@ import PercentAreaChart from './PercentAreaChart';
 const Dashboard = () => {
 
     return (
-        <Fragment style={{ position: "relative" }}>
+        <Fragment>
             <Box sx={{
                 height: 'auto',
                 py: 4,
@@ -64,8 +64,10 @@ const Dashboard = () => {
                     </Stack>
                     <Box sx={{
                         height: '150px',
-                        maxWidth: '1200px',
+                        // maxWidth: '1200px',
+                        width: '100%',
                         display: 'flex',
+                        flexWrap: 'wrap',
                         flexDirection: 'row',
                         justifyContent: "space-evenly",
                         alignItems: 'center'
@@ -309,6 +311,7 @@ const Dashboard = () => {
                             </Box>
                         </Box>
                     </Box>
+
                     <Box sx={{
                         height: 'auto',
                         maxWidth: 1200,
@@ -323,6 +326,7 @@ const Dashboard = () => {
                         </Box>
                         <PercentAreaChart></PercentAreaChart>
                     </Box>
+
                     <Box sx={{
                         height: 'auto',
                         maxWidth: 1200,
@@ -351,6 +355,7 @@ const Dashboard = () => {
                             </Box>
                         </Box>
                     </Box>
+
                     <Box sx={{
                         height: 'auto',
                         maxWidth: 1200,
@@ -365,6 +370,7 @@ const Dashboard = () => {
                         </Box>
                         <MyLineChart></MyLineChart>
                     </Box>
+
                     <Box sx={{
                         maxWidth: 1200,
                         margin: '30px auto',

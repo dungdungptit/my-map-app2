@@ -48,7 +48,7 @@ const Drivers = () => {
     { field: 'phone', headerClassName: 'super-app-theme--header', headerName: 'Phone', minWidth: 120, flex: 1, sortable: false, },
     { field: 'gender', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: 'Gender', minWidth: 80, flex: 1, sortable: true },
     {
-      field: 'action', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: 'Action', flex: 1, minWidth: 180, sortable: false,
+      field: 'action', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: 'Action', flex: 1, minWidth: 150, sortable: false,
       renderCell: (params) => (
         <DriverAction params={params} /> 
       )
