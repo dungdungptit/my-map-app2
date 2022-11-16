@@ -5,9 +5,13 @@ import BarChart from './BarChart';
 import MyPieChart from './PieChart';
 import MyLineChart from './LineChart';
 import PercentAreaChart from './PercentAreaChart';
+import { useTranslation } from 'react-i18next';
+
+import DataBinEvent from './DataBinEvent';
+import DataVehicleEvent from './DataVehicleEvent';
 
 const Dashboard = () => {
-
+    const { t, i18n } = useTranslation();
     return (
         <Fragment>
             <Box sx={{
@@ -53,12 +57,12 @@ const Dashboard = () => {
                             },
                         }}>
                         <Typography variant="h5" component="h1" fontWeight='bold' gutterBottom>
-                            Welcome, Dang Ngoc Hung
+                            {t('dashboard.welcome')}, Dang Ngoc Hung
                             <Breadcrumbs maxItems={2} aria-label="breadcrumb" sx={{ mt: 1 }}>
                                 <Link underline="hover" color="inherit" href="">
-                                    Home
+                                {t('dashboard.home')}
                                 </Link>
-                                <Typography color="text.primary">Dashboard</Typography>
+                                <Typography color="text.primary">{t('dashboard.pageName')}</Typography>
                             </Breadcrumbs>
                         </Typography>
                     </Stack>
@@ -74,7 +78,7 @@ const Dashboard = () => {
                     }}>
                         <Box sx={{
                             // maxWidth: '300px',
-                            background: 'linear-gradient(to right, #2980b9, #6dd5fa, #ffffff);',
+                            background: '#cafdf5',
                             height: '100%',
                             // background: "#ccc",
                             flex: '1',
@@ -91,7 +95,7 @@ const Dashboard = () => {
                                 marginTop: '10px',
                                 fontSize: '20px',
                                 fontWeight: 600,
-                            }}>Thùng rác</Box>
+                            }}>{t('vehicle')}</Box>
                             <Box sx={{
                                 flex: 1,
                                 display: 'flex',
@@ -144,7 +148,7 @@ const Dashboard = () => {
                         </Box>
                         <Box sx={{
                             // maxWidth: '300px',
-                            background: 'linear-gradient(to right,#1d976c , #a1ffce, #ffffff);',
+                            background: '#c8facd',
                             height: '100%',
                             // background: "#ccc",
                             flex: '1',
@@ -161,7 +165,7 @@ const Dashboard = () => {
                                 marginTop: '10px',
                                 fontSize: '20px',
                                 fontWeight: 600,
-                            }}>Xe chở</Box>
+                            }}>{t('bin')}</Box>
                             <Box sx={{
                                 flex: 1,
                                 display: 'flex',
@@ -214,7 +218,7 @@ const Dashboard = () => {
                         </Box>
                         <Box sx={{
                             // maxWidth: '300px',
-                            background: 'linear-gradient(to right, #ef3b36, #ffffff);',
+                            background: '#fff5cc',
                             height: '100%',
                             // background: "#ccc",
                             flex: '1',
@@ -231,7 +235,7 @@ const Dashboard = () => {
                                 marginTop: '10px',
                                 fontSize: '20px',
                                 fontWeight: 600,
-                            }}>Lái xe</Box>
+                            }}>{t('driver')}</Box>
                             <Box sx={{
                                 flex: 1,
                                 display: 'flex',
@@ -263,7 +267,7 @@ const Dashboard = () => {
                         </Box>
                         <Box sx={{
                             // maxWidth: '300px',
-                            background: 'linear-gradient(to right, #ffe000, #ffffff);',
+                            background: '#ffe9d5',
                             height: '100%',
                             // background: "#ccc",
                             flex: '1',
@@ -322,7 +326,7 @@ const Dashboard = () => {
                             fontWeight={500}
                             margin={'20px 0 10px'}
                         >
-                            Tỉ lệ khối lượng rác các tháng trong năm
+                            {t('dashboard.chartTitle1')}
                         </Box>
                         <PercentAreaChart></PercentAreaChart>
                     </Box>
@@ -339,7 +343,7 @@ const Dashboard = () => {
                                     fontWeight={500}
                                     margin={'20px 0 10px'}
                                 >
-                                    Tổng khối lượng rác trong từng khu vực
+                                    {t('dashboard.chartTitle2')}
                                 </Box>
                                 <BarChart></BarChart>
                             </Box>
@@ -349,7 +353,7 @@ const Dashboard = () => {
                                     fontWeight={500}
                                     margin={'20px 0 10px'}
                                 >
-                                    Tỉ lệ khối lượng rác trong từng khu vực
+                                    {t('dashboard.chartTitle3')}
                                 </Box>
                                 <MyPieChart></MyPieChart>
                             </Box>
@@ -366,7 +370,7 @@ const Dashboard = () => {
                             fontWeight={500}
                             margin={'20px 0 10px'}
                         >
-                            Khối lượng rác và số lần đổ rác trong từng khu vực
+                            {t('dashboard.chartTitle4')}
                         </Box>
                         <MyLineChart></MyLineChart>
                     </Box>
@@ -380,9 +384,11 @@ const Dashboard = () => {
                             fontWeight={500}
                             margin={'20px 0'}
                         >
-                            Sự kiện vừa diễn ra
+                            {t('dashboard.chartTitle5')}
                         </Box>
                         {/* <DataTable rows={} columns={} /> */}
+                        <DataVehicleEvent />
+                        <DataBinEvent />
                     </Box>
                 </Box>
             </Box>

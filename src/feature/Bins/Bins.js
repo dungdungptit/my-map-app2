@@ -8,8 +8,12 @@ import { binsSelector, getBinsDataAsync } from '../../store/reducers/binSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import BinAction from './BinAction';
+import { useTranslation } from 'react-i18next';
+import { getStatus } from './constant';	
+
 
 const Bins = () => {
+    const { t } = useTranslation();
     const bins = useSelector(binsSelector);
     const dispatch = useDispatch();
 
@@ -33,14 +37,29 @@ const Bins = () => {
     };
 
     const columns = [
-        { field: 'id', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: 'ID', minWidth: 70, sortable: false, },
-        { field: 'weight', headerClassName: 'super-app-theme--header', headerName: 'Weight', minWidth: 100 },
-        { field: 'maxWeight', headerClassName: 'super-app-theme--header', headerName: 'Max Weight', minWidth: 100, sortable: false },
-        { field: 'latitude', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: 'Latitude', minWidth: 150, flex: 1, sortable: true },
-        { field: 'longitude', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: 'Longitude', minWidth: 150, flex: 1, sortable: false },
-        { field: 'status', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: 'Status', minWidth: 100, sortable: true },
+        { field: 'id', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: `${t("bins.table.id")}`, minWidth: 70, sortable: false, },
+        { field: 'areaId', headerClassName: 'super-app-theme--header', headerName: `${t("bins.table.areaId")}`, minWidth: 100 },
         {
-            field: 'action', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: 'Action', flex: 1, minWidth: 150, sortable: false,
+            field: 'weight', headerClassName: 'super-app-theme--header', headerName: `${t("bins.table.weight")}`, minWidth: 100,
+            renderCell: (params) => (
+                `${params.value} kg`
+            ),
+        },
+        { field: 'address', headerClassName: 'super-app-theme--header', headerName: `${t("bins.table.address")}`, flex: 1, minWidth: 200, sortable: false },
+        { field: 'latitude', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: `${t("bins.table.latitude")}`, minWidth: 100, flex: 1, sortable: true },
+        { field: 'longitude', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: `${t("bins.table.longitude")}`, minWidth: 100, flex: 1, sortable: false },
+        {
+            field: 'status', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: `${t("bins.table.status")}`, minWidth: 100, sortable: true,
+            renderCell: (params) => {
+                const status = getStatus(params.value);
+
+                return (
+                    `${t("bins.table." + status)}`
+                );
+            }
+        },
+        {
+            field: 'action', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: `${t("bins.table.action")}`, flex: 1, minWidth: 150, sortable: false,
             renderCell: (params) => (
                 <BinAction params={params} />
             )
@@ -59,7 +78,7 @@ const Bins = () => {
             }} >
                 <Box
                     sx={{
-                        height: 300,
+                        // height: 300,
                         width: '100%',
                         '& .super-app-theme--header': {
                             // backgroundColor: '#ececec',
@@ -94,12 +113,14 @@ const Bins = () => {
                             },
                         }}>
                         <Typography variant="h5" component="h1" fontWeight='bold' gutterBottom>
-                            Bins
+                            {t("bins.pageName")}
                             <Breadcrumbs maxItems={2} aria-label="breadcrumb" sx={{ mt: 1 }}>
                                 <Link underline="hover" color="inherit" href="">
-                                    Home
+                                    {t("bins.home")}
                                 </Link>
-                                <Typography color="text.primary">Bins</Typography>
+                                <Typography color="text.primary">
+                                    {t("bins.pageName")}
+                                </Typography>
                             </Breadcrumbs>
                         </Typography>
 
@@ -110,7 +131,7 @@ const Bins = () => {
                             startIcon={<AddIcon />}
                             onClick={() => navigate('/bins/add')}
                         >
-                            New bin
+                            {t("bins.add")}
                         </Button>
                     </Stack>
 

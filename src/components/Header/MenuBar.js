@@ -11,11 +11,16 @@ import Avatar from '@mui/material/Avatar';
 import { deepOrange, deepPurple } from '@mui/material/colors';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { logout } from '../../store/reducers/authSlice';
+import { authSelector, logout } from '../../store/reducers/authSlice';
+import { useTranslation } from 'react-i18next';
+import LanguagePopover from './LanguagePopover';
 
 export default function Appbar() {
+    const { t } = useTranslation();
+    const { user } = useSelector(authSelector);
+    console.log(user);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -37,7 +42,9 @@ export default function Appbar() {
     const navigate = useNavigate();
 
     return (
-        <Box sx={{}}>
+        <Box>
+            <LanguagePopover />
+
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                 <Badge badgeContent={4} color="error">
                     <MailIcon />
@@ -53,15 +60,17 @@ export default function Appbar() {
                     <NotificationsIcon />
                 </Badge>
             </IconButton>
-            <Button startIcon={<Avatar sx={{ bgcolor: deepOrange[500], width: 24, height: 24 }}>N</Avatar>}
+            <Button startIcon={<Avatar sx={{ bgcolor: deepOrange[500], width: 24, height: 24 }}>
+                {user?.lastName?.charAt(0)}
+            </Avatar>}
                 id="basic-button"
                 aria-controls={open ? 'basic-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
-                sx={{ color: "inherit", ml: 4, pr: 1 }}
+                sx={{ color: "inherit", ml: 2, pr: 1 }}
             >
-                HungDN
+                {!!user ? user.lastName : 'Hung'}
             </Button>
             <Menu
                 id="basic-menu"
@@ -72,9 +81,8 @@ export default function Appbar() {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
+                <MenuItem onClick={handleClose}>{t("menubar.profile")}</MenuItem>
+                <MenuItem onClick={() => handleLogout()}>{t("menubar.logout")}</MenuItem>
             </Menu>
         </Box>
     );

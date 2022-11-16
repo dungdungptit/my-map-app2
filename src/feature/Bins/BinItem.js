@@ -14,8 +14,11 @@ import { assetUrl } from '../../ultils/axiosApi';
 import { useState } from 'react';
 import { getBinDataById } from '../../store/reducers/binSlice';
 import BinStateLog from './BinStateLog';
+import { useTranslation } from 'react-i18next';
+import { getStatus } from './constant';
 
 const BinItem = () => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
     const params = useParams();
@@ -59,13 +62,13 @@ const BinItem = () => {
                     }}>
                         <Stack direction="row" alignItems="center" justifyContent="space-between">
                             <Typography variant="h5" component="h1" fontWeight='bold' gutterBottom>
-                                Bin Details
+                                {t("bins.binDetails")}
                                 <Breadcrumbs maxItems={3} aria-label="breadcrumb" sx={{ mt: 1 }}>
                                     <Link underline="hover" color="inherit" href="">
-                                        Home
+                                        {t("bins.home")}
                                     </Link>
                                     <Link underline="hover" color="inherit" href="/bins">
-                                        Bins
+                                        {t("bins.pageName")}
                                     </Link>
                                     <Typography color="text.primary">ID: {bin.id}</Typography>
                                 </Breadcrumbs>
@@ -95,7 +98,7 @@ const BinItem = () => {
                                                     justifyContent: 'space-between',
                                                     pr: 0,
                                                 }}>
-                                                    Bin {bin.plate}
+                                                    {t("bin")} {bin.id}
                                                     <Button
                                                         variant='contained'
                                                         aria-label="edit"
@@ -104,7 +107,7 @@ const BinItem = () => {
                                                         startIcon={<EditIcon />}
                                                         onClick={() => navigate(`/bins/edit/${bin.id}`, { state: bin })}
                                                     >
-                                                        Edit
+                                                        {t("bins.edit")}
                                                     </Button>
                                                 </ListSubheader>
                                             }
@@ -139,43 +142,43 @@ const BinItem = () => {
                                                 <ListItemIcon>
                                                     <MapIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary="Area Id" secondary={bin.areaId} />
+                                                <ListItemText primary={t("bins.table.areaId")} secondary={bin.areaId} />
                                             </ListItem>
                                             <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
                                                 <ListItemIcon>
                                                     <RoomIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary="Position" secondary={bin.latitude.toFixed(6) + ', ' + bin.longitude.toFixed(6)} />
+                                                <ListItemText primary={t("bins.form.position")} secondary={bin.latitude.toFixed(6) + ', ' + bin.longitude.toFixed(6)} />
                                             </ListItem>
                                             <ListItem sx={{ height: 40 }}>
                                                 <ListItemIcon>
                                                     <RoomIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary="Address" secondary={bin.address} />
+                                                <ListItemText primary={t("bins.table.address")} secondary={bin.address} />
                                             </ListItem>
                                             <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
                                                 <ListItemIcon>
                                                     <HeightIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary="Height" secondary={bin.heigth + "m"} />
+                                                <ListItemText primary={t("bins.table.height")} secondary={bin.heigth + "m"} />
                                             </ListItem>
                                             <ListItem sx={{  height: 40 }}>
                                                 <ListItemIcon>
                                                     <ScaleIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary="Weight" secondary={bin.weight + ''} />
+                                                <ListItemText primary={t("bins.table.weight")} secondary={bin.weight + ''} />
                                             </ListItem>
                                             <ListItem sx={{ backgroundColor: '#f5f5f5',height: 40 }}>
                                                 <ListItemIcon>
                                                     <ScaleIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary="Max weight" secondary={bin.maxWeight + ''} />
+                                                <ListItemText primary={t("bins.table.maxWeight")} secondary={bin.maxWeight + ''} />
                                             </ListItem>
                                             <ListItem sx={{  height: 40 }}>
                                                 <ListItemIcon>
                                                     <AutorenewIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary="Status" secondary={bin.status} />
+                                                <ListItemText primary={t("bins.table.status")} secondary={`${t("bins.table." + bin.status)}`} />
                                             </ListItem>
                                         </List>
                                     </Box>

@@ -1,5 +1,3 @@
-import { vehicles } from '../../api/vehicle/vehicles';
-import { DataTable } from '../../components/DataTable';
 
 // @mui
 import { Typography, Box, Stack, Button, Breadcrumbs, Link } from '@mui/material';
@@ -13,11 +11,13 @@ import {
     getVehiclesDataAsync,
 } from '../../store/reducers/vehicleSlice';
 
+import { DataTable } from '../../components/DataTable';
 import VehicleAction from './VehicleAction';
+import { useTranslation } from 'react-i18next';
 
 
 const Vehicles = () => {
-
+    const { t } = useTranslation();
     const vehicles = useSelector(vehiclesSelector);
     const dispatch = useDispatch();
 
@@ -41,15 +41,15 @@ const Vehicles = () => {
     };
 
     const columns = [
-        { field: 'id', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: 'ID', minWidth: 70, sortable: false, },
-        { field: 'plate', headerClassName: 'super-app-theme--header', headerName: 'License Plate', minWidth: 150, flex: 1, sortable: false, },
-        { field: 'model', headerClassName: 'super-app-theme--header', headerName: 'Model', minWidth: 200 },
-        { field: 'angle', headerClassName: 'super-app-theme--header', headerName: 'Angle', minWidth: 100, sortable: false },
-        { field: 'latitude', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: 'Latitude', minWidth: 150, flex: 1, sortable: false },
-        { field: 'longitude', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: 'Longitude', minWidth: 150, flex: 1, sortable: false },
-        { field: 'status', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: 'Status', minWidth: 100, sortable: true },
+        { field: 'id', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.id")}`, minWidth: 70, sortable: false, },
+        { field: 'plate', headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.plate")}`, minWidth: 150, flex: 1, sortable: false, },
+        { field: 'model', headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.model")}`, minWidth: 200 },
+        { field: 'angle', headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.angle")}`, minWidth: 100, sortable: false },
+        { field: 'latitude', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.latitude")}`, minWidth: 150, flex: 1, sortable: false },
+        { field: 'longitude', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.longitude")}`, minWidth: 150, flex: 1, sortable: false },
+        { field: 'status', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.status")}`, minWidth: 100, sortable: true },
         {
-            field: 'action', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: 'Action', flex: 1, minWidth: 150, sortable: false,
+            field: 'action', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.action")}`, flex: 1, minWidth: 150, sortable: false,
             renderCell: (params) => (
                 <VehicleAction {...{params}} />
             ),
@@ -68,7 +68,7 @@ const Vehicles = () => {
             }} >
                 <Box
                     sx={{
-                        height: 300,
+                        // height: 300,
                         width: '100%',
                         '& .super-app-theme--header': {
                             // backgroundColor: '#ececec',
@@ -103,12 +103,14 @@ const Vehicles = () => {
                             },
                         }}>
                         <Typography variant="h5" component="h1" fontWeight='bold' gutterBottom>
-                            Vehicles
+                            {t("vehicles.pageName")}
                             <Breadcrumbs maxItems={2} aria-label="breadcrumb" sx={{ mt: 1 }}>
                                 <Link underline="hover" color="inherit" href="">
-                                    Home
+                                    {t("vehicles.home")}
                                 </Link>
-                                <Typography color="text.primary">Vehicles</Typography>
+                                <Typography color="text.primary">
+                                    {t("vehicles.pageName")}
+                                </Typography>
                             </Breadcrumbs>
                         </Typography>
 
@@ -119,7 +121,7 @@ const Vehicles = () => {
                             startIcon={<AddIcon />}
                             onClick={() => navigate('/vehicles/add')}
                         >
-                            New vehicle
+                            {t("vehicles.add")}
                         </Button>
                     </Stack>
 

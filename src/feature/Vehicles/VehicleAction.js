@@ -6,8 +6,10 @@ import React from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { deleteVehicleDataAsync } from '../../store/reducers/vehicleSlice';
+import { useTranslation } from 'react-i18next';
 
 const VehicleAction = ({ params }) => {
+    const {t} = useTranslation();
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const onPreview = (e) => {
@@ -27,17 +29,17 @@ const VehicleAction = ({ params }) => {
     };
     return (
         <Box >
-            <Tooltip title="View vehicle details">
+            <Tooltip title={t("vehicles.preview")}>
                 <IconButton onClick={onPreview}>
                     <PreviewIcon />
                 </IconButton>
             </Tooltip>
-            <Tooltip title="Edit this vehicle">
+            <Tooltip title={t("vehicles.edit")}>
                 <IconButton onClick={onEdit}>
                     <EditIcon />
                 </IconButton>
             </Tooltip>
-            <Tooltip title="Delete this vehicle">
+            <Tooltip title={t("vehicles.delete")}>
                 <IconButton onClick={onDelete}>
                     <DeleteIcon />
                 </IconButton>

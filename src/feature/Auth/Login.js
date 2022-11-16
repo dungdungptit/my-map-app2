@@ -8,11 +8,15 @@ import { loginAsync } from '../../store/reducers/authSlice'
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-import { MapContainer, TileLayer, Marker, Polyline, Popup } from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 import L from 'leaflet';
 import "leaflet/dist/leaflet.css";
+import { useTranslation } from 'react-i18next'
+import LanguagePopover from '../../components/Header/LanguagePopover'
 
 const Login = () => {
+    const { t } = useTranslation();
+
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [user, setUser] = useState({
@@ -58,6 +62,23 @@ const Login = () => {
                 />
             </MapContainer>
 
+            <Box sx={{
+                position: 'fixed',
+                left: 12,
+                bottom: 8,
+                zIndex: 401,
+                width: 48,
+                height: 48,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: '#fff',
+                // boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+                borderRadius: '50%'
+            }}>
+                <LanguagePopover />
+            </Box>
+
 
             <Stack spacing={3} sx={{
                 position: 'absolute',
@@ -83,10 +104,15 @@ const Login = () => {
                         height: 'auto',
                     }}
                 >
-                    <Typography variant='h4' sx={{ fontWeight: 600, color: '#000', textAlign: 'center', fontSize: "1.5rem", mb: 4 }}>Signin to Map</Typography>
-                    <TextField id="outlined-basic" sx={{ width: "100%", mb: 2 }} label="Phone" variant="outlined" name='phone' value={user.phone} onChange={onChange} />
+                    <Typography variant='h4' sx={{ fontWeight: 600, color: '#000', textAlign: 'center', fontSize: "1.5rem", mb: 4 }}>
+                        {t('login.title')}
+
+                    </Typography>
+                    <TextField id="outlined-basic" sx={{ width: "100%", mb: 2 }} label={t('login.username')} variant="outlined" name='phone' value={user.phone} onChange={onChange} />
                     <FormControl sx={{ m: 1, width: '100%' }} variant="outlined">
-                        <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                        <InputLabel htmlFor="outlined-adornment-password">
+                            {t('login.password')}
+                        </InputLabel>
                         <OutlinedInput
                             id="outlined-adornment-password"
                             name='password'
@@ -109,7 +135,7 @@ const Login = () => {
                         />
                     </FormControl>
                     <Typography variant='body2' component="a" sx={{ cursor: "pointer", "&:hover": { color: '#000' }, width: "100%", color: '#000', fontSize: "0.875rem", my: 2, display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
-                        Forgot password?
+                        {t('login.fogotPassword')}
                     </Typography>
                     <Button variant="contained" sx={{
                         width: "100%", bgcolor: '#212b36', color: '#fff', textDecoration: 'none',
@@ -121,7 +147,9 @@ const Login = () => {
                             bgcolor: "#212b36"
                         },
                         textTransform: "capitalize"
-                    }} type='submit'>Login</Button>
+                    }} type='submit'>
+                        {t('login.submit')}
+                    </Button>
                 </Box>
             </Stack>
         </Box>

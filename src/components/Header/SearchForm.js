@@ -1,12 +1,11 @@
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import DirectionsIcon from '@mui/icons-material/Directions';
+import { useTranslation } from 'react-i18next'
 const SearchForm = () => {
+  const { t, i18n } = useTranslation();
   return (
     <Paper
       component="form"
@@ -18,7 +17,7 @@ const SearchForm = () => {
       </IconButton>
       <InputBase
         sx={{ ml: 1, flex: 1, boxShadow: "none" }}
-        placeholder="Search Google Maps"
+        placeholder={t('search')}
         inputProps={{ 'aria-label': 'search google maps' }}
       />
     </Paper>

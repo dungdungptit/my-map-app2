@@ -25,6 +25,7 @@ import { useSelector } from 'react-redux';
 import { authSelector } from './store/reducers/authSlice';
 import ProtectedRoutes from './routes/ProtectedRoutes';
 import PublicRoutes from './routes/PublicRoutes';
+import { useTranslation } from 'react-i18next';
 
 const App = () => {
   const user = useSelector(authSelector);
@@ -44,16 +45,15 @@ const App = () => {
             <Route path="vehicles/add" element={<VehicleItemNew state={"new"} />} />
             <Route path="vehicles/edit/:vehicleId" element={<VehicleItemNew state={"edit"} />} />
 
-            <Route path="bins" element={<Bins />} />
-            <Route path="bins/:binId" element={<BinItem />} />
-            <Route path="bins/add" element={<BinItemNew state={"new"} />} />
-            <Route path="bins/edit/:binId" element={<BinItemNew state={"edit"} />} />
-
-
             <Route path="drivers" element={<Drivers />} />
             <Route path="drivers/:driverId" element={<DriverItem />} />
             <Route path="drivers/add" element={<DriverItemNew state={"new"} />} />
             <Route path="drivers/edit/:driverId" element={<DriverItemNew state={"edit"} />} />
+
+            <Route path="bins" element={<Bins />} />
+            <Route path="bins/:binId" element={<BinItem />} />
+            <Route path="bins/add" element={<BinItemNew state={"new"} />} />
+            <Route path="bins/edit/:binId" element={<BinItemNew state={"edit"} />} />
 
 
             <Route path="*" element={<div>Not Found</div>} />

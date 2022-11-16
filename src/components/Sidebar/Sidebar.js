@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 
 import useWindowDimensions from "../useWindowDimensions/useWindowDimensions";
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const SidebarBox = styled(Box)({
     display: 'flex',
@@ -38,6 +39,7 @@ const getIndex = (path) => {
 }
 
 const Sidebar = () => {
+    const { t } = useTranslation();
     
     const navigate = useNavigate();
     const location = useLocation();
@@ -109,7 +111,7 @@ const Sidebar = () => {
                 >
                     <Link className='' to={"/"} style={{ textDecoration: "none", }}>
                         <Typography variant="h6" component="h1" sx={{ flexGrow: 1, p: 1, whiteSpace: "nowrap", color: "#000", fontWeight: "bold", display: open ? "block" : "none" }}>
-                            My Map App
+                            {t('sidebar.app_name')}
                         </Typography>
                     </Link>
 
@@ -131,7 +133,7 @@ const Sidebar = () => {
                         <ListItemIcon>
                             <PublicIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Map" sx={{ display: open ? "block" : "none" }} />
+                        <ListItemText primary={t('sidebar.app_name')} sx={{ display: open ? "block" : "none" }} />
                     </ListItemButton>
                     <ListItemButton
                         component={Link}
@@ -142,7 +144,7 @@ const Sidebar = () => {
                         <ListItemIcon>
                             <DashboardIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Dashboard" sx={{ display: open ? "block" : "none" }} />
+                        <ListItemText primary={t('sidebar.dashboard')} sx={{ display: open ? "block" : "none" }} />
                     </ListItemButton>
                     <ListItemButton
                         component={Link}
@@ -153,7 +155,7 @@ const Sidebar = () => {
                         <ListItemIcon>
                             <LocalShippingIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Vehicles" sx={{ display: open ? "block" : "none" }} />
+                        <ListItemText primary={t('sidebar.vehicle')} sx={{ display: open ? "block" : "none" }} />
                     </ListItemButton>
                     <ListItemButton
                         component={Link}
@@ -164,7 +166,7 @@ const Sidebar = () => {
                         <ListItemIcon>
                             <AccountCircleIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Drivers" sx={{ display: open ? "block" : "none" }} />
+                        <ListItemText primary={t('sidebar.driver')} sx={{ display: open ? "block" : "none" }} />
                     </ListItemButton>
                     <ListItemButton
                         component={Link}
@@ -175,7 +177,7 @@ const Sidebar = () => {
                         <ListItemIcon>
                             <DeleteIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Bins" sx={{ display: open ? "block" : "none" }} />
+                        <ListItemText primary={t('sidebar.bin')} sx={{ display: open ? "block" : "none" }} />
                     </ListItemButton>
 
                 </List>

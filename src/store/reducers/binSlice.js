@@ -40,6 +40,12 @@ export const getBinStateLog = async (binId) => {
     return response.data.data;
 }
 
+// get all bin state log
+export const getAllBinStateLog = async () => {
+    const response = await axios.get(`/bins/states`, { headers: { token: token } });
+    return response.data.data;
+}
+
 const binSlice = createSlice({
     name: 'bins',
     initialState: {

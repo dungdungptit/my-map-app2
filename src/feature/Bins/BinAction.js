@@ -6,8 +6,10 @@ import React from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { deleteBinDataAsync } from '../../store/reducers/binSlice';
+import { useTranslation } from 'react-i18next';
 
 const BinAction = ({ params }) => {
+    const {t} = useTranslation();
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const onPreview = (e) => {
@@ -27,17 +29,17 @@ const BinAction = ({ params }) => {
     };
     return (
         <Box >
-            <Tooltip title="View bin details">
+            <Tooltip title={t("bins.preview")}>
                 <IconButton onClick={onPreview}>
                     <PreviewIcon />
                 </IconButton>
             </Tooltip>
-            <Tooltip title="Edit this bin">
+            <Tooltip title={t("bins.edit")}>
                 <IconButton onClick={onEdit}>
                     <EditIcon />
                 </IconButton>
             </Tooltip>
-            <Tooltip title="Delete this bin">
+            <Tooltip title={t("bins.delete")}>
                 <IconButton onClick={onDelete}>
                     <DeleteIcon />
                 </IconButton>

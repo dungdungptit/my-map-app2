@@ -12,8 +12,10 @@ import {
     getBinDataById
 } from '../../store/reducers/binSlice';
 import { assetUrl } from '../../ultils/axiosApi';
+import { useTranslation } from 'react-i18next';
 
 const BinItemNew = ({ state }) => {
+    const { t } = useTranslation();
     // state = "new" or "edit"
     const navigate = useNavigate();
     const location = useLocation();
@@ -92,15 +94,15 @@ const BinItemNew = ({ state }) => {
                 }}>
                     <Stack direction="row" alignItems="flex-start" justifyContent="space-between">
                         <Typography variant="h5" component="h1" fontWeight='bold' gutterBottom>
-                            {state === "new" ? "Create new bin" : "Edit bin"}
+                            {state === "new" ? `${t("bins.create")}` : `${t("bins.edit")}`}
                             <Breadcrumbs maxItems={3} aria-label="breadcrumb" sx={{ mt: 1 }}>
                                 <Link underline="hover" color="inherit" href="">
-                                    Home
+                                    {t("bins.home")}
                                 </Link>
                                 <Link underline="hover" color="inherit" href="/bins">
-                                    Bins
+                                    {t("bins.pageName")}
                                 </Link>
-                                <Typography color="text.primary">{state === "new" ? "New bin" : `ID: ${binItem.id}`}</Typography>
+                                <Typography color="text.primary">{state === "new" ? `${t("bins.add")}` : `ID: ${binItem.id}`}</Typography>
                             </Breadcrumbs>
                         </Typography>
 
@@ -117,13 +119,13 @@ const BinItemNew = ({ state }) => {
                         <Paper sx={{ mt: 3, p: 2, flexGrow: 1, maxWidth: 1200 }}>
                             <Box sx={{ width: '100%', mt: 2 }}>
                                 <Typography variant="h6" component="h3" fontWeight='bold' gutterBottom>
-                                    Bin information
+                                    {t("bins.form.infomation")}
                                 </Typography>
-                                <TextField id="outlined-basic" label="Area ID" variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={binItem.areaId} onChange={handleInputChange} name="areaId" />
-                                <TextField id="outlined-basic" label="Address" variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={binItem.address} onChange={handleInputChange} name="address" />
-                                <TextField id="outlined-basic" label="Height" variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={binItem.heigth} onChange={handleInputChange} name="heigth" />
-                                <TextField id="outlined-basic" label="Weight" variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={binItem.weight} onChange={handleInputChange} name="weight" />
-                                <TextField id="outlined-basic" label="Max Weight" variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={binItem.maxWeight} onChange={handleInputChange} name="maxWeight" />
+                                <TextField id="outlined-basic" label={t("bins.table.areaId")} variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={binItem.areaId} onChange={handleInputChange} name="areaId" />
+                                <TextField id="outlined-basic" label={t("bins.table.address")} variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={binItem.address} onChange={handleInputChange} name="address" />
+                                <TextField id="outlined-basic" label={t("bins.table.height")} variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={binItem.heigth} onChange={handleInputChange} name="heigth" />
+                                <TextField id="outlined-basic" label={t("bins.table.weight")} variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={binItem.weight} onChange={handleInputChange} name="weight" />
+                                <TextField id="outlined-basic" label={t("bins.table.maxWeight")} variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={binItem.maxWeight} onChange={handleInputChange} name="maxWeight" />
 
                             </Box>
 
@@ -136,27 +138,27 @@ const BinItemNew = ({ state }) => {
                         <Box sx={{ mt: 2, minWidth: 300, width: "100%", maxWidth: { xs: '100%', md: 300 } }}>
                             <Paper sx={{ width: '100%', my: 1, p: 2, pt: 4 }}>
                                 <Typography variant="h6" component="h3" fontWeight='bold' gutterBottom>
-                                    Status
+                                    {t("bins.table.status")}
                                 </Typography>
-                                <TextField id="outlined-basic" label="Status" variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={binItem.status} onChange={handleInputChange} name="status" />
+                                <TextField id="outlined-basic" label={t("bins.table.status")} variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={binItem.status} onChange={handleInputChange} name="status" />
 
 
                                 <Typography variant="h6" component="h3" fontWeight='bold' gutterBottom>
-                                    Position
+                                    {t("bins.form.position")}
                                 </Typography>
-                                <TextField id="outlined-basic" label="Latitude" variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={binItem.latitude} onChange={handleInputChange} name="latitude" />
-                                <TextField id="outlined-basic" label="Longitude" variant="outlined" sx={{ width: '100%', mb: 2 }} value={binItem.longitude} onChange={handleInputChange} name="longitude" />
+                                <TextField id="outlined-basic" label={t("bins.table.latitude")} variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={binItem.latitude} onChange={handleInputChange} name="latitude" />
+                                <TextField id="outlined-basic" label={t("bins.table.longitude")} variant="outlined" sx={{ width: '100%', mb: 2 }} value={binItem.longitude} onChange={handleInputChange} name="longitude" />
 
                                 <Box sx={{ width: '100%', mb: 2 }}>
                                     <Typography variant="h6" component="h3" fontWeight='bold' gutterBottom>
-                                        Image
+                                        {t("bins.form.image")}
                                     </Typography>
                                     <label htmlFor="contained-button-file">
                                         <Button variant="contained" component="span"
                                             endIcon={<AttachFileIcon />}
                                             onClick={(e) => handleClick()}
                                         >
-                                            Upload
+                                            {t("bins.form.upload")}
                                         </Button>
                                     </label>
                                     <input accept="image/*" id="contained-button-file" type="file" onChange={handleInputChangeImage} name="image" style={{ display: "none" }} />
@@ -170,7 +172,7 @@ const BinItemNew = ({ state }) => {
 
                             <Box sx={{ width: '100%', my: 1 }}>
                                 <Button variant="contained" color="primary" endIcon={<SaveIcon />} sx={{ width: '100%', mb: 2, mt: 1, py: 1.5 }} type="submit">
-                                    Save
+                                    {t("bins.form.save")}
                                 </Button>
                             </Box>
                         </Box>

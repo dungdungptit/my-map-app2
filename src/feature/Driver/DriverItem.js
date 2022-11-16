@@ -11,12 +11,13 @@ import FemaleIcon from '@mui/icons-material/Female';
 import MaleIcon from '@mui/icons-material/Male';
 import EmailIcon from '@mui/icons-material/Email';
 import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
-import { DataGrid } from '@mui/x-data-grid';
 import { assetUrl } from '../../ultils/axiosApi';
 import { getDriverDataById } from '../../store/reducers/driverSlice';
 import DriverStateLog from './DriverStateLog';
+import { useTranslation } from 'react-i18next';
 
 const DriverItem = () => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
     const params = useParams();
@@ -58,13 +59,13 @@ const DriverItem = () => {
                     }}>
                         <Stack direction="row" alignItems="center" justifyContent="space-between">
                             <Typography variant="h5" component="h1" fontWeight='bold' gutterBottom>
-                                Driver Details
+                                {t("drivers.driverDetails")}
                                 <Breadcrumbs maxItems={3} aria-label="breadcrumb" sx={{ mt: 1 }}>
                                     <Link underline="hover" color="inherit" href="">
-                                        Home
+                                        {t("drivers.home")}
                                     </Link>
                                     <Link underline="hover" color="inherit" href="/drivers">
-                                        Drivers
+                                        {t("drivers.pageName")}
                                     </Link>
                                     <Typography color="text.primary">{driver.firstName + " " + driver.lastName}</Typography>
                                 </Breadcrumbs>
@@ -94,7 +95,7 @@ const DriverItem = () => {
                                                     justifyContent: 'space-between',
                                                     pr: 0,
                                                 }}>
-                                                    Driver {driver.plate}
+                                                    {t("driver")} {driver.plate}
                                                     <Button
                                                         variant='contained'
                                                         aria-label="edit"
@@ -103,7 +104,7 @@ const DriverItem = () => {
                                                         startIcon={<EditIcon />}
                                                         onClick={() => navigate(`/drivers/edit/${driver.id}`, { state: driver })}
                                                     >
-                                                        Edit
+                                                        {t("drivers.edit")}
                                                     </Button>
                                                 </ListSubheader>
                                             }
@@ -132,49 +133,49 @@ const DriverItem = () => {
                                                 <ListItemIcon>
                                                     <ListIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary="ID" secondary={driver.id} />
+                                                <ListItemText primary={t("drivers.table.id")} secondary={driver.id} />
                                             </ListItem>
                                             <ListItem sx={{ height: 40 }}>
                                                 <ListItemIcon>
                                                     <BadgeIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary="Full Name" secondary={driver.firstName + " " + driver.lastName} />
+                                                <ListItemText primary={t("drivers.table.fullname")} secondary={driver.firstName + " " + driver.lastName} />
                                             </ListItem>
                                             <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
                                                 <ListItemIcon>
                                                     <DriveFileRenameOutlineIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary="First Name" secondary={driver.firstName} />
+                                                <ListItemText primary={t("drivers.table.firstName")} secondary={driver.firstName} />
                                             </ListItem>
                                             <ListItem sx={{ height: 40 }}>
                                                 <ListItemIcon>
                                                     <DriveFileRenameOutlineIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary="Last Name" secondary={driver.lastName} />
+                                                <ListItemText primary={t("drivers.table.lastName")} secondary={driver.lastName} />
                                             </ListItem>
                                             <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
                                                 <ListItemIcon>
                                                     <CakeIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary="Date of Birth" secondary={driver.dob} />
+                                                <ListItemText primary={t("drivers.table.dob")} secondary={driver.dob} />
                                             </ListItem>
                                             <ListItem sx={{ height: 40 }}>
                                                 <ListItemIcon>
                                                     {driver.gender === "male" ? <MaleIcon /> : <FemaleIcon />}
                                                 </ListItemIcon>
-                                                <ListItemText primary="Gender" secondary={driver.gender} />
+                                                <ListItemText primary={t("drivers.table.gender")} secondary={driver.gender} />
                                             </ListItem>
                                             <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
                                                 <ListItemIcon>
                                                     <EmailIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary="Email" secondary={driver.email} />
+                                                <ListItemText primary={t("drivers.table.email")} secondary={driver.email} />
                                             </ListItem>
                                             <ListItem sx={{ height: 40 }}>
                                                 <ListItemIcon>
                                                     <ContactPhoneIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary="Phone" secondary={driver.phone} />
+                                                <ListItemText primary={t("drivers.table.phone")} secondary={driver.phone} />
                                             </ListItem>
                                         </List>
                                     </Box>

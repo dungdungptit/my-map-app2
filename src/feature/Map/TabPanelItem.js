@@ -18,6 +18,7 @@ import SpeedIcon from '@mui/icons-material/Speed';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import DataThresholdingIcon from '@mui/icons-material/DataThresholding';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 
 function TabPanel(props) {
@@ -55,6 +56,7 @@ function a11yProps(index) {
 
 
 export default function TabPanelItem({ open, handleClose, item }) {
+    const { t } = useTranslation();
     console.log(item);
 
     const [value, setValue] = React.useState(0);
@@ -80,10 +82,10 @@ export default function TabPanelItem({ open, handleClose, item }) {
                 />
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                        <Tab label="Vehicle" {...a11yProps(0)} />
-                        <Tab label="Driver" {...a11yProps(1)} />
-                        <Tab label="Events" {...a11yProps(2)} />
-                        <Tab label="Send require" {...a11yProps(3)} />
+                        <Tab label={t("vehicle")} {...a11yProps(0)} />
+                        <Tab label={t("driver")} {...a11yProps(1)} />
+                        <Tab label={t("map.events")} {...a11yProps(2)} />
+                        <Tab label={t("map.sendRequest")} {...a11yProps(3)} />
                     </Tabs>
                 </Box>
                 <TabPanel value={value} index={0}>
@@ -95,7 +97,7 @@ export default function TabPanelItem({ open, handleClose, item }) {
                                 flexWrap: 'wrap',
                                 height: 230,
                                 pb: 0,
-                                maxWidth: 600,
+                                maxWidth: 896,
                                 overflowX: 'hide',
                                 overflowY: 'auto',
                                 "& .css-cveggr-MuiListItemIcon-root": {
@@ -124,66 +126,66 @@ export default function TabPanelItem({ open, handleClose, item }) {
                             {/* for in item */}
                             {item.type === 'vehicle' && (
                                 <>
-                                    <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 280 }}>
+                                    <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 440 }}>
                                         <ListItemIcon>
                                             <ListIcon />
                                         </ListItemIcon>
                                         <ListItemText primary="ID" secondary={item.id} />
                                     </ListItem>
-                                    <ListItem sx={{ height: 40, width: 280 }}>
+                                    <ListItem sx={{ height: 40, width: 440 }}>
                                         <ListItemIcon>
                                             <DataThresholdingIcon />
                                         </ListItemIcon>
-                                        <ListItemText primary="License Plate" secondary={item.plate} />
+                                        <ListItemText primary={t('vehicles.form.plate')} secondary={item.plate} />
                                     </ListItem>
-                                    <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 280 }}>
+                                    <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 440 }}>
                                         <ListItemIcon>
                                             <DirectionsCarIcon />
                                         </ListItemIcon>
-                                        <ListItemText primary="Model" secondary={item.model} />
+                                        <ListItemText primary={t('vehicles.form.model')} secondary={item.model} />
                                     </ListItem>
-                                    <ListItem sx={{ height: 40, width: 280 }}>
+                                    <ListItem sx={{ height: 40, width: 440 }}>
                                         <ListItemIcon>
                                             <RoomIcon />
                                         </ListItemIcon>
-                                        <ListItemText primary="Position" secondary={item.latitude.toFixed(6) + ', ' + item.longitude.toFixed(6)} />
+                                        <ListItemText primary={t('vehicles.form.position')} secondary={item.latitude.toFixed(6) + ', ' + item.longitude.toFixed(6)} />
                                     </ListItem>
-                                    <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 280 }}>
+                                    <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 440 }}>
                                         <ListItemIcon>
                                             <SignalCellular0BarIcon />
                                         </ListItemIcon>
-                                        <ListItemText primary="Angle" secondary={item.angle} />
+                                        <ListItemText primary={t('vehicles.form.angle')} secondary={item.angle} />
                                     </ListItem>
-                                    <ListItem sx={{ height: 40, width: 280 }}>
+                                    <ListItem sx={{ height: 40, width: 440 }}>
                                         <ListItemIcon>
                                             <SpeedIcon />
                                         </ListItemIcon>
-                                        <ListItemText primary="Speed" secondary={item.speed + "km/h"} />
+                                        <ListItemText primary={t('vehicles.form.speed')} secondary={item.speed + "km/h"} />
                                     </ListItem>
-                                    <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 280 }}>
+                                    <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 440 }}>
                                         <ListItemIcon>
                                             <HistoryIcon />
                                         </ListItemIcon>
-                                        <ListItemText primary="Engine Hours" secondary={item.engineHours} />
+                                        <ListItemText primary={t('vehicles.form.engineHours')} secondary={item.engineHours} />
                                     </ListItem>
-                                    <ListItem sx={{ height: 40, width: 280 }}>
+                                    <ListItem sx={{ height: 40, width: 440 }}>
                                         <ListItemIcon>
                                             <NetworkCheckIcon />
                                         </ListItemIcon>
-                                        <ListItemText primary="Odomeder" secondary={item.odometer} />
+                                        <ListItemText primary={t('vehicles.form.odometer')} secondary={item.odometer} />
                                     </ListItem>
-                                    <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 280 }}>
+                                    <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 440 }}>
                                         <ListItemIcon>
                                             <HeightIcon />
                                         </ListItemIcon>
-                                        <ListItemText primary="Altitude" secondary={item.altitude} />
+                                        <ListItemText primary={t('vehicles.form.altitude')} secondary={item.altitude} />
                                     </ListItem>
 
-                                    <ListItem sx={{ height: 40, width: 280 }}>
+                                    <ListItem sx={{ height: 40, width: 440 }}>
                                         <ListItemIcon>
                                             <AutorenewIcon />
                                         </ListItemIcon>
-                                        <ListItemText primary="Status" secondary={item.status} />
+                                        <ListItemText primary={t('vehicles.form.status')} secondary={item.status} />
                                     </ListItem>
                                 </>
                             )}
@@ -218,8 +220,8 @@ export default function TabPanelItem({ open, handleClose, item }) {
                 />
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                        <Tab label="Bin" {...a11yProps(0)} />
-                        <Tab label="Events" {...a11yProps(1)} />
+                        <Tab label={t("bin")} {...a11yProps(0)} />
+                        <Tab label={t("map.events")} {...a11yProps(1)} />
                     </Tabs>
                 </Box>
                 <TabPanel value={value} index={0}>
@@ -231,7 +233,7 @@ export default function TabPanelItem({ open, handleClose, item }) {
                                 flexWrap: 'wrap',
                                 height: 230,
                                 pb: 0,
-                                maxWidth: 600,
+                                maxWidth: 896,
                                 overflowX: 'hide',
                                 overflowY: 'auto',
                                 "& .css-cveggr-MuiListItemIcon-root": {
@@ -259,47 +261,47 @@ export default function TabPanelItem({ open, handleClose, item }) {
                         >
                             {/* for in item */}
                             <>
-                                    <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 280 }}>
+                                    <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 440 }}>
                                         <ListItemIcon>
                                             <ListIcon />
                                         </ListItemIcon>
                                         <ListItemText primary="ID" secondary={item.id} />
                                     </ListItem>
-                                    <ListItem sx={{ height: 40, width: 280 }}>
+                                    <ListItem sx={{ height: 40, width: 440 }}>
                                         <ListItemIcon>
                                             <DataThresholdingIcon />
                                         </ListItemIcon>
-                                        <ListItemText primary="Area Id" secondary={item.areaId} />
+                                        <ListItemText primary={t('bins.table.areaId')} secondary={item.areaId} />
                                     </ListItem>
-                                    <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 280 }}>
+                                    <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 440 }}>
                                         <ListItemIcon>
                                             <DirectionsCarIcon />
                                         </ListItemIcon>
-                                        <ListItemText primary="Heigth" secondary={item.heigth} />
+                                        <ListItemText primary={t('bins.table.height')} secondary={item.heigth} />
                                     </ListItem>
-                                    <ListItem sx={{ height: 40, width: 280 }}>
+                                    <ListItem sx={{ height: 40, width: 440 }}>
                                         <ListItemIcon>
                                             <RoomIcon />
                                         </ListItemIcon>
-                                        <ListItemText primary="Position" secondary={item.latitude.toFixed(6) + ', ' + item.longitude.toFixed(6)} />
+                                        <ListItemText primary={t('bins.form.position')} secondary={item.latitude.toFixed(6) + ', ' + item.longitude.toFixed(6)} />
                                     </ListItem>
-                                    <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 280 }}>
+                                    <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 440 }}>
                                         <ListItemIcon>
                                             <SignalCellular0BarIcon />
                                         </ListItemIcon>
-                                        <ListItemText primary="Weight" secondary={item.weight + "kg"} />
+                                        <ListItemText primary={t('bins.table.weight')} secondary={item.weight + "kg"} />
                                     </ListItem>
-                                    <ListItem sx={{ height: 40, width: 280 }}>
+                                    <ListItem sx={{ height: 40, width: 440 }}>
                                         <ListItemIcon>
                                             <SpeedIcon />
                                         </ListItemIcon>
-                                        <ListItemText primary="Max Weight" secondary={item.maxWeight + "kg"} />
+                                        <ListItemText primary={t('bins.table.maxWeight')} secondary={item.maxWeight + "kg"} />
                                     </ListItem>
-                                    <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 280 }}>
+                                    <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 440 }}>
                                         <ListItemIcon>
                                             <AutorenewIcon />
                                         </ListItemIcon>
-                                        <ListItemText primary="Status" secondary={item.status} />
+                                        <ListItemText primary={t('bins.table.status')} secondary={item.status} />
                                     </ListItem>
                                 </>
                         </List>

@@ -19,8 +19,10 @@ import { assetUrl } from '../../ultils/axiosApi';
 import { useState } from 'react';
 import { getVehicleDataById, getVehicleStateLog } from '../../store/reducers/vehicleSlice';
 import VehicleStateLog from './VehicleStateLog';
+import { useTranslation } from 'react-i18next';
 
 const VehicleItem = () => {
+    const {t} = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
     const params = useParams();
@@ -67,13 +69,13 @@ const VehicleItem = () => {
                     }}>
                         <Stack direction="row" alignItems="center" justifyContent="space-between">
                             <Typography variant="h5" component="h1" fontWeight='bold' gutterBottom>
-                                Vehicle Details
+                                {t('vehicles.vehicleDetails')}
                                 <Breadcrumbs maxItems={3} aria-label="breadcrumb" sx={{ mt: 1 }}>
                                     <Link underline="hover" color="inherit" href="">
-                                        Home
+                                        {t('vehicles.home')}
                                     </Link>
                                     <Link underline="hover" color="inherit" href="/vehicles">
-                                        Vehicles
+                                        {t('vehicles.pageName')}
                                     </Link>
                                     <Typography color="text.primary">{vehicle.plate}</Typography>
                                 </Breadcrumbs>
@@ -103,7 +105,7 @@ const VehicleItem = () => {
                                                     justifyContent: 'space-between',
                                                     pr: 0,
                                                 }}>
-                                                    Vehicle {vehicle.plate}
+                                                    {t("vehicle")} {vehicle.plate}
                                                     <Button
                                                         variant='contained'
                                                         aria-label="edit"
@@ -112,7 +114,7 @@ const VehicleItem = () => {
                                                         startIcon={<EditIcon />}
                                                         onClick={() => navigate(`/vehicles/edit/${vehicle.id}`, { state: vehicle })}
                                                     >
-                                                        Edit
+                                                        {t('vehicles.edit')}
                                                     </Button>
                                                 </ListSubheader>
                                             }
@@ -141,62 +143,74 @@ const VehicleItem = () => {
                                                 <ListItemIcon>
                                                     <ListIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary="ID" secondary={vehicle.id} />
+                                                <ListItemText primary={t('vehicles.table.id')} secondary={vehicle.id} />
                                             </ListItem>
                                             <ListItem sx={{ height: 40 }}>
                                                 <ListItemIcon>
                                                     <DataThresholdingIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary="License Plate" secondary={vehicle.plate} />
-                                            </ListItem>
-                                            <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
-                                                <ListItemIcon>
-                                                    <DirectionsCarIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary="Model" secondary={vehicle.model} />
-                                            </ListItem>
-                                            <ListItem sx={{ height: 40 }}>
-                                                <ListItemIcon>
-                                                    <RoomIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary="Position" secondary={vehicle.latitude.toFixed(6) + ', ' + vehicle.longitude.toFixed(6)} />
-                                            </ListItem>
-                                            <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
-                                                <ListItemIcon>
-                                                    <SignalCellular0BarIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary="Angle" secondary={vehicle.angle + ""} />
-                                            </ListItem>
-                                            <ListItem sx={{ height: 40 }}>
-                                                <ListItemIcon>
-                                                    <SpeedIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary="Speed" secondary={vehicle.speed + "km/h"} />
+                                                <ListItemText primary={t('vehicles.form.engineId')} secondary={vehicle.plate} />
                                             </ListItem>
                                             <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
                                                 <ListItemIcon>
                                                     <HistoryIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary="Engine Hours" secondary={vehicle.engineHours + ""} />
+                                                <ListItemText primary={t('vehicles.form.engineType')} secondary={vehicle.engineId + ""} />
+                                            </ListItem>
+                                            <ListItem sx={{  height: 40 }}>
+                                                <ListItemIcon>
+                                                    <HistoryIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t('vehicles.form.engineType')} secondary={vehicle.engineType + ""} />
+                                            </ListItem>
+                                            <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
+                                                <ListItemIcon>
+                                                    <HistoryIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t('vehicles.form.engineHours')} secondary={vehicle.engineHours + "h"} />
+                                            </ListItem>
+                                            <ListItem sx={{  height: 40 }}>
+                                                <ListItemIcon>
+                                                    <DirectionsCarIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t('vehicles.form.model')} secondary={vehicle.model} />
+                                            </ListItem>
+                                            <ListItem sx={{ backgroundColor: '#f5f5f5',height: 40 }}>
+                                                <ListItemIcon>
+                                                    <RoomIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t('vehicles.form.position')} secondary={vehicle.latitude.toFixed(6) + ', ' + vehicle.longitude.toFixed(6)} />
+                                            </ListItem>
+                                            <ListItem sx={{  height: 40 }}>
+                                                <ListItemIcon>
+                                                    <SignalCellular0BarIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t('vehicles.form.angle')} secondary={vehicle.angle + ""} />
+                                            </ListItem>
+                                            <ListItem sx={{backgroundColor: '#f5f5f5', height: 40 }}>
+                                                <ListItemIcon>
+                                                    <SpeedIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t('vehicles.form.speed')} secondary={vehicle.speed + "km/h"} />
                                             </ListItem>
                                             <ListItem sx={{ height: 40 }}>
                                                 <ListItemIcon>
                                                     <NetworkCheckIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary="Odomeder" secondary={vehicle.odometer + ""} />
+                                                <ListItemText primary={t('vehicles.form.odometer')} secondary={vehicle.odometer + ""} />
                                             </ListItem>
                                             <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
                                                 <ListItemIcon>
                                                     <HeightIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary="Altitude" secondary={vehicle.altitude + ""} />
+                                                <ListItemText primary={t('vehicles.form.altitude')} secondary={vehicle.altitude + ""} />
                                             </ListItem>
 
                                             <ListItem sx={{ height: 40 }}>
                                                 <ListItemIcon>
                                                     <AutorenewIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary="Status" secondary={vehicle.status} />
+                                                <ListItemText primary={t('vehicles.form.status')} secondary={vehicle.status} />
                                             </ListItem>
                                         </List>
                                     </Box>

@@ -12,8 +12,10 @@ import {
   getDriverDataById
 } from '../../store/reducers/driverSlice';
 import { assetUrl } from '../../ultils/axiosApi';
+import { useTranslation } from 'react-i18next';
 
 const DriverItemNew = ({ state }) => {
+  const { t } = useTranslation();
   // state = "new" or "edit"
   const navigate = useNavigate();
   const location = useLocation();
@@ -75,7 +77,7 @@ const DriverItemNew = ({ state }) => {
     else if (state === "edit") {
       dispatch(putDriverDataAsync({ formData, driverId }));
     }
-    // navigate("/drivers");
+    navigate("/drivers");
   }
 
   return (
@@ -91,15 +93,15 @@ const DriverItemNew = ({ state }) => {
         }}>
           <Stack direction="row" alignItems="flex-start" justifyContent="space-between">
             <Typography variant="h5" component="h1" fontWeight='bold' gutterBottom>
-              {state === "new" ? "Create new driver" : "Edit driver"}
+              {state === "new" ? `${t("drivers.create")}` : `${t("drivers.edit")}`}
               <Breadcrumbs maxItems={3} aria-label="breadcrumb" sx={{ mt: 1 }}>
                 <Link underline="hover" color="inherit" href="">
-                  Home
+                  {t("drivers.home")}
                 </Link>
                 <Link underline="hover" color="inherit" href="/drivers">
-                  Drivers
+                  {t("drivers.pageName")}
                 </Link>
-                <Typography color="text.primary">{state === "new" ? "New driver" : `${driverItem.firstName} ${driverItem.lastName}`}</Typography>
+                <Typography color="text.primary">{state === "new" ? `${t("drivers.add")}` : `${driverItem.firstName} ${driverItem.lastName}`}</Typography>
               </Breadcrumbs>
             </Typography>
 
@@ -116,13 +118,13 @@ const DriverItemNew = ({ state }) => {
             <Paper sx={{ mt: 3, p: 2, flexGrow: 1, maxWidth: 1200 }}>
               <Box sx={{ width: '100%', mt: 2 }}>
                 <Typography variant="h6" component="h3" fontWeight='bold' gutterBottom>
-                  Driver information
+                  {t("drivers.form.infomation")}
                 </Typography>
-                <TextField id="outlined-basic" label="First Name" variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={driverItem.firstName} onChange={handleInputChange} name="firstName" />
-                <TextField id="outlined-basic" label="Last Name" variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={driverItem.lastName} onChange={handleInputChange} name="lastName" />
-                <TextField id="outlined-basic" label="Email" variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={driverItem.email} onChange={handleInputChange} name="email" />
-                <TextField id="outlined-basic" label="Phone" variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={driverItem.phone} onChange={handleInputChange} name="phone" />
-                <TextField id="outlined-basic" label="Password" type={"password"} variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={driverItem.password} onChange={handleInputChange} name="password" />
+                <TextField id="outlined-basic" label={t("drivers.table.firstName")} variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={driverItem.firstName} onChange={handleInputChange} name="firstName" />
+                <TextField id="outlined-basic" label={t("drivers.table.lastName")} variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={driverItem.lastName} onChange={handleInputChange} name="lastName" />
+                <TextField id="outlined-basic" label={t("drivers.table.email")} variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={driverItem.email} onChange={handleInputChange} name="email" />
+                <TextField id="outlined-basic" label={t("drivers.table.phone")} variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={driverItem.phone} onChange={handleInputChange} name="phone" />
+                <TextField id="outlined-basic" label={t("login.password")} type={"password"} variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={driverItem.password} onChange={handleInputChange} name="password" />
 
               </Box>
 
@@ -135,27 +137,27 @@ const DriverItemNew = ({ state }) => {
             <Box sx={{ mt: 2, minWidth: 300, width: "100%", maxWidth: { xs: '100%', md: 300 } }}>
               <Paper sx={{ width: '100%', my: 1, p: 2, pt: 4 }}>
                 <Typography variant="h6" component="h3" fontWeight='bold' gutterBottom>
-                  Gender
+                {t("drivers.table.gender")}
                 </Typography>
-                <TextField id="outlined-basic" label="Gender" variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={driverItem.gender} onChange={handleInputChange} name="gender" />
+                <TextField id="outlined-basic" label={t("drivers.table.gender")} variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={driverItem.gender} onChange={handleInputChange} name="gender" />
 
 
                 <Typography variant="h6" component="h3" fontWeight='bold' gutterBottom>
-                  Date of Birth
+                {t("drivers.table.dob")}
                 </Typography>
-                <TextField id="outlined-basic" label="Date of Birth" variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={driverItem.dob} onChange={handleInputChange} name="dob" />
+                <TextField id="outlined-basic" label={t("drivers.table.dob")} variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={driverItem.dob} onChange={handleInputChange} name="dob" />
 
 
                 <Box sx={{ width: '100%', mb: 2 }}>
                   <Typography variant="h6" component="h3" fontWeight='bold' gutterBottom>
-                    Image
+                  {t("drivers.form.image")}
                   </Typography>
                   <label htmlFor="contained-button-file">
                     <Button variant="contained" component="span"
                       endIcon={<AttachFileIcon />}
                       onClick={(e) => handleClick()}
                     >
-                      Upload
+                      {t("drivers.form.upload")}
                     </Button>
                   </label>
                   <input accept="image/*" id="contained-button-file" type="file" onChange={handleInputChangeImage} name="image" style={{ display: "none" }} />
@@ -169,7 +171,7 @@ const DriverItemNew = ({ state }) => {
 
               <Box sx={{ width: '100%', my: 1 }}>
                 <Button variant="contained" color="primary" endIcon={<SaveIcon />} sx={{ width: '100%', mb: 2, mt: 1, py: 1.5 }} type="submit">
-                  Save
+                {t("drivers.form.save")}
                 </Button>
               </Box>
             </Box>

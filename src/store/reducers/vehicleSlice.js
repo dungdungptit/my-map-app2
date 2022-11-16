@@ -42,6 +42,12 @@ export const getVehicleStateLog = async (vehicleId) => {
     return response.data.data;
 }
 
+// get all vehicle state log
+export const getAllVehicleStateLog = async () => {
+    const response = await axios.get(`/vehicles/states`, { headers: { token: token } });
+    return response.data.data;
+}
+
 const vehicleSlice = createSlice({ // createReducer + createActions
     name: 'vehicles',
     initialState: {

@@ -1,16 +1,16 @@
 import { Box, Typography } from '@mui/material'
 import { React, useState, useEffect } from 'react';
-import { getBinStateLog } from '../../store/reducers/binSlice';
+import { getAllBinStateLog } from '../../store/reducers/binSlice';
 import { DataGrid } from '@mui/x-data-grid';
 import { useTranslation } from 'react-i18next';
 
-const BinStateLog = ({ binId }) => {
+const DataBinEvent = () => {
     const {t} = useTranslation();
-    const [binStateLog, setBinStateLog] = useState([]);
+    const [binEvent, setBinEvent] = useState([]);
 
     useEffect(() => {
-        getBinStateLog(binId).then((data) => {
-            setBinStateLog(data);
+        getAllBinStateLog().then((data) => {
+            setBinEvent(data);
             console.log(data);
         });
     }, []);
@@ -38,13 +38,13 @@ const BinStateLog = ({ binId }) => {
         <Box sx={{ width: '100%', height: 400, mt: 4 }}>
             <Box sx={{ textAlign: 'start', mb: 1, mt: 4 }}>
                 <Typography variant="h6" component="div" sx={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#000', }}>
-                    {t("bins.binStateLog")}
+                    {t("bins.binEvent")}
                 </Typography>
 
             </Box>
             <Box sx={{ width: '100%', height: 400, mb: 2 }}>
                 <DataGrid
-                    rows={binStateLog} columns={columns}
+                    rows={binEvent} columns={columns}
                     disableColumnMenu
                     disableColumnSelector
                     disableSelectionOnClick
@@ -58,4 +58,4 @@ const BinStateLog = ({ binId }) => {
     )
 }
 
-export default BinStateLog
+export default DataBinEvent
