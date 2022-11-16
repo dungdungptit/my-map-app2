@@ -21,37 +21,48 @@ import {
   DriverItemNew
 } from './feature/Driver';
 import Login from './feature/Auth/Login';
+import { useSelector } from 'react-redux';
+import { authSelector } from './store/reducers/authSlice';
+import ProtectedRoutes from './routes/ProtectedRoutes';
+import PublicRoutes from './routes/PublicRoutes';
 
 const App = () => {
+  const user = useSelector(authSelector);
+  console.log(user);
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="" element={<Layout />} >
-          <Route index element={<Map1 />} />
-          <Route path="map" element={<Map1 />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path="" element={<Layout />} >
+            <Route index element={<Map1 />} />
+            <Route path="map" element={<Map1 />} />
 
-          <Route path="dashboard" element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />
 
-          <Route path="vehicles" element={<Vehicles />} />
-          <Route path="vehicles/:vehicleId" element={<VehicleItem />} />
-          <Route path="vehicles/add" element={<VehicleItemNew state={"new"} />} />
-          <Route path="vehicles/edit/:vehicleId" element={<VehicleItemNew state={"edit"} />} />
+            <Route path="vehicles" element={<Vehicles />} />
+            <Route path="vehicles/:vehicleId" element={<VehicleItem />} />
+            <Route path="vehicles/add" element={<VehicleItemNew state={"new"} />} />
+            <Route path="vehicles/edit/:vehicleId" element={<VehicleItemNew state={"edit"} />} />
 
-          <Route path="bins" element={<Bins />} />
-          <Route path="bins/:binId" element={<BinItem />} />
-          <Route path="bins/add" element={<BinItemNew state={"new"} />} />
-          <Route path="bins/edit/:binId" element={<BinItemNew state={"edit"} />} />
-
-
-          <Route path="drivers" element={<Drivers />} />
-          <Route path="drivers/:driverId" element={<DriverItem />} />
-          <Route path="drivers/add" element={<DriverItemNew state={"new"} />} />
-          <Route path="drivers/edit/:driverId" element={<DriverItemNew state={"edit"} />} />
+            <Route path="bins" element={<Bins />} />
+            <Route path="bins/:binId" element={<BinItem />} />
+            <Route path="bins/add" element={<BinItemNew state={"new"} />} />
+            <Route path="bins/edit/:binId" element={<BinItemNew state={"edit"} />} />
 
 
-          <Route path="*" element={<div>Not Found</div>} />
+            <Route path="drivers" element={<Drivers />} />
+            <Route path="drivers/:driverId" element={<DriverItem />} />
+            <Route path="drivers/add" element={<DriverItemNew state={"new"} />} />
+            <Route path="drivers/edit/:driverId" element={<DriverItemNew state={"edit"} />} />
+
+
+            <Route path="*" element={<div>Not Found</div>} />
+          </Route>
         </Route>
-        <Route path="login" element={<Login />} />
+        <Route path="*" element={<PublicRoutes />}>
+          {/* <Route path='register' element={<Register />} /> */}
+          <Route path="login" element={<Login />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

@@ -11,6 +11,9 @@ import Avatar from '@mui/material/Avatar';
 import { deepOrange, deepPurple } from '@mui/material/colors';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import { logout } from '../../store/reducers/authSlice';
 
 export default function Appbar() {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -21,6 +24,15 @@ export default function Appbar() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+
+    const dispatch = useDispatch();
+    const handleLogout = () => {
+        dispatch(logout());
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        navigate('/');
+    }
 
     const navigate = useNavigate();
 
@@ -62,7 +74,7 @@ export default function Appbar() {
             >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={() => navigate("/login")}>Logout</MenuItem>
+                <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
             </Menu>
         </Box>
     );

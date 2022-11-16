@@ -15,6 +15,7 @@ import { Stack } from 'react-bootstrap';
 import { Alert, Box, Typography } from '@mui/material';
 import TabPanelItem from './TabPanelItem';
 import { useSnackbar } from 'notistack';
+import { BASE_URL_SOCKET } from '../../ultils/socketApi';
 
 
 const RotatedMarker = forwardRef(({ children, ...props }, forwardRef) => {
@@ -43,11 +44,7 @@ const RotatedMarker = forwardRef(({ children, ...props }, forwardRef) => {
 
 });
 
-const base_url = 'ws://192.168.88.124:3001?id=admin_0'
-// const base_url = 'ws://192.168.1.5:3001?id=admin_0'
-
-
-const ws = new WebSocket(base_url)
+const ws = new WebSocket(BASE_URL_SOCKET)
 
 let connection_resolvers = [];
 let checkConnection = () => {
@@ -72,7 +69,6 @@ checkConnection().then(() => {
 
 
 const Map1 = () => {
-
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const [position, setPosition] = useState([21.0419, 105.821]);

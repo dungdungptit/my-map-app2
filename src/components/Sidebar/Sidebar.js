@@ -42,7 +42,7 @@ const Sidebar = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { pathname } = location;
-    console.log(pathname);
+    // console.log(pathname);
     const [selectedIndex, setSelectedIndex] = React.useState(getIndex(pathname));
 
     const [open, setOpen] = React.useState(true);

@@ -1,25 +1,14 @@
 import React from 'react'
-import { account } from '../data/account';
-
 import { Navigate, Outlet } from 'react-router-dom'
-
-
-const useAuth = () => {
-    const user = localStorage.getItem('user')
-    if (user) {
-        return true
-    } else {
-        return false
-    }
-}
-
+import { useSelector } from 'react-redux';
+import { authSelector } from '../store/reducers/authSlice';
 
 const ProtectedRoutes = () => {
-
-    const auth = useAuth()
-    
-    return auth ? <Outlet /> : <Navigate to="/login" />
+    const auth = useSelector(authSelector);
+    console.log(auth);
+    const isAuthenticated = auth.isAuth;
+    return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 }
 
+export default ProtectedRoutes;
 
-export default ProtectedRoutes;;

@@ -1,21 +1,13 @@
 import { Navigate, Outlet } from 'react-router-dom'
-
-
-const useAuth = () => {
-    const user = localStorage.getItem('user')
-    if (user) {
-        return true
-    } else {
-        return false
-    }
-}
+import { useSelector } from 'react-redux';
+import { authSelector } from '../store/reducers/authSlice';
 
 
 const PublicRoutes = () => {
-
-    const auth = useAuth()
-
-    return auth ? <Navigate to="/problems" /> : <Outlet />
+    const auth = useSelector(authSelector);
+    console.log(auth);
+    const isAuthenticated = auth.isAuth;
+    return isAuthenticated ? <Navigate to="/" /> : <Outlet />;
 }
 
 
