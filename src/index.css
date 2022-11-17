@@ -23,6 +23,10 @@ code {
   background-clip: padding-box;
 }
 
+.leaflet-right .leaflet-routing-container.leaflet-routing-container-hide {
+  display: none;
+}
+
 .leaflet-popup-content p {
   margin: 4px 0;
 }

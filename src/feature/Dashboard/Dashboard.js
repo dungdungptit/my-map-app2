@@ -11,6 +11,8 @@ import DataBinEvent from './DataBinEvent';
 import DataVehicleEvent from './DataVehicleEvent';
 
 const Dashboard = () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    
     const { t, i18n } = useTranslation();
     return (
         <Fragment>
@@ -57,7 +59,7 @@ const Dashboard = () => {
                             },
                         }}>
                         <Typography variant="h5" component="h1" fontWeight='bold' gutterBottom>
-                            {t('dashboard.welcome')}, Dang Ngoc Hung
+                            {t('dashboard.welcome')}, {user.firstName} {user.lastName}
                             <Breadcrumbs maxItems={2} aria-label="breadcrumb" sx={{ mt: 1 }}>
                                 <Link underline="hover" color="inherit" href="">
                                 {t('dashboard.home')}
@@ -78,7 +80,7 @@ const Dashboard = () => {
                     }}>
                         <Box sx={{
                             // maxWidth: '300px',
-                            background: '#cafdf5',
+                            background: '#c8facd',
                             height: '100%',
                             // background: "#ccc",
                             flex: '1',
@@ -95,7 +97,7 @@ const Dashboard = () => {
                                 marginTop: '10px',
                                 fontSize: '20px',
                                 fontWeight: 600,
-                            }}>{t('vehicle')}</Box>
+                            }}>{t('bin')}</Box>
                             <Box sx={{
                                 flex: 1,
                                 display: 'flex',
@@ -148,7 +150,7 @@ const Dashboard = () => {
                         </Box>
                         <Box sx={{
                             // maxWidth: '300px',
-                            background: '#c8facd',
+                            background: '#cafdf5',
                             height: '100%',
                             // background: "#ccc",
                             flex: '1',
@@ -165,7 +167,7 @@ const Dashboard = () => {
                                 marginTop: '10px',
                                 fontSize: '20px',
                                 fontWeight: 600,
-                            }}>{t('bin')}</Box>
+                            }}>{t('vehicle')}</Box>
                             <Box sx={{
                                 flex: 1,
                                 display: 'flex',

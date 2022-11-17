@@ -44,8 +44,49 @@ const RotatedMarker = forwardRef(({ children, ...props }, forwardRef) => {
       {children}
     </Marker>
   );
-
 });
+
+const AutoIconMarker = forwardRef(({ children, ...props }, forwardRef) => {
+  const markerRef = useRef();
+  const { icon } = props;
+  useEffect(() => {
+    const marker = markerRef.current;
+    if (marker) {
+      marker.options.icon = icon;
+    }
+  }, [icon]);
+  return (
+    <Marker
+      ref={(ref) => {
+        markerRef.current = ref;
+        if (forwardRef) {
+          forwardRef.current = ref;
+        }
+      }}
+      {...props}
+    >
+      {children}
+    </Marker>
+  );
+});
+
+// const AutoStateMarker = ({ position, rotationAngle, rotationOrigin, icon, children }) => {
+//   const [state, setState] = useState({
+//     position,
+//     rotationAngle,
+//     rotationOrigin,
+//     icon,
+//   });
+//   useEffect(() => {
+//     setState({
+//       position,
+//       rotationAngle,
+//       rotationOrigin,
+//       icon,
+//     });
+//   }, [position, rotationAngle, rotationOrigin, icon]);
+//   return <RotatedMarker {...state}>{children}</RotatedMarker>;
+// };
 
 // WebSocket init
 const ws = new WebSocket(BASE_URL_SOCKET)
@@ -79,6 +120,7 @@ const Map1 = () => {
   const [position, setPosition] = useState([21.0419, 105.821]);
   const [heading, setHeading] = useState(0);
   const [data, setData] = useState([]);
+  const [dataAlert, setDataAlert] = useState([]);
   const [vehicles, setVehicles] = useState([]);
   const [bins, setBins] = useState([]);
 
@@ -138,6 +180,9 @@ const Map1 = () => {
               </Alert>
             ),
           });
+
+        setDataAlert(data);
+
       }
       // const angle = _getAngle(position[0], position[1], data[1], data[2]);
       // if (Math.abs(angle) !== 90) {
@@ -150,7 +195,7 @@ const Map1 = () => {
 
   }, []);
 
-  console.log('vehicles', vehicles);
+  // console.log('vehicles', vehicles);
   if (!!vehicles && vehicles.length > 0) {
     let vehicle = vehicles.find(item => item.id.toString() === data[0]);
     // console.log("vehicle", vehicle);
@@ -173,7 +218,24 @@ const Map1 = () => {
     }
   }
 
-  console.log('bins', bins);
+  // console.log('bins', bins);
+  useEffect(() => {
+    if (dataAlert[0] === "alert") {
+      console.log("alert", dataAlert);
+      if (!!bins && bins.length > 0) {
+        let bin = bins.find(item => item.id.toString() === dataAlert[1].id.toString());
+        if (bin) {
+          const binData = {
+            ...bin,
+            status: dataAlert[1].status
+          }
+          console.log("bin", binData);
+          const binsUpdate = [...bins.filter(item => item.id.toString() !== dataAlert[1].id.toString()), binData];
+          setBins(binsUpdate);
+        }
+      }
+    }
+  }, [dataAlert]);
 
   // socket.onclose = () => {
   //   console.log('Disconnected from server')
@@ -219,8 +281,9 @@ const Map1 = () => {
             />
             {/* <Polyline pathOptions={{ color: 'black' }} positions={dataTemporary} /> */}
             {/* {data[0] === "alert" &&
-              <Routing from={data[1]} to={data[2]} />
             } */}
+            {/* {!!vehicles && !!bins && <Routing from={[vehicles[3].latitude, vehicles[3].longitude]} to={[bins[5].latitude, bins[5].longitude]} />} */}
+
             {!!vehicles && vehicles.map((vehicle) => (
               <RotatedMarker key={vehicle.id} position={[vehicle.latitude, vehicle.longitude]} icon={iconXe} rotationOrigin="center" rotationAngle={vehicle.angle}
               // eventHandlers={{
@@ -253,7 +316,7 @@ const Map1 = () => {
             ))}
 
             {!!bins && bins.map((bin) => (
-              <Marker key={bin.id} position={[bin.latitude, bin.longitude]} icon={bin.status === "full" ? iconBinRed : bin.status === "empty" ? iconBinGreen : iconBinYellow}>
+              <RotatedMarker key={bin.id} position={[bin.latitude, bin.longitude]} icon={bin.status === "full" ? iconBinRed : bin.status === "empty" ? iconBinGreen : iconBinYellow}>
                 <Popup>
                   <Stack spacing={0} direction="row" alignitems="flex-start">
                     <p><strong>{t("bins.form.position")}:</strong> {bin.latitude.toFixed(6)}, {bin.longitude.toFixed(6)}</p>
@@ -274,24 +337,24 @@ const Map1 = () => {
 
                   </Stack>
                 </Popup>
-              </Marker>
+              </RotatedMarker>
             ))}
 
 
-            <LayersControl position="topright">
+            {/* <LayersControl position="topright">
               <LayersControl.Overlay name="Marker with popup">
-                
+
               </LayersControl.Overlay>
               <LayersControl.Overlay checked name="Layer group with circles">
                 <LayerGroup>
-                  
-                  
+
+
                 </LayerGroup>
               </LayersControl.Overlay>
               <LayersControl.Overlay name="Feature group">
-                
+
               </LayersControl.Overlay>
-            </LayersControl>
+            </LayersControl> */}
           </MapContainer>
         </Box>
         <Box sx={{

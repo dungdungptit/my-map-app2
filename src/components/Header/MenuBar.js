@@ -19,8 +19,7 @@ import LanguagePopover from './LanguagePopover';
 
 export default function Appbar() {
     const { t } = useTranslation();
-    const { user } = useSelector(authSelector);
-    console.log(user);
+    const user = JSON.parse(localStorage.getItem('user'));
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -36,7 +35,7 @@ export default function Appbar() {
         dispatch(logout());
         localStorage.removeItem('user');
         localStorage.removeItem('token');
-        navigate('/');
+        window.location.reload();
     }
 
     const navigate = useNavigate();

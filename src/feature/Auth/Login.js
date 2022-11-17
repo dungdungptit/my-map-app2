@@ -52,7 +52,12 @@ const Login = () => {
             sx={{
                 height: '100vh',
                 width: '100vw',
-                backgroundColor: '#f5f5f5'
+                backgroundColor: '#f5f5f5',
+                "& .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar": {
+                    display: "none",
+                    border: "2px solid rgba(0,0,0,0.2)",
+                    backgroundClip: "paddingBox"
+                  }
             }}
         >
             <MapContainer center={[21.023396, 105.850094]} zoom={13} style={{ height: "inherit" }}>

@@ -4,9 +4,9 @@ import { useSelector } from 'react-redux';
 import { authSelector } from '../store/reducers/authSlice';
 
 const ProtectedRoutes = () => {
-    const auth = useSelector(authSelector);
+    const auth = localStorage.getItem('user');
     console.log(auth);
-    const isAuthenticated = auth.isAuth;
+    const isAuthenticated = auth ? true : false;
     return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 }
 
