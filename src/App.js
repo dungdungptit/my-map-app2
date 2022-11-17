@@ -25,10 +25,9 @@ import { useSelector } from 'react-redux';
 import { authSelector } from './store/reducers/authSlice';
 import ProtectedRoutes from './routes/ProtectedRoutes';
 import PublicRoutes from './routes/PublicRoutes';
-import { useTranslation } from 'react-i18next';
 
 const App = () => {
-  const user = useSelector(authSelector);
+  const user = localStorage.getItem('user');
   console.log(user);
   return (
     <BrowserRouter>

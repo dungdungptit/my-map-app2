@@ -13,12 +13,12 @@ code {
     monospace;
 }
 
-.leaflet-rotated-icon-cua-dung{
+.leaflet-rotated-icon-move-smoothing{
   transition: all .5s linear; 
 }
 
 .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
-  display: none;
+  /* display: none; */
   border: 2px solid rgba(0,0,0,0.2);
   background-clip: padding-box;
 }

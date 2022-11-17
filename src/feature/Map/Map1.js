@@ -1,5 +1,5 @@
 import React, { forwardRef, Fragment, useEffect, useRef, useState } from 'react'
-import { MapContainer, TileLayer, Marker, Polyline, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Polyline, Popup, LayersControl, LayerGroup } from "react-leaflet";
 import L from 'leaflet';
 import "leaflet/dist/leaflet.css";
 import Routing from './Routing';
@@ -18,8 +18,7 @@ import { useSnackbar } from 'notistack';
 import { BASE_URL_SOCKET } from '../../ultils/socketApi';
 import { useTranslation } from 'react-i18next';
 
-import { green_bin, red_bin, yellow_bin } from './constant';
-
+import { green_bin, red_bin, yellow_bin, green_vehicle } from './constant';
 
 
 const RotatedMarker = forwardRef(({ children, ...props }, forwardRef) => {
@@ -48,6 +47,7 @@ const RotatedMarker = forwardRef(({ children, ...props }, forwardRef) => {
 
 });
 
+// WebSocket init
 const ws = new WebSocket(BASE_URL_SOCKET)
 
 let connection_resolvers = [];
@@ -199,8 +199,8 @@ const Map1 = () => {
     console.log(event);
   }
 
-  const iconxeUrl = "https://scontent.xx.fbcdn.net/v/t1.15752-9/312898210_479470934235865_1699974428241662221_n.png?_nc_cat=102&ccb=1-7&_nc_sid=aee45a&_nc_ohc=4KmslLdAsNMAX-TC_mr&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdRVkybhk1urBp_jJcCfL3yLhKCRog3jZNV5wDDFlESHAg&oe=6380A4C1";
-  const iconXe = new L.Icon({ iconUrl: iconxeUrl, iconSize: [35, 16], className: "leaflet-rotated-icon-cua-dung" });
+  const iconxeUrl = green_vehicle;
+  const iconXe = new L.Icon({ iconUrl: iconxeUrl, iconSize: [35, 16], className: "leaflet-rotated-icon-move-smoothing" });
   const iconBinGreenUrl = green_bin;
   const iconBinRedUrl = red_bin;
   const iconBinYellowUrl = yellow_bin;
@@ -212,11 +212,7 @@ const Map1 = () => {
     <Fragment>
       <Box sx={{ position: 'relative', with: '100%' }}>
         <Box sx={{ height: "calc(100vh - 64px - 5px)" }}>
-          <MapContainer center={[21.023396, 105.850094]} zoom={17} style={{ height: "inherit" }} zoomControl={true}>
-            {/* <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          /> */}
+          <MapContainer center={[21.023396, 105.850094]} zoom={17} style={{ height: "inherit" }} scrollWheelZoom={false}>
             <TileLayer
               attribution='Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
               url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
@@ -257,7 +253,7 @@ const Map1 = () => {
             ))}
 
             {!!bins && bins.map((bin) => (
-              <Marker key={bin.id} position={[bin.latitude, bin.longitude]} icon={bin.status === "full" ? iconBinRed : bin.status === "empty" ? iconBinGreen: iconBinYellow}>
+              <Marker key={bin.id} position={[bin.latitude, bin.longitude]} icon={bin.status === "full" ? iconBinRed : bin.status === "empty" ? iconBinGreen : iconBinYellow}>
                 <Popup>
                   <Stack spacing={0} direction="row" alignitems="flex-start">
                     <p><strong>{t("bins.form.position")}:</strong> {bin.latitude.toFixed(6)}, {bin.longitude.toFixed(6)}</p>
@@ -275,11 +271,27 @@ const Map1 = () => {
                       onClick={(e, item) => handleClickOpen(e, { ...bin, type: 'bin' })}>
                       {t("vehicles.detailed")}
                     </Typography>
-                    
+
                   </Stack>
                 </Popup>
               </Marker>
             ))}
+
+
+            <LayersControl position="topright">
+              <LayersControl.Overlay name="Marker with popup">
+                
+              </LayersControl.Overlay>
+              <LayersControl.Overlay checked name="Layer group with circles">
+                <LayerGroup>
+                  
+                  
+                </LayerGroup>
+              </LayersControl.Overlay>
+              <LayersControl.Overlay name="Feature group">
+                
+              </LayersControl.Overlay>
+            </LayersControl>
           </MapContainer>
         </Box>
         <Box sx={{
