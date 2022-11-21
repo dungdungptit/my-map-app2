@@ -2,6 +2,12 @@
 import { Typography, Box, Stack, Button, Breadcrumbs, Link } from '@mui/material';
 import { Fragment, useEffect } from 'react';
 import AddIcon from '@mui/icons-material/Add';
+
+import {
+  BoxContainer,
+  BoxTitle,
+  BoxStack,
+} from '../../components/Box/BoxContainer';
 import { DataTable } from '../../components/DataTable';
 import { driversSelector, getDriversDataAsync } from '../../store/reducers/driverSlice';
 
@@ -20,7 +26,6 @@ const Drivers = () => {
     dispatch(getDriversDataAsync());
   }, [dispatch]);
 
-  const user = JSON.parse(localStorage.getItem('user'));
   const location = useLocation();
 
   // Click render ProblemItem
@@ -64,50 +69,9 @@ const Drivers = () => {
 
   return (
     <Fragment>
-      <Box sx={{
-        height: 'auto',
-        py: 4,
-        pt: 6,
-        px: 2,
-        maxWidth: 1200,
-        margin: '0 auto',
-      }} >
-        <Box
-          sx={{
-            // height: 300,
-            width: '100%',
-            '& .super-app-theme--header': {
-              // backgroundColor: '#ececec',
-            },
-            '& .css-1jbbcbn-MuiDataGrid-columnHeaderTitle': {
-              fontWeight: '600',
-            }
-          }}
-        >
-          <Stack direction='row'
-            sx={{
-              py: { xs: 1, md: 3 },
-              pt: { xs: 0, md: 0 },
-              px: 0,
-              justifyContent: {
-                xs: "center",
-                sm: "space-between",
-                md: "space-between",
-                lg: "space-between",
-              },
-              alignItems: {
-                xs: "space-between",
-                sm: "center",
-                md: "center",
-                lg: "center",
-              },
-              flexDirection: {
-                xs: "column",
-                sm: "row",
-                md: "row",
-                lg: "row",
-              },
-            }}>
+      <BoxContainer>
+        <BoxTitle>
+          <BoxStack>
             <Typography variant="h5" component="h1" fontWeight='bold' gutterBottom>
               {t("drivers.pageName")}
               <Breadcrumbs maxItems={2} aria-label="breadcrumb" sx={{ mt: 1 }}>
@@ -129,12 +93,12 @@ const Drivers = () => {
             >
               {t("drivers.add")}
             </Button>
-          </Stack>
+          </BoxStack>
 
 
           <DataTable rows={drivers} columns={columns} />
-        </Box>
-      </Box>
+        </BoxTitle>
+      </BoxContainer>
     </Fragment >
   )
 }

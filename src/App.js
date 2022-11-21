@@ -27,8 +27,8 @@ import ProtectedRoutes from './routes/ProtectedRoutes';
 import PublicRoutes from './routes/PublicRoutes';
 
 const App = () => {
-  const user = localStorage.getItem('user');
-  console.log(user);
+  const auth = JSON.parse(localStorage.getItem('user'));
+  console.log(auth);
   return (
     <BrowserRouter>
       <Routes>
@@ -37,22 +37,22 @@ const App = () => {
             <Route index element={<Map1 />} />
             <Route path="map" element={<Map1 />} />
 
-            <Route path="dashboard" element={<Dashboard />} />
+            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="dashboard" element={<Dashboard />} />}
 
-            <Route path="vehicles" element={<Vehicles />} />
-            <Route path="vehicles/:vehicleId" element={<VehicleItem />} />
-            <Route path="vehicles/add" element={<VehicleItemNew state={"new"} />} />
-            <Route path="vehicles/edit/:vehicleId" element={<VehicleItemNew state={"edit"} />} />
+            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="vehicles" element={<Vehicles />} />}
+            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="vehicles/:vehicleId" element={<VehicleItem />} />}
+            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="vehicles/add" element={<VehicleItemNew state={"new"} />} />}
+            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="vehicles/edit/:vehicleId" element={<VehicleItemNew state={"edit"} />} />}
 
-            <Route path="drivers" element={<Drivers />} />
-            <Route path="drivers/:driverId" element={<DriverItem />} />
-            <Route path="drivers/add" element={<DriverItemNew state={"new"} />} />
-            <Route path="drivers/edit/:driverId" element={<DriverItemNew state={"edit"} />} />
+            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="drivers" element={<Drivers />} />}
+            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="drivers/:driverId" element={<DriverItem />} />}
+            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="drivers/add" element={<DriverItemNew state={"new"} />} />}
+            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="drivers/edit/:driverId" element={<DriverItemNew state={"edit"} />} />}
 
-            <Route path="bins" element={<Bins />} />
-            <Route path="bins/:binId" element={<BinItem />} />
-            <Route path="bins/add" element={<BinItemNew state={"new"} />} />
-            <Route path="bins/edit/:binId" element={<BinItemNew state={"edit"} />} />
+            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="bins" element={<Bins />} />}
+            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="bins/:binId" element={<BinItem />} />}
+            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="bins/add" element={<BinItemNew state={"new"} />} />}
+            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="bins/edit/:binId" element={<BinItemNew state={"edit"} />} />}
 
 
             <Route path="*" element={<div>Not Found</div>} />
