@@ -2,7 +2,7 @@ import { React, Fragment, useEffect, useState } from 'react'
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { countSelector, setCount, setNoti, notiSelector, setPosition } from '../../store/reducers/notiSlice';
 import { Badge, IconButton, Menu, MenuItem, Stack, Typography } from '@mui/material';
-import { red_bin } from '../../feature/Map/constant';
+import { red_bin } from '../../feature/Map/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import Avatar from '@mui/material/Avatar';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -43,8 +43,6 @@ const NotificationPopover = () => {
         if (!localStorage.getItem('noti') && !localStorage.getItem('countNoti')) {
             localStorage.setItem('noti', JSON.stringify(noti));
             localStorage.setItem('countNoti', JSON.stringify(countNoti));
-            // dispatch(setNoti(JSON.parse(localStorage.getItem('noti'))));
-            // dispatch(setCount(JSON.parse(localStorage.getItem('countNoti'))));
         }
         if (noti.length > 0) {
             localStorage.setItem('noti', JSON.stringify(noti));
@@ -75,7 +73,8 @@ const NotificationPopover = () => {
                     "& .css-6hp17o-MuiList-root-MuiMenu-list": {
                         // width: 360,
                         width: "100%",
-                        height: 374,
+                        height: "auto",
+                        maxHeight: !!noti && noti.length > 0 ? 374: 48,
                         overflowY: "scroll",
                     }
                 }}
@@ -93,7 +92,7 @@ const NotificationPopover = () => {
                 keepMounted
             >
                 {/* map reverse noti */}
-                {!!noti && noti.map((data, index) => {
+                {!!noti && noti.length > 0 ? noti.map((data, index) => {
                     // if (index < 5) {
                     return (
                         <MenuItem key={index} onClick={() => handleCloseNotification(data)}>
@@ -121,7 +120,15 @@ const NotificationPopover = () => {
                         </MenuItem>
                     )
                     // }
-                })}
+                })
+                : (
+                    <MenuItem onClick={() => handleCloseNotification(null)}>
+                        <Typography variant='caption' component='div' sx={{ width: "100%" }}>
+                            {t("map.noEvent")}
+                        </Typography>
+                    </MenuItem>
+                )
+            }
             </Menu>
         </Fragment>
     )

@@ -20,6 +20,7 @@
     "map" : {
         "event": "Sự kiện",
         "events": "Sự kiện",
+        "noEvent": "Không có sự kiện",
         "sendRequest": "Gửi yêu cầu"
     },
     "dashboard": {

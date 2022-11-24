@@ -42,7 +42,7 @@ code {
 ::-webkit-scrollbar-track
 {
 	background: transparent;
-  padding-right: 2px;
+  /* padding-right: 2px; */
 }
 
 ::-webkit-scrollbar

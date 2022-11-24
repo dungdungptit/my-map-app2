@@ -4,114 +4,25 @@ import L from 'leaflet';
 import "leaflet/dist/leaflet.css";
 import Routing from './Routing';
 import "leaflet-rotatedmarker";
-import {
-  _getAngle,
-} from './constants';
+import { _getAngle, green_bin, red_bin, yellow_bin, green_vehicle } from './constants';
 
 import { getVehiclesData } from '../../api/vehicle/vehicles';
 import { getBinsData } from '../../api/bin/bins';
-import { Stack } from 'react-bootstrap';
 import { Alert, Box, Typography } from '@mui/material';
 import TabPanelItem from './TabPanelItem';
 import { useSnackbar } from 'notistack';
-import { BASE_URL_SOCKET } from '../../ultils/socketApi';
 import { useTranslation } from 'react-i18next';
 
-import { green_bin, red_bin, yellow_bin, green_vehicle } from './constant';
-import { useDispatch, useSelector } from 'react-redux';
-import { addNoti, countSelector, increment, notiSelector, positionSelector } from '../../store/reducers/notiSlice';
+import { useDispatch } from 'react-redux';
+import { addNoti, increment } from '../../store/reducers/notiSlice';
+import ws from './WebSocket';
+import RotatedMarker from './RotatedMarker';
+import PopupVehicleMarker from './PopupVehicleMarker';
+import PopupBinMarker from './PopupBinMarker';
+import AlertContent from './AlertContent';
 
-const RotatedMarker = forwardRef(({ children, ...props }, forwardRef) => {
-  const markerRef = useRef();
-  const { rotationAngle, rotationOrigin } = props;
-  useEffect(() => {
-    const marker = markerRef.current;
-    if (marker) {
-      marker.options.rotationAngle = rotationAngle;
-      marker.options.rotationOrigin = rotationOrigin;
-    }
-  }, [rotationAngle, rotationOrigin]);
-  return (
-    <Marker
-      ref={(ref) => {
-        markerRef.current = ref;
-        if (forwardRef) {
-          forwardRef.current = ref;
-        }
-      }}
-      {...props}
-    >
-      {children}
-    </Marker>
-  );
-});
-
-const AutoIconMarker = forwardRef(({ children, ...props }, forwardRef) => {
-  const markerRef = useRef();
-  const { icon } = props;
-  useEffect(() => {
-    const marker = markerRef.current;
-    if (marker) {
-      marker.options.icon = icon;
-    }
-  }, [icon]);
-  return (
-    <Marker
-      ref={(ref) => {
-        markerRef.current = ref;
-        if (forwardRef) {
-          forwardRef.current = ref;
-        }
-      }}
-      {...props}
-    >
-      {children}
-    </Marker>
-  );
-});
-
-// const AutoStateMarker = ({ position, rotationAngle, rotationOrigin, icon, children }) => {
-//   const [state, setState] = useState({
-//     position,
-//     rotationAngle,
-//     rotationOrigin,
-//     icon,
-//   });
-//   useEffect(() => {
-//     setState({
-//       position,
-//       rotationAngle,
-//       rotationOrigin,
-//       icon,
-//     });
-//   }, [position, rotationAngle, rotationOrigin, icon]);
-//   return <RotatedMarker {...state}>{children}</RotatedMarker>;
-// };
 
 // WebSocket init
-const ws = new WebSocket(BASE_URL_SOCKET)
-
-let connection_resolvers = [];
-let checkConnection = () => {
-  return new Promise((resolve, reject) => {
-    if (ws.readyState === WebSocket.OPEN) {
-      resolve();
-    }
-    else {
-      connection_resolvers.push({ resolve, reject });
-    }
-  });
-}
-
-ws.addEventListener('open', () => {
-  connection_resolvers.forEach(r => r.resolve())
-});
-
-
-checkConnection().then(() => {
-
-});
-
 
 const Map1 = () => {
   const { t } = useTranslation();
@@ -167,17 +78,7 @@ const Map1 = () => {
                 sx={{ width: "240px" }}
                 icon={false}
               >
-                <Stack spacing={2} direction="row">
-                  <Typography variant='caption' component='div'>
-                    <strong>{t("map.event")}: </strong> {data[2]}
-                  </Typography>
-                  <Typography variant='caption' component='div'>
-                    <strong>{t("vehicles.form.position")}:</strong> {data[1].latitude.toFixed(4) + " " + data[1].longitude.toFixed(4)}
-                  </Typography>
-                  <Typography variant='caption' component='div'>
-                    <strong>{t("tableLog.time")}:</strong> {data[1].updatedAt.slice(0, 19).replace("T", " ")}
-                  </Typography>
-                </Stack>
+                <AlertContent data={data} />
               </Alert>
             ),
           });
@@ -236,7 +137,6 @@ const Map1 = () => {
           setBins(binsUpdate);
         }
       }
-
     }
   }, [dataAlert]);
 
@@ -273,25 +173,22 @@ const Map1 = () => {
   const iconBinRed = new L.Icon({ iconUrl: iconBinRedUrl, iconSize: [16, 24] })
   const iconBinYellow = new L.Icon({ iconUrl: iconBinYellowUrl, iconSize: [16, 24] })
 
-  const [positionView, setPositionView] = useState([21.023396, 105.850094]);
-  const positionEvent = useSelector(positionSelector);
-  console.log("positionEvent", positionEvent);
-
-  useEffect(() => {
-    if (positionEvent) {
-      setPositionView([positionEvent.latitude, positionEvent.longitude]);
-
-    }
-  }, [positionEvent]);
   return (
     <Fragment>
       <Box sx={{ position: 'relative', with: '100%' }}>
         <Box sx={{ height: "calc(100vh - 64px - 5px)" }}>
-          <MapContainer center={[21.023396, 105.850094]} zoom={17} style={{ height: "inherit" }} scrollWheelZoom={false}>
-            <TileLayer
-              attribution='Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
-              url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
-            />
+          <MapContainer center={[21.023396, 105.850094]} zoom={17} style={{ height: "inherit" }} scrollWheelZoom={true}
+
+          >
+            <LayersControl position="topright">
+              <LayersControl.BaseLayer checked name="Map Layer Default">
+                <TileLayer
+                  attribution='Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
+                  url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
+                />
+              </LayersControl.BaseLayer>
+            </LayersControl>
+
             {/* <Polyline pathOptions={{ color: 'black' }} positions={dataTemporary} /> */}
             {/* {data[0] === "alert" &&
             } */}
@@ -303,84 +200,20 @@ const Map1 = () => {
               //   click: (e) => { handleClickOpen(e) },
               // }}
               >
-                <Popup>
-                  <Stack spacing={0} direction="row" alignitems="flex-start">
-                    {/* format %.6f */}
-                    <p><strong>{t("vehicles.form.position")}:</strong> {vehicle.latitude.toFixed(6)}, {vehicle.longitude.toFixed(6)}</p>
-                    <p><strong>{t("vehicles.form.angle")}:</strong> {vehicle.angle}</p>
-                    <p><strong>{t("vehicles.form.speed")}:</strong> {vehicle.speed}</p>
-                    <p><strong>{t("vehicles.form.plate")}:</strong> {vehicle.plate}</p>
-                    <p><strong>{t("vehicles.form.status")}:</strong> {vehicle.status}</p>
-
-                    <Typography variant="body2" color="#2b82d4" component="p"
-                      sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'flex-end',
-                        cursor: 'pointer',
-                        fontSize: '13px',
-                      }}
-                      onClick={(e, item) => handleClickOpen(e, { ...vehicle, type: 'vehicle' })}>
-                      {t("vehicles.detailed")}
-                    </Typography>
-                  </Stack>
-                </Popup>
+                <PopupVehicleMarker vehicle={vehicle} handleClickOpen={handleClickOpen} />
               </RotatedMarker>
             ))}
 
             {!!bins && bins.map((bin) => (
               <RotatedMarker key={bin.id} position={[bin.latitude, bin.longitude]} icon={bin.status === "full" ? iconBinRed : bin.status === "empty" ? iconBinGreen : iconBinYellow}>
-                <Popup>
-                  <Stack spacing={0} direction="row" alignitems="flex-start">
-                    <p><strong>{t("bins.form.position")}:</strong> {bin.latitude.toFixed(6)}, {bin.longitude.toFixed(6)}</p>
-                    <p><strong>{t("bins.table.weight")}:</strong> {bin.weight}</p>
-                    <p><strong>{t("bins.table.maxWeight")}:</strong> {bin.maxWeight}</p>
-                    <p><strong>{t("bins.table.status")}:</strong> {bin.status}</p>
-                    <Typography variant="body2" color="#2b82d4" component="p"
-                      sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'flex-end',
-                        cursor: 'pointer',
-                        fontSize: '13px',
-                      }}
-                      onClick={(e, item) => handleClickOpen(e, { ...bin, type: 'bin' })}>
-                      {t("vehicles.detailed")}
-                    </Typography>
-
-                  </Stack>
-                </Popup>
+                <PopupBinMarker bin={bin} handleClickOpen={handleClickOpen} />
               </RotatedMarker>
             ))}
 
-
-            {/* <LayersControl position="topright">
-              <LayersControl.Overlay name="Marker with popup">
-
-              </LayersControl.Overlay>
-              <LayersControl.Overlay checked name="Layer group with circles">
-                <LayerGroup>
-
-
-                </LayerGroup>
-              </LayersControl.Overlay>
-              <LayersControl.Overlay name="Feature group">
-
-              </LayersControl.Overlay>
-            </LayersControl> */}
           </MapContainer>
         </Box>
-        <Box sx={{
-          width: "100%",
-          height: open ? "274px" : 0,
-          backgroundColor: open ? "white" : "#f5f5f5",
-          position: 'absolute',
-          bottom: 0,
-          zIndex: 1001,
-          transition: "height 0.3s ease-in-out",
-        }}>
-          <TabPanelItem open={open} handleClose={handleClose} item={item} ></TabPanelItem>
-        </Box>
+
+        <TabPanelItem open={open} handleClose={handleClose} item={item} ></TabPanelItem>
       </Box>
     </Fragment>
   )

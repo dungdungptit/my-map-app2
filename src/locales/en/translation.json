@@ -20,6 +20,7 @@
     "map" : {
         "event": "Event",
         "events": "Events",
+        "noEvent": "No event",
         "sendRequest": "Send Request"
     },
     "dashboard": {
