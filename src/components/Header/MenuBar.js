@@ -5,7 +5,7 @@ import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import { deepOrange, deepPurple } from '@mui/material/colors';
@@ -17,11 +17,19 @@ import { authSelector, logout } from '../../store/reducers/authSlice';
 import { useTranslation } from 'react-i18next';
 import LanguagePopover from './LanguagePopover';
 
+import { useEffect } from 'react';
+import NotificationPopover from './NotificationPopover';
+
+
+
+
 export default function Appbar() {
     const { t } = useTranslation();
     const user = JSON.parse(localStorage.getItem('user'));
     const [anchorEl, setAnchorEl] = React.useState(null);
+    
     const open = Boolean(anchorEl);
+    
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -29,6 +37,7 @@ export default function Appbar() {
         setAnchorEl(null);
     };
 
+    
 
     const dispatch = useDispatch();
     const handleLogout = () => {
@@ -39,6 +48,7 @@ export default function Appbar() {
     }
 
     const navigate = useNavigate();
+    
 
     return (
         <Box>
@@ -50,15 +60,8 @@ export default function Appbar() {
                 </Badge>
             </IconButton>
 
-            <IconButton
-                size="large"
-                aria-label="show 17 new notifications"
-                color="inherit"
-            >
-                <Badge badgeContent={17} color="error">
-                    <NotificationsIcon />
-                </Badge>
-            </IconButton>
+            <NotificationPopover />
+
             <Button startIcon={<Avatar sx={{ bgcolor: deepOrange[500], width: 24, height: 24 }}>
                 {user?.lastName?.charAt(0)}
             </Avatar>}
@@ -83,6 +86,6 @@ export default function Appbar() {
                 <MenuItem onClick={handleClose}>{t("menubar.profile")}</MenuItem>
                 <MenuItem onClick={() => handleLogout()}>{t("menubar.logout")}</MenuItem>
             </Menu>
-        </Box>
+        </Box >
     );
 }

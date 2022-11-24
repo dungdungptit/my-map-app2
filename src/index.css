@@ -38,3 +38,22 @@ code {
 .css-uwcd5u.SnackbarContainer-top{
   top: 72px !important;
 }
+
+::-webkit-scrollbar-track
+{
+	background: transparent;
+  padding-right: 2px;
+}
+
+::-webkit-scrollbar
+{
+  width: 12px;
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius: 6px;
+	background-color: #c1c1c1;
+  border: 3px solid #ffffff;
+}

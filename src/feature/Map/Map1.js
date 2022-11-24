@@ -1,5 +1,5 @@
 import React, { forwardRef, Fragment, useEffect, useRef, useState } from 'react'
-import { MapContainer, TileLayer, Marker, Polyline, Popup, LayersControl, LayerGroup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Polyline, Popup, LayersControl, LayerGroup, useMapEvent, useMap } from "react-leaflet";
 import L from 'leaflet';
 import "leaflet/dist/leaflet.css";
 import Routing from './Routing';
@@ -18,7 +18,8 @@ import { BASE_URL_SOCKET } from '../../ultils/socketApi';
 import { useTranslation } from 'react-i18next';
 
 import { green_bin, red_bin, yellow_bin, green_vehicle } from './constant';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { addNoti, countSelector, increment, notiSelector, positionSelector } from '../../store/reducers/notiSlice';
 
 const RotatedMarker = forwardRef(({ children, ...props }, forwardRef) => {
   const markerRef = useRef();
@@ -111,6 +112,20 @@ checkConnection().then(() => {
 
 });
 
+function Test({ location }) {
+  const map = useMap();
+  if (location) map.flyTo(location, 12);
+
+  return location ? (
+    <Marker
+      draggable
+      position={location}
+      //ref={markerRef}
+    >
+      <Popup>You are here:</Popup>
+    </Marker>
+  ) : null;
+}
 
 const Map1 = () => {
   const { t } = useTranslation();
@@ -135,6 +150,7 @@ const Map1 = () => {
     });
   }, []);
 
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // receive data from server
@@ -181,7 +197,8 @@ const Map1 = () => {
           });
 
         setDataAlert(data);
-
+        dispatch(addNoti(data));
+        dispatch(increment());
       }
       // const angle = _getAngle(position[0], position[1], data[1], data[2]);
       // if (Math.abs(angle) !== 90) {
@@ -220,7 +237,7 @@ const Map1 = () => {
   // console.log('bins', bins);
   useEffect(() => {
     if (dataAlert[0] === "alert") {
-      console.log("alert", dataAlert);
+      // console.log("alert", dataAlert);
       if (!!bins && bins.length > 0) {
         let bin = bins.find(item => item.id.toString() === dataAlert[1].id.toString());
         if (bin) {
@@ -228,11 +245,12 @@ const Map1 = () => {
             ...bin,
             status: dataAlert[1].status
           }
-          console.log("bin", binData);
+          // console.log("bin", binData);
           const binsUpdate = [...bins.filter(item => item.id.toString() !== dataAlert[1].id.toString()), binData];
           setBins(binsUpdate);
         }
       }
+
     }
   }, [dataAlert]);
 
@@ -269,11 +287,23 @@ const Map1 = () => {
   const iconBinRed = new L.Icon({ iconUrl: iconBinRedUrl, iconSize: [16, 24] })
   const iconBinYellow = new L.Icon({ iconUrl: iconBinYellowUrl, iconSize: [16, 24] })
 
+  const [positionView, setPositionView] = useState([21.023396, 105.850094]);
+  const positionEvent = useSelector(positionSelector);
+  console.log("positionEvent", positionEvent);
+
+  useEffect(() => {
+    if (positionEvent) {
+      setPositionView([positionEvent.latitude, positionEvent.longitude]);
+
+    }
+  }, [positionEvent]);
+  // [21.023396, 105.850094]} 
   return (
     <Fragment>
       <Box sx={{ position: 'relative', with: '100%' }}>
         <Box sx={{ height: "calc(100vh - 64px - 5px)" }}>
           <MapContainer center={[21.023396, 105.850094]} zoom={17} style={{ height: "inherit" }} scrollWheelZoom={false}>
+          <Test location={positionView.length > 0 ? positionView : [21.023396, 105.850094]} />
             <TileLayer
               attribution='Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
               url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"

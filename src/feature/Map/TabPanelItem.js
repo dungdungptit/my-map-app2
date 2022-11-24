@@ -58,7 +58,7 @@ function a11yProps(index) {
 
 export default function TabPanelItem({ open, handleClose, item }) {
     const { t } = useTranslation();
-    console.log(item);
+    // console.log(item);
 
     const [value, setValue] = React.useState(0);
 
