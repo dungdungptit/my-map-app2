@@ -112,20 +112,6 @@ checkConnection().then(() => {
 
 });
 
-function Test({ location }) {
-  const map = useMap();
-  if (location) map.flyTo(location, 12);
-
-  return location ? (
-    <Marker
-      draggable
-      position={location}
-      //ref={markerRef}
-    >
-      <Popup>You are here:</Popup>
-    </Marker>
-  ) : null;
-}
 
 const Map1 = () => {
   const { t } = useTranslation();
@@ -297,13 +283,11 @@ const Map1 = () => {
 
     }
   }, [positionEvent]);
-  // [21.023396, 105.850094]} 
   return (
     <Fragment>
       <Box sx={{ position: 'relative', with: '100%' }}>
         <Box sx={{ height: "calc(100vh - 64px - 5px)" }}>
           <MapContainer center={[21.023396, 105.850094]} zoom={17} style={{ height: "inherit" }} scrollWheelZoom={false}>
-          <Test location={positionView.length > 0 ? positionView : [21.023396, 105.850094]} />
             <TileLayer
               attribution='Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
               url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
