@@ -44,12 +44,12 @@ const Bins = () => {
     const columns = [
         { field: 'id', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: `${t("bins.table.id")}`, minWidth: 70, sortable: false, },
         { field: 'areaId', headerClassName: 'super-app-theme--header', headerName: `${t("bins.table.areaId")}`, minWidth: 100 },
-        {
-            field: 'weight', headerClassName: 'super-app-theme--header', headerName: `${t("bins.table.weight")}`, minWidth: 100,
-            renderCell: (params) => (
-                `${params.value} kg`
-            ),
-        },
+        // {
+        //     field: 'weight', headerClassName: 'super-app-theme--header', headerName: `${t("bins.table.weight")}`, minWidth: 100,
+        //     renderCell: (params) => (
+        //         `${params.value} kg`
+        //     ),
+        // },
         { field: 'address', headerClassName: 'super-app-theme--header', headerName: `${t("bins.table.address")}`, flex: 1, minWidth: 200, sortable: false },
         { field: 'latitude', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: `${t("bins.table.latitude")}`, minWidth: 100, flex: 1, sortable: true },
         { field: 'longitude', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: `${t("bins.table.longitude")}`, minWidth: 100, flex: 1, sortable: false },

@@ -78,7 +78,7 @@ const DriverItem = () => {
                         <Paper elevation={0} sx={{ width: { xs: "100%", sm: "100%", md: "100%", lg: "100%", }, height: "auto", p: 2, mt: 2 }}>
                             <Stack direction="row" alignItems="center" justifyContent="space-around" sx={{ mb: 2, pt: 2, flexDirection: { xs: "column", sm: "row", md: "row", lg: "row", } }}>
                                 <Box sx={{ p: 2, width: '100%', maxWidth: 500 }}>
-                                    <img src={`${assetUrl}${driver.image}`} alt={driver.lastName} width="100%" />
+                                    <img src={`${assetUrl}/user/${driver.image}`} alt={driver.lastName} width="100%" />
                                 </Box>
                                 <Box sx={{ py: 2, minWidth: 300, width: "100%", maxWidth: 500 }}>
                                     <Box sx={{ textAlign: 'start', mb: 1, }}>

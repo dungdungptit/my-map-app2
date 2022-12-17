@@ -32,18 +32,18 @@ const VehicleItem = () => {
 
     const [vehicle, setVehicle] = useState(
         {
-            latitude: 0,
-            longitude: 0,
             engineHours: 0,
             engineId: 0,
             engineType: 0,
             model: "",
-            altitude: 0,
-            angle: 0,
-            status: '',
+            height: 0,
+            length: 0,
+            width: 0,
             odometer: 0,
             plate: "",
+            tonnage: 0,
             image: "",
+            status: '',
         }
     );
 
@@ -88,7 +88,7 @@ const VehicleItem = () => {
                         <Paper elevation={0} sx={{ width: { xs: "100%", sm: "100%", md: "100%", lg: "100%", }, height: "auto", p: 2, mt: 2 }}>
                             <Stack direction="row" alignItems="center" justifyContent="space-around" sx={{ mb: 2, pt: 2, flexDirection: { xs: "column", sm: "row", md: "row", lg: "row", } }}>
                                 <Box sx={{ p: 2, width: '100%', maxWidth: 500 }}>
-                                    <img src={`${assetUrl}${vehicle.image}`} alt={vehicle.name} width="100%" />
+                                    <img src={`${assetUrl}/vehicle/${vehicle.image}`} alt={vehicle.name} width="100%" />
                                 </Box>
                                 <Box sx={{ py: 2, minWidth: 300, width: "100%", maxWidth: 500 }}>
                                     <Box sx={{ textAlign: 'start', mb: 1, }}>
@@ -149,13 +149,13 @@ const VehicleItem = () => {
                                                 <ListItemIcon>
                                                     <DataThresholdingIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary={t('vehicles.form.engineId')} secondary={vehicle.plate} />
+                                                <ListItemText primary={t('vehicles.form.engineId')} secondary={vehicle.engineId} />
                                             </ListItem>
                                             <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
                                                 <ListItemIcon>
                                                     <HistoryIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary={t('vehicles.form.engineType')} secondary={vehicle.engineId + ""} />
+                                                <ListItemText primary={t('vehicles.form.plate')} secondary={vehicle.plate + ""} />
                                             </ListItem>
                                             <ListItem sx={{  height: 40 }}>
                                                 <ListItemIcon>
@@ -175,23 +175,29 @@ const VehicleItem = () => {
                                                 </ListItemIcon>
                                                 <ListItemText primary={t('vehicles.form.model')} secondary={vehicle.model} />
                                             </ListItem>
-                                            <ListItem sx={{ backgroundColor: '#f5f5f5',height: 40 }}>
+                                            {/* <ListItem sx={{ backgroundColor: '#f5f5f5',height: 40 }}>
                                                 <ListItemIcon>
                                                     <RoomIcon />
                                                 </ListItemIcon>
                                                 <ListItemText primary={t('vehicles.form.position')} secondary={vehicle.latitude.toFixed(6) + ', ' + vehicle.longitude.toFixed(6)} />
-                                            </ListItem>
+                                            </ListItem> */}
                                             <ListItem sx={{  height: 40 }}>
                                                 <ListItemIcon>
                                                     <SignalCellular0BarIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary={t('vehicles.form.angle')} secondary={vehicle.angle + ""} />
+                                                <ListItemText primary={t('vehicles.form.height')} secondary={vehicle.height + ""} />
                                             </ListItem>
                                             <ListItem sx={{backgroundColor: '#f5f5f5', height: 40 }}>
                                                 <ListItemIcon>
                                                     <SpeedIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary={t('vehicles.form.speed')} secondary={vehicle.speed + "km/h"} />
+                                                <ListItemText primary={t('vehicles.form.length')} secondary={vehicle.length} />
+                                            </ListItem>
+                                            <ListItem sx={{backgroundColor: '#f5f5f5', height: 40 }}>
+                                                <ListItemIcon>
+                                                    <SpeedIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t('vehicles.form.width')} secondary={vehicle.width} />
                                             </ListItem>
                                             <ListItem sx={{ height: 40 }}>
                                                 <ListItemIcon>
@@ -203,7 +209,7 @@ const VehicleItem = () => {
                                                 <ListItemIcon>
                                                     <HeightIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary={t('vehicles.form.altitude')} secondary={vehicle.altitude + ""} />
+                                                <ListItemText primary={t('vehicles.form.tonnage')} secondary={vehicle.tonnage + ""} />
                                             </ListItem>
 
                                             <ListItem sx={{ height: 40 }}>

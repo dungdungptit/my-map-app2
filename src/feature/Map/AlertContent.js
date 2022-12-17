@@ -13,7 +13,7 @@ const AlertContent = ({ data }) => {
                 <strong>{t("vehicles.form.position")}:</strong> {data[1].latitude.toFixed(4) + " " + data[1].longitude.toFixed(4)}
             </Typography>
             <Typography variant='caption' component='div'>
-                <strong>{t("tableLog.time")}:</strong> {data[1].updatedAt.slice(0, 19).replace("T", " ")}
+                <strong>{t("tableLog.time")}:</strong> {String(data[1].updatedAt).slice(0, 19).replace("T", " ")}
             </Typography>
         </Stack>
     )

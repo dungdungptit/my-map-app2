@@ -32,9 +32,14 @@ const BinItem = () => {
             latitude: 0,
             longitude: 0,
             address: "",
-            heigth: 0,
-            weight: 0,
+            height: 0,
+            length: 0,
+            width: 0,
             maxWeight: 0,
+            color: '',
+            material: '',
+            brand: '',
+            description: '',
             status: '',
             image: "",
         }
@@ -81,7 +86,7 @@ const BinItem = () => {
                         <Paper elevation={0} sx={{ width: { xs: "100%", sm: "100%", md: "100%", lg: "100%", }, height: "auto", p: 2, mt: 2 }}>
                             <Stack direction="row" alignItems="center" justifyContent="space-around" sx={{ mb: 2, pt: 2, flexDirection: { xs: "column", sm: "row", md: "row", lg: "row", } }}>
                                 <Box sx={{ p: 2, width: '100%', maxWidth: 500 }}>
-                                    <img src={`${assetUrl}${bin.image}`} alt={bin.name} width="100%" />
+                                    <img src={`${assetUrl}/bin/${bin.image}`} alt={bin.name} width="100%" />
                                 </Box>
                                 <Box sx={{ py: 2, minWidth: 300, width: "100%", maxWidth: 500 }}>
                                     <Box sx={{ textAlign: 'start', mb: 1, }}>
@@ -160,19 +165,43 @@ const BinItem = () => {
                                                 <ListItemIcon>
                                                     <HeightIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary={t("bins.table.height")} secondary={bin.heigth + "m"} />
+                                                <ListItemText primary={t("bins.table.height")} secondary={bin.height + "m"} />
                                             </ListItem>
-                                            <ListItem sx={{  height: 40 }}>
+                                            <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
                                                 <ListItemIcon>
-                                                    <ScaleIcon />
+                                                    <HeightIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary={t("bins.table.weight")} secondary={bin.weight + ''} />
+                                                <ListItemText primary={t("bins.table.length")} secondary={bin.length + "m"} />
+                                            </ListItem>
+                                            <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
+                                                <ListItemIcon>
+                                                    <HeightIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t("bins.table.width")} secondary={bin.width + "m"} />
                                             </ListItem>
                                             <ListItem sx={{ backgroundColor: '#f5f5f5',height: 40 }}>
                                                 <ListItemIcon>
                                                     <ScaleIcon />
                                                 </ListItemIcon>
                                                 <ListItemText primary={t("bins.table.maxWeight")} secondary={bin.maxWeight + ''} />
+                                            </ListItem>
+                                            <ListItem sx={{  height: 40 }}>
+                                                <ListItemIcon>
+                                                    <ScaleIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t("bins.table.color")} secondary={bin.color + ''} />
+                                            </ListItem>
+                                            <ListItem sx={{  height: 40 }}>
+                                                <ListItemIcon>
+                                                    <ScaleIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t("bins.table.material")} secondary={bin.material + ''} />
+                                            </ListItem>
+                                            <ListItem sx={{  height: 40 }}>
+                                                <ListItemIcon>
+                                                    <ScaleIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t("bins.table.brand")} secondary={bin.brand + ''} />
                                             </ListItem>
                                             <ListItem sx={{  height: 40 }}>
                                                 <ListItemIcon>

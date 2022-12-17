@@ -49,9 +49,9 @@ const Vehicles = () => {
         { field: 'id', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.id")}`, minWidth: 70, sortable: false, },
         { field: 'plate', headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.plate")}`, minWidth: 150, flex: 1, sortable: false, },
         { field: 'model', headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.model")}`, minWidth: 200 },
-        { field: 'angle', headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.angle")}`, minWidth: 100, sortable: false },
-        { field: 'latitude', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.latitude")}`, minWidth: 150, flex: 1, sortable: false },
-        { field: 'longitude', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.longitude")}`, minWidth: 150, flex: 1, sortable: false },
+        { field: 'engineType', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.engineType")}`, minWidth: 150, flex: 1, sortable: false },
+        { field: 'odometer', headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.odometer")}`, minWidth: 100, sortable: false },
+        { field: 'tonnage', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.tonnage")}`, minWidth: 150, flex: 1, sortable: false },
         { field: 'status', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.status")}`, minWidth: 100, sortable: true },
         {
             field: 'action', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.action")}`, flex: 1, minWidth: 150, sortable: false,

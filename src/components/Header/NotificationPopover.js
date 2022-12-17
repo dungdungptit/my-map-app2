@@ -14,8 +14,8 @@ const NotificationPopover = () => {
     const [anchorElNoti, setAnchorElNoti] = useState(null);
     const openNoti = Boolean(anchorElNoti);
     
-    if(JSON.parse(localStorage.getItem('noti')).length > 30){
-        localStorage.setItem('noti', JSON.stringify(JSON.parse(localStorage.getItem('noti')).slice(0, 30)))
+    if(JSON.parse(localStorage?.getItem('noti'))?.length > 30){
+        localStorage.setItem('noti', JSON.stringify(JSON.parse(localStorage?.getItem('noti')).slice(0, 30)))
     }
 
     const dispatch = useDispatch();
@@ -125,7 +125,7 @@ const NotificationPopover = () => {
                                     <strong>{t("vehicles.form.position")}:</strong> {data[1].latitude.toFixed(4) + " " + data[1].longitude.toFixed(4)}
                                 </Typography>
                                 <Typography variant='caption' component='div' sx={{ width: "100%" }}>
-                                    <strong>{t("tableLog.time")}:</strong> {data[1].updatedAt.slice(0, 19).replace("T", " ")}
+                                    <strong>{t("tableLog.time")}:</strong> {String(data[1].updatedAt).slice(0, 19).replace("T", " ")}
                                 </Typography>
                             </Stack>
 

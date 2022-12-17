@@ -190,7 +190,7 @@ export default function TabPanelItemBin({ open, handleClose, item }) {
                                 <Typography variant="p" component="h6" sx={{ mb: 1, fonWeight: 600 }}>
                                     {t('bins.form.image')}
                                 </Typography>
-                                <img src={`${assetUrl}${item.image}`} alt={item.name} width="100%" height="100%" />
+                                <img src={`${assetUrl}/bin/${item.image}`} alt={item.name} width="100%" height="100%" />
                             </Box>
                         </Box>
                     </TabPanel>

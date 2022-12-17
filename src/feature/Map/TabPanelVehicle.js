@@ -213,7 +213,7 @@ export default function TabPanelVehicle({ open, handleClose, item }) {
                                 <Typography variant="p" component="h6" sx={{ mb: 1, fonWeight: 600 }}>
                                     {t('vehicles.form.image')}
                                 </Typography>
-                                <img src={`${assetUrl}${item.image}`} alt={item.name} width="100%" height="100%" />
+                                <img src={`${assetUrl}/vehicle/${item.image}`} alt={item.name} width="100%" height="100%" />
                             </Box>
                         </Box>
                     </TabPanel>

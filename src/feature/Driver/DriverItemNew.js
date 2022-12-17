@@ -160,11 +160,11 @@ const DriverItemNew = ({ state }) => {
                       {t("drivers.form.upload")}
                     </Button>
                   </label>
-                  <input accept="image/*" id="contained-button-file" type="file" onChange={handleInputChangeImage} name="image" style={{ display: "none" }} />
+                  <input accept="image/*" id="contained-button-file" type="file" onChange={handleInputChangeImage} name="user" style={{ display: "none" }} />
 
                   <Box sx={{ width: '100%', mt: 2, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {state === "new" && driverItem.image && <img src={driverItem.image} alt="driver" width="220" height="220" />}
-                    {state === "edit" && <img src={click ? `${driverItem.image}` : `${assetUrl}${driverItem.image}`} alt="driver" width={220} height={220} />}
+                    {state === "edit" && <img src={click ? `${driverItem.image}` : `${assetUrl}/user/${driverItem.image}`} alt="driver" width={220} height={220} />}
                   </Box>
                 </Box>
               </Paper>
