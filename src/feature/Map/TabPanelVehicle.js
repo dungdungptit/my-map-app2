@@ -66,7 +66,7 @@ export default function TabPanelVehicle({ open, handleClose, item }) {
         setValue(newValue);
     };
 
-    if (!!item && item !== null) {
+    if (!!item && open) {
         return (
             <Box sx={{
                 width: "100%",
