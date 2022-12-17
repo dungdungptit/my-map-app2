@@ -54,9 +54,6 @@ const vehicleSlice = createSlice({ // createReducer + createActions
         allVehicles: [],
     },
     reducers: {
-        // addTodo: (state, action) => {
-        //     state.allTodos.push(action.payload)
-        // },
         updateVehicles: (state, action) => {
             state.allVehicles = action.payload
         }

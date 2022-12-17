@@ -13,17 +13,11 @@ const NotificationPopover = () => {
     const { t } = useTranslation();
     const [anchorElNoti, setAnchorElNoti] = useState(null);
     const openNoti = Boolean(anchorElNoti);
-    const handleClickNotification = (e) => {
-        setAnchorElNoti(e.currentTarget);
-    };
+    
+    if(JSON.parse(localStorage.getItem('noti')).length > 30){
+        localStorage.setItem('noti', JSON.stringify(JSON.parse(localStorage.getItem('noti')).slice(0, 30)))
+    }
 
-    const handleCloseNotification = (data) => {
-        console.log(data);
-        if(!!data){
-            dispatch(setPosition([data[1].latitude, data[1].longitude]))
-        }
-        setAnchorElNoti(null);
-    };
     const dispatch = useDispatch();
     const noti = useSelector(notiSelector);
     const countNoti = useSelector(countSelector);
@@ -47,11 +41,26 @@ const NotificationPopover = () => {
         if (noti.length > 0) {
             localStorage.setItem('noti', JSON.stringify(noti));
         }
-
+        
         if (countNoti > 0) {
             localStorage.setItem('countNoti', JSON.stringify(countNoti));
         }
     }, [noti, countNoti]);
+    
+    const handleClickNotification = (e) => {
+        setAnchorElNoti(e.currentTarget);
+    };
+    
+    const handleCloseNotification = (data) => {
+        dispatch(setCount(0));
+        localStorage.setItem('countNoti', JSON.stringify(0));
+        console.log(data);
+        if(!!data){
+            dispatch(setPosition([data[1].latitude, data[1].longitude]))
+        }
+        setAnchorElNoti(null);
+    };
+
     return (
         <Fragment>
             <IconButton
@@ -95,7 +104,11 @@ const NotificationPopover = () => {
                 {!!noti && noti.length > 0 ? noti.map((data, index) => {
                     // if (index < 5) {
                     return (
-                        <MenuItem key={index} onClick={() => handleCloseNotification(data)}>
+                        <MenuItem key={index} onClick={() => handleCloseNotification(data)}
+                        sx={{
+                            bgcolor: index < countNoti ? "#f5f5f5" : "#fff",
+                        }}
+                        >
                             <Avatar
                                 alt="Remy Sharp"
                                 src={red_bin}

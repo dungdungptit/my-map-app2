@@ -9,7 +9,7 @@ import { _getAngle, green_bin, red_bin, yellow_bin, green_vehicle } from './cons
 import { getVehiclesData } from '../../api/vehicle/vehicles';
 import { getBinsData } from '../../api/bin/bins';
 import { Alert, Box, Typography } from '@mui/material';
-import TabPanelItem from './TabPanelItem';
+import TabPanelItem from './TabPanelItemBin';
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
 
@@ -20,6 +20,8 @@ import RotatedMarker from './RotatedMarker';
 import PopupVehicleMarker from './PopupVehicleMarker';
 import PopupBinMarker from './PopupBinMarker';
 import AlertContent from './AlertContent';
+import TabPanelVehicle from './TabPanelVehicle';
+import TabPanelItemBin from './TabPanelItemBin';
 
 
 // WebSocket init
@@ -144,20 +146,30 @@ const Map1 = () => {
   //   console.log('Disconnected from server')
   // }
 
-  const [open, setOpen] = useState(false);
+  const [openVehicle, setOpenVehicle] = useState(false);
+  const [openBin, setOpenBin] = useState(false);
   const [item, setItem] = useState({});
 
-  const handleClickOpen = (e, item) => {
-    setOpen(true);
+  const handleClickOpenVehicle = (e, item) => {
+    setOpenVehicle(true);
     setItem(item);
-    console.log(open);
-
+    if(openBin) setOpenBin(false);
   };
 
-  const handleClose = (e) => {
-    setOpen(false);
+  const handleCloseVehicle = (e) => {
+    setOpenVehicle(false);
     setItem({});
-    console.log(open);
+  };
+
+  const handleClickOpenBin = (e, item) => {
+    setOpenBin(true);
+    setItem(item);
+    if(openVehicle) setOpenVehicle(false);
+  };
+
+  const handleCloseBin = (e) => {
+    setOpenBin(false);
+    setItem({});
   };
 
   const handleClick = event => {
@@ -200,20 +212,21 @@ const Map1 = () => {
               //   click: (e) => { handleClickOpen(e) },
               // }}
               >
-                <PopupVehicleMarker vehicle={vehicle} handleClickOpen={handleClickOpen} />
+                <PopupVehicleMarker vehicle={vehicle} handleClickOpen={handleClickOpenVehicle} />
               </RotatedMarker>
             ))}
 
             {!!bins && bins.map((bin) => (
               <RotatedMarker key={bin.id} position={[bin.latitude, bin.longitude]} icon={bin.status === "full" ? iconBinRed : bin.status === "empty" ? iconBinGreen : iconBinYellow}>
-                <PopupBinMarker bin={bin} handleClickOpen={handleClickOpen} />
+                <PopupBinMarker bin={bin} handleClickOpen={handleClickOpenBin} />
               </RotatedMarker>
             ))}
 
           </MapContainer>
         </Box>
 
-        <TabPanelItem open={open} handleClose={handleClose} item={item} ></TabPanelItem>
+        <TabPanelItemBin open={openBin} handleClose={handleCloseBin} item={item} ></TabPanelItemBin>
+        <TabPanelVehicle open={openVehicle} handleClose={handleCloseVehicle} item={item} ></TabPanelVehicle>
       </Box>
     </Fragment>
   )
