@@ -1,1 +1,1 @@
-export const BASE_URL_SOCKET = 'ws://192.168.88.124:3001?id=admin_0'
+export const BASE_URL_SOCKET = 'ws://192.168.1.6:5000?id=admin_0'

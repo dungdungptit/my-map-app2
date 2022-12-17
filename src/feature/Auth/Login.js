@@ -36,10 +36,17 @@ const Login = () => {
 
     const onSubmit = (e) => {
         e.preventDefault()
-        dispatch(loginAsync(user))
+        dispatch(loginAsync(user)).then(res => {
+            console.log(res);
+            if(res.type === 'auth/login/fulfilled'){
+                localStorage.setItem('user', JSON.stringify(res.payload))
+                localStorage.setItem('token', JSON.stringify(res.payload.accessToken))
+                window.location.reload();
+            }
+        })
 
         // localStorage.setItem('user', JSON.stringify(user))
-        navigate('/')
+        // navigate('/')
     }
 
     const onChange = (e) => {
@@ -57,7 +64,7 @@ const Login = () => {
                     display: "none",
                     border: "2px solid rgba(0,0,0,0.2)",
                     backgroundClip: "paddingBox"
-                  }
+                }
             }}
         >
             <MapContainer center={[21.023396, 105.850094]} zoom={13} style={{ height: "inherit" }}>

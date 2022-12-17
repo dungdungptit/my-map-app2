@@ -27,43 +27,69 @@ import ProtectedRoutes from './routes/ProtectedRoutes';
 import PublicRoutes from './routes/PublicRoutes';
 
 const App = () => {
-  const auth = JSON.parse(localStorage.getItem('user'));
+  const useAuth = () => {
+    const user = localStorage.getItem('user')
+    if (user) {
+      return JSON.parse(user);
+    } else {
+      return null
+    }
+  }
+
+  const isAdmin = () => {
+    const user = localStorage.getItem('user')
+    if (user) {
+      return !!user && JSON.parse(user).role.includes('admin');
+    } else {
+      return false
+    }
+  }
+
+  const isManager = () => {
+    const user = localStorage.getItem('user')
+    if (user) {
+      return !!user && JSON.parse(user).role.includes('manager');
+    } else {
+      return false
+    }
+  }
+
+  const auth = useAuth();
   console.log(auth);
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<ProtectedRoutes />}>
-          <Route path="" element={<Layout />} >
-            <Route index element={<Map1 />} />
-            <Route path="map" element={<Map1 />} />
+    <Routes>
+      <Route element={<ProtectedRoutes />}>
+        <Route path="" element={<Layout />} >
+          <Route index element={<Map1 />} />
+          <Route path="map" element={<Map1 />} />
 
-            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="dashboard" element={<Dashboard />} />}
+          {(isAdmin() || isManager()) && <Route path="dashboard" element={<Dashboard />} />}
 
-            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="vehicles" element={<Vehicles />} />}
-            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="vehicles/:vehicleId" element={<VehicleItem />} />}
-            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="vehicles/add" element={<VehicleItemNew state={"new"} />} />}
-            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="vehicles/edit/:vehicleId" element={<VehicleItemNew state={"edit"} />} />}
+          {(isAdmin() || isManager()) && <Route path="vehicles" element={<Vehicles />} />}
+          {(isAdmin() || isManager()) && <Route path="vehicles/:vehicleId" element={<VehicleItem />} />}
+          {(isAdmin() || isManager()) && <Route path="vehicles/add" element={<VehicleItemNew state={"new"} />} />}
+          {(isAdmin() || isManager()) && <Route path="vehicles/edit/:vehicleId" element={<VehicleItemNew state={"edit"} />} />}
 
-            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="drivers" element={<Drivers />} />}
-            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="drivers/:driverId" element={<DriverItem />} />}
-            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="drivers/add" element={<DriverItemNew state={"new"} />} />}
-            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="drivers/edit/:driverId" element={<DriverItemNew state={"edit"} />} />}
+          {(isAdmin() || isManager()) && <Route path="drivers" element={<Drivers />} />}
+          {(isAdmin() || isManager()) && <Route path="drivers/:driverId" element={<DriverItem />} />}
+          {(isAdmin() || isManager()) && <Route path="drivers/add" element={<DriverItemNew state={"new"} />} />}
+          {(isAdmin() || isManager()) && <Route path="drivers/edit/:driverId" element={<DriverItemNew state={"edit"} />} />}
 
-            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="bins" element={<Bins />} />}
-            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="bins/:binId" element={<BinItem />} />}
-            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="bins/add" element={<BinItemNew state={"new"} />} />}
-            {!!auth && (auth.role.includes('admin') || auth.role.includes('superadmin')) && <Route path="bins/edit/:binId" element={<BinItemNew state={"edit"} />} />}
+          {(isAdmin() || isManager()) && <Route path="bins" element={<Bins />} />}
+          {(isAdmin() || isManager()) && <Route path="bins/:binId" element={<BinItem />} />}
+          {(isAdmin() || isManager()) && <Route path="bins/add" element={<BinItemNew state={"new"} />} />}
+          {(isAdmin() || isManager()) && <Route path="bins/edit/:binId" element={<BinItemNew state={"edit"} />} />}
 
 
-            <Route path="*" element={<div>Not Found</div>} />
-          </Route>
+          <Route path="*" element={<div>Not Found</div>} />
         </Route>
-        <Route path="*" element={<PublicRoutes />}>
-          {/* <Route path='register' element={<Register />} /> */}
-          <Route path="login" element={<Login />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+      </Route>
+      <Route element={<PublicRoutes />}>
+        {/* <Route path='register' element={<Register />} /> */}
+        <Route path="/login" element={<Login />} />
+      </Route>
+    </Routes>
   );
 }
 
