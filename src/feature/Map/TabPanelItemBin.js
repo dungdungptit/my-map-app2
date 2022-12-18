@@ -119,23 +119,23 @@ export default function TabPanelItemBin({ open, handleClose, item }) {
                                     maxWidth: 1200,
                                     overflowX: 'hide',
                                     overflowY: 'auto',
-                                    "& .css-cveggr-MuiListItemIcon-root": {
+                                    "& .MuiListItemIcon-root": {
                                         minWidth: '32px',
                                     },
-                                    "& .css-1pklcki-MuiListItem-root:nth-of-type(2n+1)": {
+                                    "& .MuiListItem-root:nth-of-type(2n+1)": {
                                         backgroundColor: '#f5f5f5',
                                     },
-                                    "& .css-konndc-MuiListItemText-root": {
+                                    "& .MuiListItemText-root": {
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'space-between',
                                     },
-                                    "& .css-10hburv-MuiTypography-root": {
+                                    "& .MuiTypography-body1": {
                                         fontSize: '14px',
                                         fontWeight: 'bold',
                                         color: '#6f6f6f',
                                     },
-                                    "& .css-83ijpv-MuiTypography-root": {
+                                    "& .MuiTypography-body2": {
                                         fontSize: '12px',
                                         color: '#6f6f6f',
                                     }
