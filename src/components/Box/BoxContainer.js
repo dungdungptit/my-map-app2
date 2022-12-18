@@ -24,7 +24,7 @@ export const BoxTitle = (props) => (
             '& .super-app-theme--header': {
                 // backgroundColor: '#ececec',
             },
-            '& .css-1jbbcbn-MuiDataGrid-columnHeaderTitle': {
+            '& .MuiDataGrid-columnHeaderTitle': {
                 fontWeight: '600',
             }
         }}

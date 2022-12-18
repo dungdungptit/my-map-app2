@@ -29,7 +29,7 @@ const Dashboard = () => {
                     width: '100%',
                     '& .super-app-theme--header': {
                     },
-                    '& .css-1jbbcbn-MuiDataGrid-columnHeaderTitle': {
+                    '& .MuiDataGrid-columnHeaderTitle': {
                         fontWeight: '600',
                     }
                 }}
