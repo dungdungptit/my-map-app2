@@ -13,7 +13,7 @@ const isDriver = () => {
 const auth = JSON.parse(localStorage.getItem('user'));
 
 if(isDriver()) {
-  websocket = new WebSocket(`ws://map-ws-exp.cleverapps.io?id=vehicle_${auth?.vehicle?.id}`)
+  websocket = new WebSocket(`wss://map-ws-exp.cleverapps.io?id=vehicle_${auth?.vehicle?.id}`)
 }
 
 let connection_resolvers = [];
