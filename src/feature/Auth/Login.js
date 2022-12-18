@@ -38,7 +38,7 @@ const Login = () => {
         e.preventDefault()
         dispatch(loginAsync(user)).then(res => {
             console.log(res);
-            if(res.type === 'auth/login/fulfilled'){
+            if (res.type === 'auth/login/fulfilled') {
                 localStorage.setItem('user', JSON.stringify(res.payload))
                 localStorage.setItem('token', JSON.stringify(res.payload.accessToken))
                 window.location.reload();
@@ -139,22 +139,20 @@ const Login = () => {
                                         onMouseDown={handleMouseDownPassword}
                                         edge="end"
                                     >
-                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        {showPassword ? <Visibility /> : <VisibilityOff />}
                                     </IconButton>
                                 </InputAdornment>
                             }
                             label="Password"
                         />
                     </FormControl>
-                    <Typography variant='body2' component="a" sx={{ cursor: "pointer", "&:hover": { color: '#000' }, width: "100%", color: '#000', fontSize: "0.875rem", my: 2, display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
-                        {t('login.fogotPassword')}
-                    </Typography>
                     <Button variant="contained" sx={{
                         width: "100%", bgcolor: '#212b36', color: '#fff', textDecoration: 'none',
                         fontWeight: 700,
                         height: 48,
                         p: "8px 22px",
                         fonSize: 15,
+                        mt: 2,
                         "&:hover": {
                             bgcolor: "#212b36"
                         },
@@ -162,6 +160,9 @@ const Login = () => {
                     }} type='submit'>
                         {t('login.submit')}
                     </Button>
+                    <Typography variant='body2' component="a" sx={{ cursor: "pointer", "&:hover": { color: '#000' }, width: "100%", color: '#000', fontSize: "0.875rem", mt: 2, display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
+                        {t('login.fogotPassword')}
+                    </Typography>
                 </Box>
             </Stack>
         </Box>
