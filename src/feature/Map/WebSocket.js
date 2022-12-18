@@ -1,6 +1,20 @@
 import { BASE_URL_SOCKET } from "../../ultils/socketApi";
 
-const websocket = new WebSocket(BASE_URL_SOCKET)
+let websocket = new WebSocket(BASE_URL_SOCKET)
+const isDriver = () => {
+  const user = localStorage.getItem('user')
+  if (user) {
+    return !!user && JSON.parse(user).role.includes('driver');
+  } else {
+    return false
+  }
+}
+
+const auth = JSON.parse(localStorage.getItem('user'));
+
+if(isDriver()) {
+  websocket = new WebSocket(`ws://26.188.5.187:5000?id=vehicle_${auth?.vehicle?.id}`)
+}
 
 let connection_resolvers = [];
 let checkConnection = () => {

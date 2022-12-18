@@ -1,65 +1,52 @@
 import { Box, Breadcrumbs, Button, Link, List, ListItem, ListItemIcon, ListItemText, ListSubheader, Paper, Stack, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import React, { useEffect, Fragment } from 'react'
+import React, { useEffect, Fragment, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import vehicle_img from '../Map/green-vehicle.png';
 
 import ListIcon from '@mui/icons-material/List';
-import RoomIcon from '@mui/icons-material/Room';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import HeightIcon from '@mui/icons-material/Height';
-import HistoryIcon from '@mui/icons-material/History';
-import NetworkCheckIcon from '@mui/icons-material/NetworkCheck';
-import SignalCellular0BarIcon from '@mui/icons-material/SignalCellular0Bar';
-import SpeedIcon from '@mui/icons-material/Speed';
-import AutorenewIcon from '@mui/icons-material/Autorenew';
-import DataThresholdingIcon from '@mui/icons-material/DataThresholding';
-import WidthFullIcon from '@mui/icons-material/WidthFull';
-import StraightenIcon from '@mui/icons-material/Straighten';
-import { DataGrid } from '@mui/x-data-grid';
+import BadgeIcon from '@mui/icons-material/Badge';
+import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
+import CakeIcon from '@mui/icons-material/Cake';
+import FemaleIcon from '@mui/icons-material/Female';
+import MaleIcon from '@mui/icons-material/Male';
+import EmailIcon from '@mui/icons-material/Email';
+import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 import { assetUrl } from '../../ultils/axiosApi';
-import { useState } from 'react';
-import { getVehicleDataById, getVehicleStateLog } from '../../store/reducers/vehicleSlice';
-import VehicleStateLog from './VehicleStateLog';
+import { getManagerDataById } from '../../store/reducers/managerSlice';
 import { useTranslation } from 'react-i18next';
 
-const VehicleItem = () => {
+const ManagerItem = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
     const params = useParams();
 
-    const vehicleId = parseInt(params.vehicleId);
+    const managerId = parseInt(params.managerId);
 
-
-    const [vehicle, setVehicle] = useState(
+    const [manager, setManager] = useState(
         {
-            engineHours: 0,
-            engineId: 0,
-            engineType: 0,
-            model: "",
-            height: 0,
-            length: 0,
-            width: 0,
-            odometer: 0,
-            plate: "",
-            tonnage: 0,
+            id: 0,
+            firstName: "",
+            lastName: "",
+            dob: "",
+            gender: "",
+            email: "",
+            phone: "",
             image: "",
-            status: '',
         }
     );
 
-
     useEffect(() => {
-        getVehicleDataById(vehicleId).then((result) => {
+        getManagerDataById(managerId).then((result) => {
             console.log("Result:", result);
-            setVehicle(result);
+            setManager(result);
         });
     }, [])
 
+
     return (
         <Box>
-            {vehicle && (
+            {manager && (
                 <Fragment>
                     <Box sx={{
                         height: 'auto',
@@ -71,15 +58,15 @@ const VehicleItem = () => {
                     }}>
                         <Stack direction="row" alignItems="center" justifyContent="space-between">
                             <Typography variant="h5" component="h1" fontWeight='bold' gutterBottom>
-                                {t('vehicles.vehicleDetails')}
+                                {t("managers.managerDetails")}
                                 <Breadcrumbs maxItems={3} aria-label="breadcrumb" sx={{ mt: 1 }}>
                                     <Link underline="hover" color="inherit" href="">
-                                        {t('vehicles.home')}
+                                        {t("managers.home")}
                                     </Link>
-                                    <Link underline="hover" color="inherit" href="/vehicles">
-                                        {t('vehicles.pageName')}
+                                    <Link underline="hover" color="inherit" href="/managers">
+                                        {t("managers.pageName")}
                                     </Link>
-                                    <Typography color="text.primary">{vehicle.plate}</Typography>
+                                    <Typography color="text.primary">{manager.firstName + " " + manager.lastName}</Typography>
                                 </Breadcrumbs>
                             </Typography>
 
@@ -90,15 +77,15 @@ const VehicleItem = () => {
                         <Paper elevation={0} sx={{ width: { xs: "100%", sm: "100%", md: "100%", lg: "100%", }, height: "auto", p: 2, mt: 2 }}>
                             <Stack direction="row" alignItems="center" justifyContent="space-around" sx={{ mb: 2, pt: 2, flexDirection: { xs: "column", sm: "row", md: "row", lg: "row", } }}>
                                 <Box sx={{ p: 2, width: '100%', maxWidth: 500 }}>
-                                    <img src={`${assetUrl}/vehicle/${vehicle.image}`} alt={vehicle.name} width="100%" />
+                                    <img src={`${assetUrl}/user/${manager.image}`} alt={manager.lastName} width="100%" />
                                 </Box>
                                 <Box sx={{ py: 2, minWidth: 300, width: "100%", maxWidth: 500 }}>
                                     <Box sx={{ textAlign: 'start', mb: 1, }}>
                                         {/* status, speed, weight, latitude, longitude */}
                                         <List
-                                            aria-labelledby="vehicle-list-subheader"
+                                            aria-labelledby="manager-list-subheader"
                                             subheader={
-                                                <ListSubheader component="div" id="vehicle-list-subheader" sx={{
+                                                <ListSubheader component="div" id="manager-list-subheader" sx={{
                                                     fontSize: '1.2rem',
                                                     fontWeight: 'bold',
                                                     color: '#000',
@@ -107,16 +94,16 @@ const VehicleItem = () => {
                                                     justifyContent: 'space-between',
                                                     pr: 0,
                                                 }}>
-                                                    {t("vehicle")} {vehicle.plate}
+                                                    {t("manager")} {manager.plate}
                                                     <Button
                                                         variant='contained'
                                                         aria-label="edit"
                                                         color="warning"
                                                         size="small"
                                                         startIcon={<EditIcon />}
-                                                        onClick={() => navigate(`/vehicles/edit/${vehicle.id}`, { state: vehicle })}
+                                                        onClick={() => navigate(`/managers/edit/${manager.id}`, { state: manager })}
                                                     >
-                                                        {t('vehicles.edit')}
+                                                        {t("managers.edit")}
                                                     </Button>
                                                 </ListSubheader>
                                             }
@@ -145,87 +132,55 @@ const VehicleItem = () => {
                                                 <ListItemIcon>
                                                     <ListIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary={t('vehicles.table.id')} secondary={vehicle.id} />
+                                                <ListItemText primary={t("managers.table.id")} secondary={manager.id} />
                                             </ListItem>
                                             <ListItem sx={{ height: 40 }}>
                                                 <ListItemIcon>
-                                                    <DataThresholdingIcon />
+                                                    <BadgeIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary={t('vehicles.form.engineId')} secondary={vehicle.engineId} />
+                                                <ListItemText primary={t("managers.table.fullname")} secondary={manager.firstName + " " + manager.lastName} />
                                             </ListItem>
                                             <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
                                                 <ListItemIcon>
-                                                    <DataThresholdingIcon />
+                                                    <DriveFileRenameOutlineIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary={t('vehicles.form.plate')} secondary={vehicle.plate + ""} />
+                                                <ListItemText primary={t("managers.table.firstName")} secondary={manager.firstName} />
                                             </ListItem>
                                             <ListItem sx={{ height: 40 }}>
                                                 <ListItemIcon>
-                                                    <HistoryIcon />
+                                                    <DriveFileRenameOutlineIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary={t('vehicles.form.engineType')} secondary={vehicle.engineType + ""} />
+                                                <ListItemText primary={t("managers.table.lastName")} secondary={manager.lastName} />
                                             </ListItem>
                                             <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
                                                 <ListItemIcon>
-                                                    <HistoryIcon />
+                                                    <CakeIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary={t('vehicles.form.engineHours')} secondary={vehicle.engineHours + "h"} />
+                                                <ListItemText primary={t("managers.table.dob")} secondary={manager.dob} />
                                             </ListItem>
                                             <ListItem sx={{ height: 40 }}>
                                                 <ListItemIcon>
-                                                    <DirectionsCarIcon />
+                                                    {manager.gender === "male" ? <MaleIcon /> : <FemaleIcon />}
                                                 </ListItemIcon>
-                                                <ListItemText primary={t('vehicles.form.model')} secondary={vehicle.model} />
-                                            </ListItem>
-                                            {/* <ListItem sx={{ backgroundColor: '#f5f5f5',height: 40 }}>
-                                                <ListItemIcon>
-                                                    <RoomIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary={t('vehicles.form.position')} secondary={vehicle.latitude.toFixed(6) + ', ' + vehicle.longitude.toFixed(6)} />
-                                            </ListItem> */}
-                                            <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
-                                                <ListItemIcon>
-                                                    <HeightIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary={t('vehicles.form.height')} secondary={vehicle.height + ""} />
-                                            </ListItem>
-                                            <ListItem sx={{ height: 40 }}>
-                                                <ListItemIcon>
-                                                    <StraightenIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary={t('vehicles.form.length')} secondary={vehicle.length} />
+                                                <ListItemText primary={t("managers.table.gender")} secondary={manager.gender} />
                                             </ListItem>
                                             <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
                                                 <ListItemIcon>
-                                                    <WidthFullIcon />
+                                                    <EmailIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary={t('vehicles.form.width')} secondary={vehicle.width} />
+                                                <ListItemText primary={t("managers.table.email")} secondary={manager.email} />
                                             </ListItem>
                                             <ListItem sx={{ height: 40 }}>
                                                 <ListItemIcon>
-                                                    <NetworkCheckIcon />
+                                                    <ContactPhoneIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary={t('vehicles.form.odometer')} secondary={vehicle.odometer + ""} />
-                                            </ListItem>
-                                            <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
-                                                <ListItemIcon>
-                                                    <HeightIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary={t('vehicles.form.tonnage')} secondary={vehicle.tonnage + ""} />
-                                            </ListItem>
-
-                                            <ListItem sx={{ height: 40 }}>
-                                                <ListItemIcon>
-                                                    <AutorenewIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary={t('vehicles.form.status')} secondary={vehicle.status} />
+                                                <ListItemText primary={t("managers.table.phone")} secondary={manager.phone} />
                                             </ListItem>
                                         </List>
                                     </Box>
                                 </Box>
                             </Stack>
 
-                            <VehicleStateLog vehicleId={vehicleId} />
                         </Paper>
                     </Box>
                 </Fragment>
@@ -234,4 +189,4 @@ const VehicleItem = () => {
     )
 }
 
-export default VehicleItem
+export default ManagerItem

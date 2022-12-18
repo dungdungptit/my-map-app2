@@ -9,14 +9,15 @@ import Tab from '@mui/material/Tab';
 
 import ListIcon from '@mui/icons-material/List';
 import RoomIcon from '@mui/icons-material/Room';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import MapIcon from '@mui/icons-material/Map';
 import HeightIcon from '@mui/icons-material/Height';
-import HistoryIcon from '@mui/icons-material/History';
-import NetworkCheckIcon from '@mui/icons-material/NetworkCheck';
-import SignalCellular0BarIcon from '@mui/icons-material/SignalCellular0Bar';
-import SpeedIcon from '@mui/icons-material/Speed';
+import ScaleIcon from '@mui/icons-material/Scale';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
-import DataThresholdingIcon from '@mui/icons-material/DataThresholding';
+import WidthFullIcon from '@mui/icons-material/WidthFull';
+import StraightenIcon from '@mui/icons-material/Straighten';
+import AppsIcon from '@mui/icons-material/Apps';
+import ColorLensIcon from '@mui/icons-material/ColorLens';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { assetUrl } from '../../ultils/axiosApi';
@@ -104,6 +105,7 @@ export default function TabPanelItemBin({ open, handleClose, item }) {
                                 flexWrap: 'wrap',
                                 justifyContent: 'space-evenly',
                                 height: '100%',
+                                width: '100%',
                             }}
                         >
                             <List
@@ -114,7 +116,7 @@ export default function TabPanelItemBin({ open, handleClose, item }) {
                                     flexWrap: 'wrap',
                                     height: 230,
                                     pb: 0,
-                                    maxWidth: 896,
+                                    maxWidth: 1200,
                                     overflowX: 'hide',
                                     overflowY: 'auto',
                                     "& .css-cveggr-MuiListItemIcon-root": {
@@ -142,47 +144,77 @@ export default function TabPanelItemBin({ open, handleClose, item }) {
                             >
                                 {/* for in item */}
                                 <>
-                                    <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 440 }}>
+                                    <ListItem sx={{width: 360, backgroundColor: '#f5f5f5', height: 40 }}>
                                         <ListItemIcon>
                                             <ListIcon />
                                         </ListItemIcon>
                                         <ListItemText primary="ID" secondary={item.id} />
                                     </ListItem>
-                                    <ListItem sx={{ height: 40, width: 440 }}>
+                                    <ListItem sx={{width: 360, height: 40 }}>
                                         <ListItemIcon>
-                                            <DataThresholdingIcon />
+                                            <MapIcon />
                                         </ListItemIcon>
-                                        <ListItemText primary={t('bins.table.areaId')} secondary={item.areaId} />
+                                        <ListItemText primary={t("bins.table.areaId")} secondary={item.areaId} />
                                     </ListItem>
-                                    <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 440 }}>
-                                        <ListItemIcon>
-                                            <DirectionsCarIcon />
-                                        </ListItemIcon>
-                                        <ListItemText primary={t('bins.table.height')} secondary={item.heigth} />
-                                    </ListItem>
-                                    <ListItem sx={{ height: 40, width: 440 }}>
+                                    <ListItem sx={{width: 360, backgroundColor: '#f5f5f5', height: 40 }}>
                                         <ListItemIcon>
                                             <RoomIcon />
                                         </ListItemIcon>
-                                        <ListItemText primary={t('bins.form.position')} secondary={item.latitude.toFixed(6) + ', ' + item.longitude.toFixed(6)} />
+                                        <ListItemText primary={t("bins.form.position")} secondary={item.latitude.toFixed(6) + ', ' + item.longitude.toFixed(6)} />
                                     </ListItem>
-                                    <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 440 }}>
+                                    <ListItem sx={{width: 360, height: 40 }}>
                                         <ListItemIcon>
-                                            <SignalCellular0BarIcon />
+                                            <RoomIcon />
                                         </ListItemIcon>
-                                        <ListItemText primary={t('bins.table.weight')} secondary={item.weight + "kg"} />
+                                        <ListItemText primary={t("bins.table.address")} secondary={item.address} />
                                     </ListItem>
-                                    <ListItem sx={{ height: 40, width: 440 }}>
+                                    <ListItem sx={{width: 360, backgroundColor: '#f5f5f5', height: 40 }}>
                                         <ListItemIcon>
-                                            <SpeedIcon />
+                                            <HeightIcon />
                                         </ListItemIcon>
-                                        <ListItemText primary={t('bins.table.maxWeight')} secondary={item.maxWeight + "kg"} />
+                                        <ListItemText primary={t("bins.table.height")} secondary={item.height + "m"} />
                                     </ListItem>
-                                    <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 440 }}>
+                                    <ListItem sx={{width: 360, height: 40 }}>
+                                        <ListItemIcon>
+                                            <StraightenIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary={t("bins.table.length")} secondary={item.length + "m"} />
+                                    </ListItem>
+                                    <ListItem sx={{width: 360, backgroundColor: '#f5f5f5', height: 40 }}>
+                                        <ListItemIcon>
+                                            <WidthFullIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary={t("bins.table.width")} secondary={item.width + "m"} />
+                                    </ListItem>
+                                    <ListItem sx={{width: 360, height: 40 }}>
+                                        <ListItemIcon>
+                                            <ScaleIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary={t("bins.table.maxWeight")} secondary={item.maxWeight + ''} />
+                                    </ListItem>
+                                    <ListItem sx={{width: 360, backgroundColor: '#f5f5f5', height: 40 }}>
+                                        <ListItemIcon>
+                                            <ColorLensIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary={t("bins.table.color")} secondary={item.color + ''} />
+                                    </ListItem>
+                                    <ListItem sx={{width: 360, height: 40 }}>
+                                        <ListItemIcon>
+                                            <AppsIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary={t("bins.table.material")} secondary={item.material + ''} />
+                                    </ListItem>
+                                    <ListItem sx={{width: 360, backgroundColor: '#f5f5f5', height: 40 }}>
+                                        <ListItemIcon>
+                                            <LocalOfferIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary={t("bins.table.brand")} secondary={item.brand + ''} />
+                                    </ListItem>
+                                    <ListItem sx={{width: 360, height: 40 }}>
                                         <ListItemIcon>
                                             <AutorenewIcon />
                                         </ListItemIcon>
-                                        <ListItemText primary={t('bins.table.status')} secondary={item.status} />
+                                        <ListItemText primary={t("bins.table.status")} secondary={`${t("bins.table." + item.status)}`} />
                                     </ListItem>
                                 </>
                             </List>

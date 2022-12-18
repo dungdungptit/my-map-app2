@@ -17,6 +17,16 @@ import SignalCellular0BarIcon from '@mui/icons-material/SignalCellular0Bar';
 import SpeedIcon from '@mui/icons-material/Speed';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import DataThresholdingIcon from '@mui/icons-material/DataThresholding';
+import WidthFullIcon from '@mui/icons-material/WidthFull';
+import StraightenIcon from '@mui/icons-material/Straighten';
+import BadgeIcon from '@mui/icons-material/Badge';
+import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
+import CakeIcon from '@mui/icons-material/Cake';
+import FemaleIcon from '@mui/icons-material/Female';
+import MaleIcon from '@mui/icons-material/Male';
+import EmailIcon from '@mui/icons-material/Email';
+import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
+
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { assetUrl } from '../../ultils/axiosApi';
@@ -66,6 +76,8 @@ export default function TabPanelVehicle({ open, handleClose, item }) {
         setValue(newValue);
     };
 
+    const driver = item?.driver;
+
     if (!!item && open) {
         return (
             <Box sx={{
@@ -104,8 +116,9 @@ export default function TabPanelVehicle({ open, handleClose, item }) {
                                 display: 'flex',
                                 flexDirection: 'row',
                                 flexWrap: 'wrap',
-                                justifyContent: 'space-evenly',
+                                justifyContent: 'flex-start',
                                 height: '100%',
+                                width: '100%',
                             }}
                         >
                             <List
@@ -116,7 +129,7 @@ export default function TabPanelVehicle({ open, handleClose, item }) {
                                     flexWrap: 'wrap',
                                     height: 230,
                                     pb: 0,
-                                    maxWidth: 896,
+                                    maxWidth: 1200,
                                     overflowX: 'hide',
                                     overflowY: 'auto',
                                     "& .css-cveggr-MuiListItemIcon-root": {
@@ -145,67 +158,85 @@ export default function TabPanelVehicle({ open, handleClose, item }) {
                                 {/* for in item */}
                                 {item.type === 'vehicle' && (
                                     <>
-                                        <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 440 }}>
-                                            <ListItemIcon>
-                                                <ListIcon />
-                                            </ListItemIcon>
-                                            <ListItemText primary="ID" secondary={item.id} />
-                                        </ListItem>
-                                        <ListItem sx={{ height: 40, width: 440 }}>
-                                            <ListItemIcon>
-                                                <DataThresholdingIcon />
-                                            </ListItemIcon>
-                                            <ListItemText primary={t('vehicles.form.plate')} secondary={item.plate} />
-                                        </ListItem>
-                                        <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 440 }}>
-                                            <ListItemIcon>
-                                                <DirectionsCarIcon />
-                                            </ListItemIcon>
-                                            <ListItemText primary={t('vehicles.form.model')} secondary={item.model} />
-                                        </ListItem>
-                                        <ListItem sx={{ height: 40, width: 440 }}>
-                                            <ListItemIcon>
-                                                <RoomIcon />
-                                            </ListItemIcon>
-                                            <ListItemText primary={t('vehicles.form.position')} secondary={item.latitude.toFixed(6) + ', ' + item.longitude.toFixed(6)} />
-                                        </ListItem>
-                                        <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 440 }}>
-                                            <ListItemIcon>
-                                                <SignalCellular0BarIcon />
-                                            </ListItemIcon>
-                                            <ListItemText primary={t('vehicles.form.angle')} secondary={item.angle} />
-                                        </ListItem>
-                                        <ListItem sx={{ height: 40, width: 440 }}>
-                                            <ListItemIcon>
-                                                <SpeedIcon />
-                                            </ListItemIcon>
-                                            <ListItemText primary={t('vehicles.form.speed')} secondary={item.speed + "km/h"} />
-                                        </ListItem>
-                                        <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 440 }}>
-                                            <ListItemIcon>
-                                                <HistoryIcon />
-                                            </ListItemIcon>
-                                            <ListItemText primary={t('vehicles.form.engineHours')} secondary={item.engineHours} />
-                                        </ListItem>
-                                        <ListItem sx={{ height: 40, width: 440 }}>
-                                            <ListItemIcon>
-                                                <NetworkCheckIcon />
-                                            </ListItemIcon>
-                                            <ListItemText primary={t('vehicles.form.odometer')} secondary={item.odometer} />
-                                        </ListItem>
-                                        <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40, width: 440 }}>
-                                            <ListItemIcon>
-                                                <HeightIcon />
-                                            </ListItemIcon>
-                                            <ListItemText primary={t('vehicles.form.altitude')} secondary={item.altitude} />
-                                        </ListItem>
+                                        <ListItem sx={{width: 360, backgroundColor: '#f5f5f5', height: 40 }}>
+                                                <ListItemIcon>
+                                                    <ListIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t('vehicles.table.id')} secondary={item.id} />
+                                            </ListItem>
+                                            <ListItem sx={{width: 360, height: 40 }}>
+                                                <ListItemIcon>
+                                                    <DataThresholdingIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t('vehicles.form.engineId')} secondary={item.engineId} />
+                                            </ListItem>
+                                            <ListItem sx={{width: 360, backgroundColor: '#f5f5f5', height: 40 }}>
+                                                <ListItemIcon>
+                                                    <DataThresholdingIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t('vehicles.form.plate')} secondary={item.plate + ""} />
+                                            </ListItem>
+                                            <ListItem sx={{width: 360, height: 40 }}>
+                                                <ListItemIcon>
+                                                    <HistoryIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t('vehicles.form.engineType')} secondary={item.engineType + ""} />
+                                            </ListItem>
+                                            <ListItem sx={{width: 360, backgroundColor: '#f5f5f5', height: 40 }}>
+                                                <ListItemIcon>
+                                                    <HistoryIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t('vehicles.form.engineHours')} secondary={item.engineHours + "h"} />
+                                            </ListItem>
+                                            <ListItem sx={{width: 360, height: 40 }}>
+                                                <ListItemIcon>
+                                                    <DirectionsCarIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t('vehicles.form.model')} secondary={item.model} />
+                                            </ListItem>
+                                            {/* <ListItem sx={{width: 360, backgroundColor: '#f5f5f5',height: 40 }}>
+                                                <ListItemIcon>
+                                                    <RoomIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t('vehicles.form.position')} secondary={vehicle.latitude.toFixed(6) + ', ' + vehicle.longitude.toFixed(6)} />
+                                            </ListItem> */}
+                                            <ListItem sx={{width: 360, backgroundColor: '#f5f5f5', height: 40 }}>
+                                                <ListItemIcon>
+                                                    <HeightIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t('vehicles.form.height')} secondary={item.height + ""} />
+                                            </ListItem>
+                                            <ListItem sx={{width: 360, height: 40 }}>
+                                                <ListItemIcon>
+                                                    <StraightenIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t('vehicles.form.length')} secondary={item.length} />
+                                            </ListItem>
+                                            <ListItem sx={{width: 360, backgroundColor: '#f5f5f5', height: 40 }}>
+                                                <ListItemIcon>
+                                                    <WidthFullIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t('vehicles.form.width')} secondary={item.width} />
+                                            </ListItem>
+                                            <ListItem sx={{width: 360, height: 40 }}>
+                                                <ListItemIcon>
+                                                    <NetworkCheckIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t('vehicles.form.odometer')} secondary={item.odometer + ""} />
+                                            </ListItem>
+                                            <ListItem sx={{width: 360, backgroundColor: '#f5f5f5', height: 40 }}>
+                                                <ListItemIcon>
+                                                    <HeightIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t('vehicles.form.tonnage')} secondary={item.tonnage + ""} />
+                                            </ListItem>
 
-                                        <ListItem sx={{ height: 40, width: 440 }}>
-                                            <ListItemIcon>
-                                                <AutorenewIcon />
-                                            </ListItemIcon>
-                                            <ListItemText primary={t('vehicles.form.status')} secondary={item.status} />
-                                        </ListItem>
+                                            <ListItem sx={{width: 360, height: 40 }}>
+                                                <ListItemIcon>
+                                                    <AutorenewIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t('vehicles.form.status')} secondary={item.status} />
+                                            </ListItem>
                                     </>
                                 )}
                             </List>
@@ -218,7 +249,111 @@ export default function TabPanelVehicle({ open, handleClose, item }) {
                         </Box>
                     </TabPanel>
                     <TabPanel value={value} index={1}>
-                        Driver
+                    <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                flexWrap: 'wrap',
+                                justifyContent: 'flex-start',
+                                height: '100%',
+                                width: '100%',
+                            }}
+                        >
+                            <List
+                                sx={{
+                                    display: 'flex',
+                                    flexGrow: 1,
+                                    flexDirection: 'column',
+                                    flexWrap: 'wrap',
+                                    height: 230,
+                                    pb: 0,
+                                    maxWidth: 800,
+                                    overflowX: 'hide',
+                                    overflowY: 'auto',
+                                    "& .css-cveggr-MuiListItemIcon-root": {
+                                        minWidth: '32px',
+                                    },
+                                    "& .css-1pklcki-MuiListItem-root:nth-of-type(2n+1)": {
+                                        backgroundColor: '#f5f5f5',
+                                    },
+                                    "& .css-konndc-MuiListItemText-root": {
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'space-between',
+                                    },
+                                    "& .css-10hburv-MuiTypography-root": {
+                                        fontSize: '14px',
+                                        fontWeight: 'bold',
+                                        color: '#6f6f6f',
+                                    },
+                                    "& .css-83ijpv-MuiTypography-root": {
+                                        fontSize: '12px',
+                                        color: '#6f6f6f',
+                                    }
+
+                                }}
+                            >
+                                {/* for in item */}
+                                {item.type === 'vehicle' && (
+                                    <>
+                                        <ListItem sx={{width: 360, backgroundColor: '#f5f5f5', height: 40 }}>
+                                                <ListItemIcon>
+                                                    <ListIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t("drivers.table.id")} secondary={driver.id} />
+                                            </ListItem>
+                                            <ListItem sx={{width: 360, height: 40 }}>
+                                                <ListItemIcon>
+                                                    <BadgeIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t("drivers.table.fullname")} secondary={driver.firstName + " " + driver.lastName} />
+                                            </ListItem>
+                                            <ListItem sx={{width: 360, backgroundColor: '#f5f5f5', height: 40 }}>
+                                                <ListItemIcon>
+                                                    <DriveFileRenameOutlineIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t("drivers.table.firstName")} secondary={driver.firstName} />
+                                            </ListItem>
+                                            <ListItem sx={{width: 360, height: 40 }}>
+                                                <ListItemIcon>
+                                                    <DriveFileRenameOutlineIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t("drivers.table.lastName")} secondary={driver.lastName} />
+                                            </ListItem>
+                                            <ListItem sx={{width: 360, backgroundColor: '#f5f5f5', height: 40 }}>
+                                                <ListItemIcon>
+                                                    <CakeIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t("drivers.table.dob")} secondary={driver.dob} />
+                                            </ListItem>
+                                            <ListItem sx={{width: 360, height: 40 }}>
+                                                <ListItemIcon>
+                                                    {driver.gender === "male" ? <MaleIcon /> : <FemaleIcon />}
+                                                </ListItemIcon>
+                                                <ListItemText primary={t("drivers.table.gender")} secondary={driver.gender} />
+                                            </ListItem>
+                                            <ListItem sx={{width: 360, backgroundColor: '#f5f5f5', height: 40 }}>
+                                                <ListItemIcon>
+                                                    <EmailIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t("drivers.table.email")} secondary={driver.email} />
+                                            </ListItem>
+                                            <ListItem sx={{width: 360, height: 40 }}>
+                                                <ListItemIcon>
+                                                    <ContactPhoneIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t("drivers.table.phone")} secondary={driver.phone} />
+                                            </ListItem>
+                                    </>
+                                )}
+                            </List>
+                            <Box sx={{ p: 2, width: 232, height: 196, maxWidth: 500 }}>
+                                <Typography variant="p" component="h6" sx={{ mb: 1, fonWeight: 600 }}>
+                                    {t('drivers.form.image')}
+                                </Typography>
+                                <img src={`${assetUrl}/user/${driver.image}`} alt={driver.lastName} width="100%" height="100%" />
+                            </Box>
+                        </Box>
                     </TabPanel>
                     <TabPanel value={value} index={2}>
                         Events

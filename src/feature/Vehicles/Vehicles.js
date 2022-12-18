@@ -50,13 +50,23 @@ const Vehicles = () => {
         { field: 'plate', headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.plate")}`, minWidth: 150, flex: 1, sortable: false, },
         { field: 'model', headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.model")}`, minWidth: 200 },
         { field: 'engineType', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.engineType")}`, minWidth: 150, flex: 1, sortable: false },
-        { field: 'odometer', headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.odometer")}`, minWidth: 100, sortable: false },
-        { field: 'tonnage', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.tonnage")}`, minWidth: 150, flex: 1, sortable: false },
+        {
+            field: 'odometer', headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.odometer")}`, minWidth: 100, sortable: false,
+            renderCell: (params) => (
+                `${params.value} Km`
+            ),
+        },
+        {
+            field: 'tonnage', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.tonnage")}`, minWidth: 150, flex: 1, sortable: false,
+            renderCell: (params) => (
+                `${params.value} Kg`
+            ),
+        },
         { field: 'status', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.status")}`, minWidth: 100, sortable: true },
         {
             field: 'action', align: "center", headerAlign: "center", headerClassName: 'super-app-theme--header', headerName: `${t("vehicles.table.action")}`, flex: 1, minWidth: 150, sortable: false,
             renderCell: (params) => (
-                <VehicleAction {...{params}} />
+                <VehicleAction {...{ params }} />
             ),
         },
     ];

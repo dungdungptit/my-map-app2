@@ -20,35 +20,37 @@ import RotatedMarker from './RotatedMarker';
 import PopupVehicleMarker from './PopupVehicleMarker';
 import PopupBinMarker from './PopupBinMarker';
 import AlertContent from './AlertContent';
+import TabPanelItemBin from './TabPanelItemBin';
+import { getDriverDataById } from '../../store/reducers/driverSlice';
 
 
 // WebSocket init
 
-const Map1 = () => {
+const Map = () => {
   const { t } = useTranslation();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const auth = JSON.parse(localStorage.getItem('user'));
 
   const [position, setPosition] = useState([21.0419, 105.821]);
   const [heading, setHeading] = useState(0);
   const [data, setData] = useState([]);
   const [dataAlert, setDataAlert] = useState([]);
-  const [vehicles, setVehicles] = useState([]);
+  const [vehicle, setVehicle] = useState(
+     !!auth?.vehicle ? auth?.vehicle : {}
+  );
   const [bins, setBins] = useState([]);
 
-  useEffect(() => {
-    getBinsData().then((data) => {
-      setBins(data);
-    });
-  }, []);
+
 
   useEffect(() => {
-    getVehiclesData().then((data) => {
-      setVehicles(data);
+    getDriverDataById(auth?.id).then((data) => {
+      setVehicle(data?.vehicle);
+      setBins(data?.bins);
+      console.log(vehicle);
     });
   }, []);
 
   const dispatch = useDispatch();
-
   useEffect(() => {
     // receive data from server
 
@@ -99,10 +101,9 @@ const Map1 = () => {
   }, []);
 
   // console.log('vehicles', vehicles);
-  if (!!vehicles && vehicles.length > 0) {
-    let vehicle = vehicles.find(item => item.id.toString() === data[0]);
-    // console.log("vehicle", vehicle);
-    if (vehicle) {
+  if (!!vehicle && vehicle !== {}) {
+    console.log(data);
+    if (data.length > 0) {
       let oldLat = vehicle.latitude;
       let oldLong = vehicle.longitude;
       const angle = _getAngle(oldLat, oldLong, data[1], data[2]);
@@ -115,8 +116,7 @@ const Map1 = () => {
           angle: angle
         }
         console.log("vehicleData", vehicleData);
-        const vehiclesUpdate = [...vehicles.filter(item => item.id.toString() !== data[0]), vehicleData];
-        setVehicles(vehiclesUpdate);
+        setVehicle(vehicleData);
       }
     }
   }
@@ -177,7 +177,7 @@ const Map1 = () => {
     <Fragment>
       <Box sx={{ position: 'relative', with: '100%' }}>
         <Box sx={{ height: "calc(100vh - 64px - 5px)" }}>
-          <MapContainer center={[21.023396, 105.850094]} zoom={17} style={{ height: "inherit" }} scrollWheelZoom={true}
+          <MapContainer center={vehicle !== {} ? [auth?.bins[0].latitude, auth?.bins[0].longitude] : [21.023396, 105.850094]} zoom={17} style={{ height: "inherit" }} scrollWheelZoom={true}
 
           >
             <LayersControl position="topright">
@@ -194,15 +194,15 @@ const Map1 = () => {
             } */}
             {/* {!!vehicles && !!bins && <Routing from={[vehicles[3].latitude, vehicles[3].longitude]} to={[bins[5].latitude, bins[5].longitude]} />} */}
 
-            {!!vehicles && vehicles.map((vehicle) => (
-              <RotatedMarker key={vehicle.id} position={[vehicle.latitude, vehicle.longitude]} icon={iconXe} rotationOrigin="center" rotationAngle={vehicle.angle}
-              // eventHandlers={{
-              //   click: (e) => { handleClickOpen(e) },
-              // }}
-              >
-                <PopupVehicleMarker vehicle={vehicle} handleClickOpen={handleClickOpen} />
-              </RotatedMarker>
-            ))}
+
+            <RotatedMarker key={vehicle.id} position={[vehicle?.latitude, vehicle?.longitude]} icon={iconXe} rotationOrigin="center" rotationAngle={vehicle.angle}
+            // eventHandlers={{
+            //   click: (e) => { handleClickOpen(e) },
+            // }}
+            >
+              <PopupVehicleMarker vehicle={vehicle} handleClickOpen={handleClickOpen} />
+            </RotatedMarker>
+
 
             {!!bins && bins.map((bin) => (
               <RotatedMarker key={bin.id} position={[bin.latitude, bin.longitude]} icon={bin.status === "full" ? iconBinRed : bin.status === "empty" ? iconBinGreen : iconBinYellow}>
@@ -213,11 +213,11 @@ const Map1 = () => {
           </MapContainer>
         </Box>
 
-        <TabPanelItem open={open} handleClose={handleClose} item={item} ></TabPanelItem>
+        <TabPanelItemBin open={open} handleClose={handleClose} item={item} ></TabPanelItemBin>
       </Box>
     </Fragment>
   )
 }
 
 
-export default Map1
+export default Map

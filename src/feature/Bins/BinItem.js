@@ -9,6 +9,11 @@ import MapIcon from '@mui/icons-material/Map';
 import HeightIcon from '@mui/icons-material/Height';
 import ScaleIcon from '@mui/icons-material/Scale';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
+import WidthFullIcon from '@mui/icons-material/WidthFull';
+import StraightenIcon from '@mui/icons-material/Straighten';
+import AppsIcon from '@mui/icons-material/Apps';
+import ColorLensIcon from '@mui/icons-material/ColorLens';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import { DataGrid } from '@mui/x-data-grid';
 import { assetUrl } from '../../ultils/axiosApi';
 import { useState } from 'react';
@@ -26,7 +31,7 @@ const BinItem = () => {
     const binId = parseInt(params.binId);
 
     const [bin, setBin] = useState(
-        {   
+        {
             id: 0,
             areaId: 0,
             latitude: 0,
@@ -167,43 +172,43 @@ const BinItem = () => {
                                                 </ListItemIcon>
                                                 <ListItemText primary={t("bins.table.height")} secondary={bin.height + "m"} />
                                             </ListItem>
-                                            <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
+                                            <ListItem sx={{ height: 40 }}>
                                                 <ListItemIcon>
-                                                    <HeightIcon />
+                                                    <StraightenIcon />
                                                 </ListItemIcon>
                                                 <ListItemText primary={t("bins.table.length")} secondary={bin.length + "m"} />
                                             </ListItem>
                                             <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
                                                 <ListItemIcon>
-                                                    <HeightIcon />
+                                                    <WidthFullIcon />
                                                 </ListItemIcon>
                                                 <ListItemText primary={t("bins.table.width")} secondary={bin.width + "m"} />
                                             </ListItem>
-                                            <ListItem sx={{ backgroundColor: '#f5f5f5',height: 40 }}>
+                                            <ListItem sx={{ height: 40 }}>
                                                 <ListItemIcon>
                                                     <ScaleIcon />
                                                 </ListItemIcon>
                                                 <ListItemText primary={t("bins.table.maxWeight")} secondary={bin.maxWeight + ''} />
                                             </ListItem>
-                                            <ListItem sx={{  height: 40 }}>
+                                            <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
                                                 <ListItemIcon>
-                                                    <ScaleIcon />
+                                                    <ColorLensIcon />
                                                 </ListItemIcon>
                                                 <ListItemText primary={t("bins.table.color")} secondary={bin.color + ''} />
                                             </ListItem>
-                                            <ListItem sx={{  height: 40 }}>
+                                            <ListItem sx={{ height: 40 }}>
                                                 <ListItemIcon>
-                                                    <ScaleIcon />
+                                                    <AppsIcon />
                                                 </ListItemIcon>
                                                 <ListItemText primary={t("bins.table.material")} secondary={bin.material + ''} />
                                             </ListItem>
-                                            <ListItem sx={{  height: 40 }}>
+                                            <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
                                                 <ListItemIcon>
-                                                    <ScaleIcon />
+                                                    <LocalOfferIcon />
                                                 </ListItemIcon>
                                                 <ListItemText primary={t("bins.table.brand")} secondary={bin.brand + ''} />
                                             </ListItem>
-                                            <ListItem sx={{  height: 40 }}>
+                                            <ListItem sx={{ height: 40 }}>
                                                 <ListItemIcon>
                                                     <AutorenewIcon />
                                                 </ListItemIcon>

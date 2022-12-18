@@ -10,14 +10,14 @@ import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 
 import {
-  postDriverDataAsync,
-  putDriverDataAsync,
-  getDriverDataById
-} from '../../store/reducers/driverSlice';
+  postManagerDataAsync,
+  putManagerDataAsync,
+  getManagerDataById
+} from '../../store/reducers/managerSlice';
 import { assetUrl } from '../../ultils/axiosApi';
 import { useTranslation } from 'react-i18next';
 
-const DriverItemNew = ({ state }) => {
+const ManagerItemNew = ({ state }) => {
   const { t } = useTranslation();
   // state = "new" or "edit"
   const navigate = useNavigate();
@@ -30,11 +30,11 @@ const DriverItemNew = ({ state }) => {
   const handleClick = (e) => {
     setClick(true);
   }
-  // convert driverId to number
-  const driverId = parseInt(params.driverId);
+  // convert managerId to number
+  const managerId = parseInt(params.managerId);
   const [dob, setDob] = useState(new Date());
 
-  const [driverItem, setDriverItem] = useState(
+  const [managerItem, setManagerItem] = useState(
     {
       id: 0,
       firstName: "",
@@ -49,48 +49,48 @@ const DriverItemNew = ({ state }) => {
 
   useEffect(() => {
     if (state === "edit") {
-      getDriverDataById(driverId).then((result) => {
+      getManagerDataById(managerId).then((result) => {
         console.log("Result:", result);
-        setDriverItem(result);
+        setManagerItem(result);
       });
     }
   }, [])
 
-  console.log("DriverItem:", driverItem);
+  console.log("ManagerItem:", managerItem);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setDriverItem({ ...driverItem, [name]: value });
+    setManagerItem({ ...managerItem, [name]: value });
   }
 
   const handleInputChangeImage = (event) => {
     const { name, value } = event.target;
-    setDriverItem({ ...driverItem, image: URL.createObjectURL(event.target.files[0]) });
+    setManagerItem({ ...managerItem, image: URL.createObjectURL(event.target.files[0]) });
   }
 
   const handleSave = (event) => {
     event.preventDefault();
-    const formDriver = document.getElementById("formDriver");
-    const formData = new FormData(formDriver);
+    const formManager = document.getElementById("formManager");
+    const formData = new FormData(formManager);
     formData.append("dob", dob.toLocaleDateString('en-GB'));
     if (state === "new") {
-      dispatch(postDriverDataAsync(formData)).then((result) => {
+      dispatch(postManagerDataAsync(formData)).then((result) => {
         console.log("Result:", result);
-        if(result.type === "users/drivers/postDriver/rejected"){
+        if(result.type === "users/managers/postManager/rejected"){
           alert("Email or phone number already exists");
         }
-        else if (result.type === "users/drivers/postDriver/fulfilled"){
-          navigate("/drivers");
+        else if (result.type === "users/managers/postManager/fulfilled"){
+          navigate("/managers");
         }
       });
     }
     else if (state === "edit") {
-      dispatch(putDriverDataAsync({ formData, driverId })).then((result) => {
+      dispatch(putManagerDataAsync({ formData, managerId })).then((result) => {
         console.log("Result:", result);
-        navigate("/drivers");
+        navigate("/managers");
       });
     }
-    // navigate("/drivers");
+    // navigate("/managers");
   }
 
   return (
@@ -106,15 +106,15 @@ const DriverItemNew = ({ state }) => {
         }}>
           <Stack direction="row" alignItems="flex-start" justifyContent="space-between">
             <Typography variant="h5" component="h1" fontWeight='bold' gutterBottom>
-              {state === "new" ? `${t("drivers.create")}` : `${t("drivers.edit")}`}
+              {state === "new" ? `${t("managers.create")}` : `${t("managers.edit")}`}
               <Breadcrumbs maxItems={3} aria-label="breadcrumb" sx={{ mt: 1 }}>
                 <Link underline="hover" color="inherit" href="">
-                  {t("drivers.home")}
+                  {t("managers.home")}
                 </Link>
-                <Link underline="hover" color="inherit" href="/drivers">
-                  {t("drivers.pageName")}
+                <Link underline="hover" color="inherit" href="/managers">
+                  {t("managers.pageName")}
                 </Link>
-                <Typography color="text.primary">{state === "new" ? `${t("drivers.add")}` : `${driverItem.firstName} ${driverItem.lastName}`}</Typography>
+                <Typography color="text.primary">{state === "new" ? `${t("managers.add")}` : `${managerItem.firstName} ${managerItem.lastName}`}</Typography>
               </Breadcrumbs>
             </Typography>
 
@@ -122,7 +122,7 @@ const DriverItemNew = ({ state }) => {
           </Stack>
 
           {/*  form multipart */}
-          <Stack id='formDriver' direction="row" alignItems="flex-start" justifyContent="space-between" component="form" noValidate autoComplete="off" encType="multipart/form-data" sx={{
+          <Stack id='formManager' direction="row" alignItems="flex-start" justifyContent="space-between" component="form" noValidate autoComplete="off" encType="multipart/form-data" sx={{
             gap: 3,
             flexDirection: { xs: 'column', md: 'row' },
           }}
@@ -131,13 +131,13 @@ const DriverItemNew = ({ state }) => {
             <Paper sx={{ mt: 3, p: 2, flexGrow: 1, maxWidth: 1200 }}>
               <Box sx={{ width: '100%', mt: 2 }}>
                 <Typography variant="h6" component="h3" fontWeight='bold' gutterBottom>
-                  {t("drivers.form.infomation")}
+                  {t("managers.form.infomation")}
                 </Typography>
-                <TextField id="outlined-basic" label={t("drivers.table.firstName")} variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={driverItem.firstName} onChange={handleInputChange} name="firstName" />
-                <TextField id="outlined-basic" label={t("drivers.table.lastName")} variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={driverItem.lastName} onChange={handleInputChange} name="lastName" />
-                <TextField id="outlined-basic" label={t("drivers.table.email")} variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={driverItem.email} onChange={handleInputChange} name="email" />
-                <TextField id="outlined-basic" label={t("drivers.table.phone")} variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={driverItem.phone} onChange={handleInputChange} name="phone" />
-                <TextField id="outlined-basic" label={t("login.password")} type={"password"} variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={driverItem.password} onChange={handleInputChange} name="password" />
+                <TextField id="outlined-basic" label={t("managers.table.firstName")} variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={managerItem.firstName} onChange={handleInputChange} name="firstName" />
+                <TextField id="outlined-basic" label={t("managers.table.lastName")} variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={managerItem.lastName} onChange={handleInputChange} name="lastName" />
+                <TextField id="outlined-basic" label={t("managers.table.email")} variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={managerItem.email} onChange={handleInputChange} name="email" />
+                <TextField id="outlined-basic" label={t("managers.table.phone")} variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={managerItem.phone} onChange={handleInputChange} name="phone" />
+                <TextField id="outlined-basic" label={t("login.password")} type={"password"} variant="outlined" sx={{ width: '100%', mb: 2, mt: 1 }} value={managerItem.password} onChange={handleInputChange} name="password" />
 
               </Box>
 
@@ -150,24 +150,24 @@ const DriverItemNew = ({ state }) => {
             <Box sx={{ mt: 2, minWidth: 300, width: "100%", maxWidth: { xs: '100%', md: 300 } }}>
               <Paper sx={{ width: '100%', my: 1, p: 2, pt: 4 }}>
                 <Typography variant="h6" component="h3" fontWeight='bold' gutterBottom>
-                  {t("drivers.table.gender")}
+                  {t("managers.table.gender")}
                 </Typography>
                 <FormControl fullWidth
                   sx={{
                     mb: 1,
                   }}
                 >
-                  <InputLabel id="gender">{t("drivers.table.gender")}</InputLabel>
+                  <InputLabel id="gender">{t("managers.table.gender")}</InputLabel>
                   <Select
                     labelId="gender"
                     id="gender"
-                    value={driverItem.gender}
+                    value={managerItem.gender}
                     name="gender"
-                    label={t("drivers.table.gender")}
+                    label={t("managers.table.gender")}
                     onChange={handleInputChange}
                   >
-                    <MenuItem value={"male"}>{t("drivers.table.male")}</MenuItem>
-                    <MenuItem value={"female"}>{t("drivers.table.female")}</MenuItem>
+                    <MenuItem value={"male"}>{t("managers.table.male")}</MenuItem>
+                    <MenuItem value={"female"}>{t("managers.table.female")}</MenuItem>
 
                   </Select>
                 </FormControl>
@@ -193,7 +193,7 @@ const DriverItemNew = ({ state }) => {
                   }}>
                   <label htmlFor="dob">
                     <Typography variant="h6" component="h3" fontWeight='bold' gutterBottom >
-                      {t("drivers.table.dob")}
+                      {t("managers.table.dob")}
                     </Typography>
                   </label>
                   <DatePicker
@@ -209,28 +209,28 @@ const DriverItemNew = ({ state }) => {
 
                 <Box sx={{ width: '100%', mb: 2, pt: 2 }}>
                   <Typography variant="h6" component="h3" fontWeight='bold' gutterBottom>
-                    {t("drivers.form.image")}
+                    {t("managers.form.image")}
                   </Typography>
                   <label htmlFor="contained-button-file">
                     <Button variant="contained" component="span"
                       endIcon={<AttachFileIcon />}
                       onClick={(e) => handleClick()}
                     >
-                      {t("drivers.form.upload")}
+                      {t("managers.form.upload")}
                     </Button>
                   </label>
                   <input accept="image/*" id="contained-button-file" type="file" onChange={handleInputChangeImage} name="user" style={{ display: "none" }} />
 
                   <Box sx={{ width: '100%', mt: 2, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    {state === "new" && driverItem.image && <img src={driverItem.image} alt="driver" width="220" height="220" />}
-                    {state === "edit" && <img src={click ? `${driverItem.image}` : `${assetUrl}/user/${driverItem.image}`} alt="driver" width={220} height={220} />}
+                    {state === "new" && managerItem.image && <img src={managerItem.image} alt="manager" width="220" height="220" />}
+                    {state === "edit" && <img src={click ? `${managerItem.image}` : `${assetUrl}/user/${managerItem.image}`} alt="manager" width={220} height={220} />}
                   </Box>
                 </Box>
               </Paper>
 
               <Box sx={{ width: '100%', my: 1 }}>
                 <Button variant="contained" color="primary" endIcon={<SaveIcon />} sx={{ width: '100%', mb: 2, mt: 1, py: 1.5 }} type="submit">
-                  {t("drivers.form.save")}
+                  {t("managers.form.save")}
                 </Button>
               </Box>
             </Box>
@@ -244,4 +244,4 @@ const DriverItemNew = ({ state }) => {
   )
 }
 
-export default DriverItemNew
+export default ManagerItemNew

@@ -20,11 +20,18 @@ import {
   DriverItem,
   DriverItemNew
 } from './feature/Driver';
+import {
+  Managers,
+  ManagerItem,
+  ManagerItemNew
+} from './feature/Manager';
+
 import Login from './feature/Auth/Login';
 import { useSelector } from 'react-redux';
 import { authSelector } from './store/reducers/authSlice';
 import ProtectedRoutes from './routes/ProtectedRoutes';
 import PublicRoutes from './routes/PublicRoutes';
+import Map from './feature/Map/Map';
 
 const App = () => {
   const useAuth = () => {
@@ -54,6 +61,15 @@ const App = () => {
     }
   }
 
+  const isDriver = () => {
+    const user = localStorage.getItem('user')
+    if (user) {
+      return !!user && JSON.parse(user).role.includes('driver');
+    } else {
+      return false
+    }
+  }
+
   const auth = useAuth();
   console.log(auth);
 
@@ -61,8 +77,8 @@ const App = () => {
     <Routes>
       <Route element={<ProtectedRoutes />}>
         <Route path="" element={<Layout />} >
-          <Route index element={<Map1 />} />
-          <Route path="map" element={<Map1 />} />
+          <Route index element={isDriver() ? <Map /> : <Map1 />} />
+          <Route path="map" element={isDriver() ? <Map /> : <Map1 />} />
 
           {(isAdmin() || isManager()) && <Route path="dashboard" element={<Dashboard />} />}
 
@@ -75,6 +91,11 @@ const App = () => {
           {(isAdmin() || isManager()) && <Route path="drivers/:driverId" element={<DriverItem />} />}
           {(isAdmin() || isManager()) && <Route path="drivers/add" element={<DriverItemNew state={"new"} />} />}
           {(isAdmin() || isManager()) && <Route path="drivers/edit/:driverId" element={<DriverItemNew state={"edit"} />} />}
+
+          {(isAdmin()) && <Route path = "managers" element={<Managers />} />}
+          {(isAdmin()) && <Route path = "managers/:managerId" element={<ManagerItem />} />}
+          {(isAdmin()) && <Route path = "managers/add" element={<ManagerItemNew state={"new"} />} />}
+          {(isAdmin()) && <Route path = "managers/edit/:managerId" element={<ManagerItemNew state={"edit"} />} />}
 
           {(isAdmin() || isManager()) && <Route path="bins" element={<Bins />} />}
           {(isAdmin() || isManager()) && <Route path="bins/:binId" element={<BinItem />} />}

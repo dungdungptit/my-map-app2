@@ -27,6 +27,7 @@ import TabPanelItemBin from './TabPanelItemBin';
 // WebSocket init
 
 const Map1 = () => {
+  console.log('Map1');
   const { t } = useTranslation();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
@@ -77,7 +78,7 @@ const Map1 = () => {
                 severity="error"
                 color="error"
                 onClose={() => closeSnackbar(key)}
-                sx={{ width: "240px" }}
+                sx={{ width: "250px" }}
                 icon={false}
               >
                 <AlertContent data={data} />
@@ -100,7 +101,7 @@ const Map1 = () => {
 
   }, []);
 
-  // console.log('vehicles', vehicles);
+  console.log('vehicles', vehicles);
   if (!!vehicles && vehicles.length > 0) {
     let vehicle = vehicles.find(item => item.id.toString() === data[0]);
     // console.log("vehicle", vehicle);

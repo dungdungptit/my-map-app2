@@ -44,6 +44,7 @@ const driversSlice = createSlice({
     name: "drivers",
     initialState: {
         allDrivers: [],
+        driver: {},
     },
     reducers: {},
     extraReducers: {
@@ -97,13 +98,24 @@ const driversSlice = createSlice({
             console.log('error')
         },
 
-
+        // get driver by id
+        [getDriverDataById.pending]: (state, action) => {
+            console.log('pending')
+        },
+        [getDriverDataById.fulfilled]: (state, action) => {
+            console.log('success')
+            state.driver = action.payload;
+        },
+        [getDriverDataById.rejected]: (state, action) => {
+            console.log('error')
+        },
     }
 })
 
 const driversReducer = driversSlice.reducer;
 
 export const driversSelector = state => state.driversReducer.allDrivers;
+export const driverSelector = state => state.driversReducer.driver;
 
 
 export default driversReducer;

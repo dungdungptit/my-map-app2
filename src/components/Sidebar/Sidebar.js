@@ -8,6 +8,7 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MenuIcon from '@mui/icons-material/Menu';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import { useNavigate } from 'react-router-dom';
 
 import useWindowDimensions from "../useWindowDimensions/useWindowDimensions";
@@ -33,6 +34,8 @@ const getIndex = (path) => {
             return 3;
         case 'bins':
             return 4;
+        case 'managers':
+            return 5;
         default:
             return -1;
     }
@@ -178,6 +181,17 @@ const Sidebar = () => {
                             <DeleteIcon />
                         </ListItemIcon>
                         <ListItemText primary={t('sidebar.bin')} sx={{ display: open ? "block" : "none" }} />
+                    </ListItemButton>
+                    <ListItemButton
+                        component={Link}
+                        to={"/managers"}
+                        selected={selectedIndex === 5}
+                        onClick={(event) => handleListItemClick(event, 5)}
+                    >
+                        <ListItemIcon>
+                            <SupervisorAccountIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={t('sidebar.manager')} sx={{ display: open ? "block" : "none" }} />
                     </ListItemButton>
 
                 </List>

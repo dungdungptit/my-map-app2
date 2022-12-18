@@ -5,7 +5,7 @@ import { authSelector } from '../store/reducers/authSlice';
 
 const PublicRoutes = () => {
     const auth = useSelector(authSelector);
-    console.log(auth);
+    // console.log(auth);
     const isAuthenticated = auth.isAuth;
     return isAuthenticated ? <Navigate to="/" /> : <Outlet />;
 }

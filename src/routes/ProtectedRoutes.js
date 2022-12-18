@@ -5,7 +5,7 @@ import { authSelector } from '../store/reducers/authSlice';
 
 const ProtectedRoutes = () => {
     const auth = localStorage.getItem('user');
-    console.log(auth);
+    // console.log(auth);
     const isAuthenticated = auth ? true : false;
     return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 }
