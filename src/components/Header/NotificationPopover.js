@@ -80,7 +80,7 @@ const NotificationPopover = () => {
                 sx={{
                     width: 360,
                     height: "auto",
-                    "& .css-6hp17o-MuiList-root-MuiMenu-list": {
+                    "& .MuiList-root-MuiMenu-list": {
                         // width: 360,
                         width: "100%",
                         height: "auto",
