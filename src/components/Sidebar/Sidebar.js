@@ -43,7 +43,7 @@ const getIndex = (path) => {
 
 const Sidebar = () => {
     const { t } = useTranslation();
-    
+
     const navigate = useNavigate();
     const location = useLocation();
     const { pathname } = location;
@@ -81,16 +81,25 @@ const Sidebar = () => {
         setSelectedIndex(index);
     };
 
+    const isAdmin = () => {
+        const user = localStorage.getItem('user')
+        if (user) {
+            return !!user && JSON.parse(user).role.includes('admin');
+        } else {
+            return false
+        }
+    }
+
 
 
     return (
         <Stack sx={{
             // display: { xs: 'none', lg: 'flex' },
             display: 'flex',
-            position: { 
-                xs: open ? 'fixed' : 'relative', 
+            position: {
+                xs: open ? 'fixed' : 'relative',
                 md: 'relative',
-                lg: 'relative' 
+                lg: 'relative'
             },
             zIndex: open ? 402 : 1,
             borderRight: {
@@ -104,7 +113,7 @@ const Sidebar = () => {
             transition: 'all 0.3s linear',
             height: "100vh",
         }}>
-            <SidebarBox p={2} sx={{p: open ? 2 : 1, py: 1, transition: 'all 0.3s linear', }} >
+            <SidebarBox p={2} sx={{ p: open ? 2 : 1, py: 1, transition: 'all 0.3s linear', }} >
                 <Stack direction="row" spacing={0}
                     sx={{
                         alignItems: 'center',
@@ -182,18 +191,19 @@ const Sidebar = () => {
                         </ListItemIcon>
                         <ListItemText primary={t('sidebar.bin')} sx={{ display: open ? "block" : "none" }} />
                     </ListItemButton>
-                    <ListItemButton
-                        component={Link}
-                        to={"/managers"}
-                        selected={selectedIndex === 5}
-                        onClick={(event) => handleListItemClick(event, 5)}
-                    >
-                        <ListItemIcon>
-                            <SupervisorAccountIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={t('sidebar.manager')} sx={{ display: open ? "block" : "none" }} />
-                    </ListItemButton>
-
+                    {isAdmin() &&
+                        <ListItemButton
+                            component={Link}
+                            to={"/managers"}
+                            selected={selectedIndex === 5}
+                            onClick={(event) => handleListItemClick(event, 5)}
+                        >
+                            <ListItemIcon>
+                                <SupervisorAccountIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={t('sidebar.manager')} sx={{ display: open ? "block" : "none" }} />
+                        </ListItemButton>
+                    }
                 </List>
             </SidebarBox>
         </Stack>
