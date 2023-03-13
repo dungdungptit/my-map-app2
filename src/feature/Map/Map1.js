@@ -22,7 +22,7 @@ import PopupBinMarker from './PopupBinMarker';
 import AlertContent from './AlertContent';
 import TabPanelVehicle from './TabPanelVehicle';
 import TabPanelItemBin from './TabPanelItemBin';
-
+import Hls from 'hls.js'
 
 // WebSocket init
 
@@ -143,6 +143,52 @@ const Map1 = () => {
     }
   }, [dataAlert]);
 
+  useEffect(() => {
+    const script = document.createElement('script');
+
+    script.src = "https://cdn.jsdelivr.net/npm/hls.js@latest";
+    script.async = true;
+
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    }
+  }, []);
+
+  useEffect(() => {
+    // const script = document.createElement('script');
+
+    // script.innerHTML = `
+    // setTimeout(() => {
+      if (Hls.isSupported()) {
+        var video = document.getElementById('video');
+        console.log("check video", video);
+        var hls = new Hls();
+        hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+          console.log('video tag and hls.js are now bound together !');
+        });
+        hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+          console.log(
+            'manifest loaded, found ' + data.levels.length + ' quality level'
+          );
+        });
+        hls.loadSource('https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8');
+        // bind them together
+        hls.attachMedia(video);
+        video.play();
+      }
+    // }, 5000)
+    //   `
+    //   script.async = true;
+
+    //   document.body.appendChild(script);
+
+    //   return () => {
+    //     document.body.removeChild(script);
+    //   }
+  }, []);
+
   // socket.onclose = () => {
   //   console.log('Disconnected from server')
   // }
@@ -154,7 +200,7 @@ const Map1 = () => {
   const handleClickOpenVehicle = (e, item) => {
     setOpenVehicle(true);
     setItem(item);
-    if(openBin) setOpenBin(false);
+    if (openBin) setOpenBin(false);
   };
 
   const handleCloseVehicle = (e) => {
@@ -165,7 +211,7 @@ const Map1 = () => {
   const handleClickOpenBin = (e, item) => {
     setOpenBin(true);
     setItem(item);
-    if(openVehicle) setOpenVehicle(false);
+    if (openVehicle) setOpenVehicle(false);
   };
 
   const handleCloseBin = (e) => {
@@ -225,7 +271,7 @@ const Map1 = () => {
 
           </MapContainer>
         </Box>
-
+        <video id='video' height={"360px"} width={"640px"} muted controls></video>
         <TabPanelItemBin open={openBin} handleClose={handleCloseBin} item={item} ></TabPanelItemBin>
         <TabPanelVehicle open={openVehicle} handleClose={handleCloseVehicle} item={item} ></TabPanelVehicle>
       </Box>

@@ -198,7 +198,7 @@ export default function TabPanelVehicle({ open, handleClose, item }) {
                                             <ListItemIcon>
                                                 <RoomIcon />
                                             </ListItemIcon>
-                                            <ListItemText primary={t('vehicles.form.position')} secondary={vehicle.latitude.toFixed(6) + ', ' + vehicle.longitude.toFixed(6)} />
+                                            <ListItemText primary={t('vehicles.form.position')} secondary={item.latitude.toFixed(6) + ', ' + item.longitude.toFixed(6)} />
                                         </ListItem>
                                         <ListItem sx={{ width: 360, height: 40 }}>
                                             <ListItemIcon>
