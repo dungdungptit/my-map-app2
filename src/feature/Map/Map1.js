@@ -157,36 +157,23 @@ const Map1 = () => {
   }, []);
 
   useEffect(() => {
-    // const script = document.createElement('script');
-
-    // script.innerHTML = `
-    // setTimeout(() => {
-      if (Hls.isSupported()) {
-        var video = document.getElementById('video');
-        console.log("check video", video);
-        var hls = new Hls();
-        hls.on(Hls.Events.MEDIA_ATTACHED, function () {
-          console.log('video tag and hls.js are now bound together !');
-        });
-        hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
-          console.log(
-            'manifest loaded, found ' + data.levels.length + ' quality level'
-          );
-        });
-        hls.loadSource('https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8');
-        // bind them together
-        hls.attachMedia(video);
-        video.play();
-      }
-    // }, 5000)
-    //   `
-    //   script.async = true;
-
-    //   document.body.appendChild(script);
-
-    //   return () => {
-    //     document.body.removeChild(script);
-    //   }
+    if (Hls.isSupported()) {
+      var video = document.getElementById('video');
+      console.log("check video", video);
+      var hls = new Hls();
+      hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+        console.log('video tag and hls.js are now bound together !');
+      });
+      hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+        console.log(
+          'manifest loaded, found ' + data.levels.length + ' quality level'
+        );
+      });
+      hls.loadSource('https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8');
+      // bind them together
+      hls.attachMedia(video);
+      video.play();
+    }
   }, []);
 
   // socket.onclose = () => {
