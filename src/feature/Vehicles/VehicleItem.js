@@ -202,7 +202,7 @@ const VehicleItem = () => {
                                                 <ListItemIcon>
                                                     <StraightenIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary={t('vehicles.form.length')} secondary={vehicle.length} />
+                                                <ListItemText primary={t('vehicles.form?.length')} secondary={vehicle?.length} />
                                             </ListItem>
                                             <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
                                                 <ListItemIcon>

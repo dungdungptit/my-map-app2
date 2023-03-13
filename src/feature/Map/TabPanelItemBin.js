@@ -178,7 +178,7 @@ export default function TabPanelItemBin({ open, handleClose, item }) {
                                         <ListItemIcon>
                                             <StraightenIcon />
                                         </ListItemIcon>
-                                        <ListItemText primary={t("bins.table.length")} secondary={item.length + "m"} />
+                                        <ListItemText primary={t("bins.table?.length")} secondary={item?.length + "m"} />
                                     </ListItem>
                                     <ListItem sx={{width: 360, backgroundColor: '#f5f5f5', height: 40 }}>
                                         <ListItemIcon>

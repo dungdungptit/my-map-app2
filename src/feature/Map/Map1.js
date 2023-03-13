@@ -102,7 +102,7 @@ const Map1 = () => {
   }, []);
 
   console.log('vehicles', vehicles);
-  if (!!vehicles && vehicles.length > 0) {
+  if (!!vehicles && vehicles?.length > 0) {
     let vehicle = vehicles.find(item => item.id.toString() === data[0]);
     // console.log("vehicle", vehicle);
     if (vehicle) {
@@ -128,7 +128,7 @@ const Map1 = () => {
   useEffect(() => {
     if (dataAlert[0] === "alert") {
       // console.log("alert", dataAlert);
-      if (!!bins && bins.length > 0) {
+      if (!!bins && bins?.length > 0) {
         let bin = bins.find(item => item.id.toString() === dataAlert[1].id.toString());
         if (bin) {
           const binData = {
@@ -154,7 +154,7 @@ const Map1 = () => {
   const handleClickOpenVehicle = (e, item) => {
     setOpenVehicle(true);
     setItem(item);
-    if(openBin) setOpenBin(false);
+    if (openBin) setOpenBin(false);
   };
 
   const handleCloseVehicle = (e) => {
@@ -165,7 +165,7 @@ const Map1 = () => {
   const handleClickOpenBin = (e, item) => {
     setOpenBin(true);
     setItem(item);
-    if(openVehicle) setOpenVehicle(false);
+    if (openVehicle) setOpenVehicle(false);
   };
 
   const handleCloseBin = (e) => {

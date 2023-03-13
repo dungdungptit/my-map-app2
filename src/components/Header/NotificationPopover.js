@@ -39,7 +39,7 @@ const NotificationPopover = () => {
             localStorage.setItem('noti', JSON.stringify(noti));
             localStorage.setItem('countNoti', JSON.stringify(countNoti));
         }
-        if (noti.length > 0) {
+        if (noti?.length > 0) {
             localStorage.setItem('noti', JSON.stringify(noti));
         }
 
@@ -84,7 +84,7 @@ const NotificationPopover = () => {
                         // width: 360,
                         width: "100%",
                         height: "auto",
-                        maxHeight: !!noti && noti.length > 0 ? 362 : 48,
+                        maxHeight: !!noti && noti?.length > 0 ? 362 : 48,
                         overflowY: "scroll",
                     }
                 }}
@@ -102,7 +102,7 @@ const NotificationPopover = () => {
                 keepMounted
             >
                 {/* map reverse noti */}
-                {!!noti && noti.length > 0 ? noti.map((data, index) => {
+                {!!noti && noti?.length > 0 ? noti.map((data, index) => {
                     // if (index < 5) {
                     return (
                         <MenuItem key={index} onClick={() => handleCloseNotification(data)}

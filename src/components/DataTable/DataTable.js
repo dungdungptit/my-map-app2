@@ -9,7 +9,7 @@ import CustomPagination from "../CustomPagination/CustomPagination";
 
 const DataTable = ({ rows, columns }) => {
     const { t, i18n } = useTranslation();
-    let pageSize = rows.length;
+    let pageSize = rows?.length;
     if (pageSize < 10) {
         pageSize = 10;
     }
@@ -184,7 +184,7 @@ const DataTable = ({ rows, columns }) => {
                     letterSpacing: '0.01071em',
                 },
             }}
-            rowCount={rows.length}
+            rowCount={rows?.length}
         />
 
     )

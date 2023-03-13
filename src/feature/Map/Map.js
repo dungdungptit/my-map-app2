@@ -103,7 +103,7 @@ const Map = () => {
   // console.log('vehicles', vehicles);
   if (!!vehicle && vehicle !== {}) {
     console.log(data);
-    if (data.length > 0) {
+    if (data?.length > 0) {
       let oldLat = vehicle.latitude;
       let oldLong = vehicle.longitude;
       const angle = _getAngle(oldLat, oldLong, data[1], data[2]);
@@ -125,7 +125,7 @@ const Map = () => {
   useEffect(() => {
     if (dataAlert[0] === "alert") {
       // console.log("alert", dataAlert);
-      if (!!bins && bins.length > 0) {
+      if (!!bins && bins?.length > 0) {
         let bin = bins.find(item => item.id.toString() === dataAlert[1].id.toString());
         if (bin) {
           const binData = {

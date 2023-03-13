@@ -185,7 +185,7 @@ const BinItem = () => {
                                                 <ListItemIcon>
                                                     <StraightenIcon />
                                                 </ListItemIcon>
-                                                <ListItemText primary={t("bins.table.length")} secondary={bin.length + "m"} />
+                                                <ListItemText primary={t("bins.table?.length")} secondary={bin?.length + "m"} />
                                             </ListItem>
                                             <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
                                                 <ListItemIcon>
