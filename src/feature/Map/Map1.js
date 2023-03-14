@@ -22,6 +22,7 @@ import PopupBinMarker from './PopupBinMarker';
 import AlertContent from './AlertContent';
 import TabPanelVehicle from './TabPanelVehicle';
 import TabPanelItemBin from './TabPanelItemBin';
+import axios from 'axios';
 
 // WebSocket init
 
@@ -131,6 +132,16 @@ const Map1 = () => {
         }
       }
     }
+    if (dataAlert[0] === "alert") {
+      let binCoor = L.latLng(dataAlert[1]['latitude'], dataAlert[1]['longitude']);
+      for (let vehicle of vehicles) {
+        let vehicleCoor = L.latLng(vehicle['latitude'], vehicle['longitude']);
+        if (binCoor.distanceTo(vehicleCoor) < 5) {
+          // axios.get('path/to/reset/bin/weight')
+          break;
+        }
+      }
+    }
   }, [dataAlert]);
 
   const [openVehicle, setOpenVehicle] = useState(false);
@@ -207,7 +218,7 @@ const Map1 = () => {
 
           </MapContainer>
         </Box>
-        
+
         <TabPanelItemBin open={openBin} handleClose={handleCloseBin} item={item} ></TabPanelItemBin>
         <TabPanelVehicle open={openVehicle} handleClose={handleCloseVehicle} item={item} ></TabPanelVehicle>
       </Box>
