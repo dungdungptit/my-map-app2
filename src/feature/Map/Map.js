@@ -100,6 +100,44 @@ const Map = () => {
 
   }, []);
 
+    // useEffect(() => {
+  //   const script = document.createElement('script');
+
+  //   script.src = "https://cdn.jsdelivr.net/npm/hls.js@latest";
+  //   script.async = true;
+
+  //   document.body.appendChild(script);
+
+  //   return () => {
+  //     document.body.removeChild(script);
+  //   }
+  // }, []);
+
+
+  // useEffect(() => {
+  //   if (Hls.isSupported()) {
+  //     var video = document.getElementById('video');
+  //     console.log("check video", video);
+  //     var hls = new Hls();
+  //     hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+  //       console.log('video tag and hls.js are now bound together !');
+  //     });
+  //     hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+  //       console.log(
+  //         'manifest loaded, found ' + data.levels.length + ' quality level'
+  //       );
+  //     });
+  //     hls.loadSource('https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8');
+  //     // bind them together
+  //     hls.attachMedia(video);
+  //     video.play();
+  //   }
+  // }, []);
+
+  // socket.onclose = () => {
+  //   console.log('Disconnected from server')
+  // }
+
   // console.log('vehicles', vehicles);
   if (!!vehicle && vehicle !== {}) {
     console.log(data);

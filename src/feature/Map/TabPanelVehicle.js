@@ -391,10 +391,11 @@ export default function TabPanelVehicle({ open, handleClose, item }) {
                     </TabPanel> */}
                     <TabPanel value={value} index={4}>
                         <ReactPlayer
-                            url={'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8'}
+                            url={item.camera}
                             playing={true}
                             volume={1}
-                            width="70vw"
+                            height="90vh"
+                            width="100%"
                             controls={true}
                             muted={true}
                             config={{

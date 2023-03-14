@@ -33,6 +33,7 @@ const BinItem = () => {
     const [bin, setBin] = useState(
         {
             id: 0,
+            code: "",
             areaId: 0,
             latitude: 0,
             longitude: 0,
@@ -47,6 +48,9 @@ const BinItem = () => {
             description: '',
             status: '',
             image: "",
+            camera1: "",
+            camera2: "",
+            camera3: "",
         }
     );
 
@@ -157,6 +161,12 @@ const BinItem = () => {
                                                 </ListItemIcon>
                                                 <ListItemText primary="ID" secondary={bin.id} />
                                             </ListItem>
+                                            <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
+                                                <ListItemIcon>
+                                                    <ListIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary="Code" secondary={bin.code} />
+                                            </ListItem>
                                             <ListItem sx={{ height: 40 }}>
                                                 <ListItemIcon>
                                                     <MapIcon />
@@ -222,6 +232,24 @@ const BinItem = () => {
                                                     <AutorenewIcon />
                                                 </ListItemIcon>
                                                 <ListItemText primary={t("bins.table.status")} secondary={`${t("bins.table." + bin.status)}`} />
+                                            </ListItem>
+                                            <ListItem sx={{ height: 40 }}>
+                                                <ListItemIcon>
+                                                    <AutorenewIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={"Camera 1"} secondary={`${bin.camera1}`} />
+                                            </ListItem>
+                                            <ListItem sx={{ height: 40 }}>
+                                                <ListItemIcon>
+                                                    <AutorenewIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={"Camera 2"} secondary={`${bin.camera2}`} />
+                                            </ListItem>
+                                            <ListItem sx={{ height: 40 }}>
+                                                <ListItemIcon>
+                                                    <AutorenewIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={"Camera 3"} secondary={`${bin.camera3}`} />
                                             </ListItem>
                                         </List>
                                     </Box>

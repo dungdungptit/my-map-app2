@@ -43,9 +43,11 @@ const VehicleItem = () => {
             width: 0,
             odometer: 0,
             plate: "",
+            code: "",
             tonnage: 0,
             image: "",
             status: '',
+            camera: '',
         }
     );
 
@@ -156,6 +158,12 @@ const VehicleItem = () => {
                                                 </ListItemIcon>
                                                 <ListItemText primary={t('vehicles.table.id')} secondary={vehicle.id} />
                                             </ListItem>
+                                            <ListItem sx={{ backgroundColor: '#f5f5f5', height: 40 }}>
+                                                <ListItemIcon>
+                                                    <ListIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={t('vehicles.table.code')} secondary={vehicle.code} />
+                                            </ListItem>
                                             <ListItem sx={{ height: 40 }}>
                                                 <ListItemIcon>
                                                     <DataThresholdingIcon />
@@ -228,6 +236,12 @@ const VehicleItem = () => {
                                                     <AutorenewIcon />
                                                 </ListItemIcon>
                                                 <ListItemText primary={t('vehicles.form.status')} secondary={vehicle.status} />
+                                            </ListItem>
+                                            <ListItem sx={{ height: 40 }}>
+                                                <ListItemIcon>
+                                                    <AutorenewIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={"Camera"} secondary={vehicle.camera} />
                                             </ListItem>
                                         </List>
                                     </Box>

@@ -51,6 +51,7 @@
         "detailed": "Chi tiết",
         "table": {
             "id": "ID",
+            "code": "Code",
             "plate": "Biển số xe",
             "model": "Kiểu xe",
             "angle": "Góc",
@@ -162,6 +163,7 @@
         "preview": "Xem chi tiết",
         "table": {
             "id": "ID",
+            "code": "Code",
             "weight": "Khối lượng",
             "maxWeight": "Khối lượng tối đa",
             "address": "Địa chỉ",

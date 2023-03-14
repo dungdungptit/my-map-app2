@@ -271,10 +271,11 @@ export default function TabPanelItemBin({ open, handleClose, item }) {
                     </TabPanel> */}
                     <TabPanel value={value} index={2}>
                         <ReactPlayer
-                            url={'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8'}
+                            url={item.camera1}
                             playing={true}
                             volume={1}
-                            width="70vw"
+                            height="90vh"
+                            width="100%"
                             controls={true}
                             muted={true}
                             config={{
@@ -289,10 +290,11 @@ export default function TabPanelItemBin({ open, handleClose, item }) {
                     </TabPanel>
                     <TabPanel value={value} index={3}>
                         <ReactPlayer
-                            url={'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8'}
+                            url={item.camera2}
                             playing={true}
                             volume={1}
-                            width="70vw"
+                            height="90vh"
+                            width="100%"
                             controls={true}
                             muted={true}
                             config={{
@@ -307,10 +309,11 @@ export default function TabPanelItemBin({ open, handleClose, item }) {
                     </TabPanel>
                     <TabPanel value={value} index={4}>
                         <ReactPlayer
-                            url={'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8'}
+                            url={item.camera3}
                             playing={true}
                             volume={1}
-                            width="70vw"
+                            height="90vh"
+                            width="100%"
                             controls={true}
                             muted={true}
                             config={{

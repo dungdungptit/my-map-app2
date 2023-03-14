@@ -26,7 +26,6 @@ import TabPanelItemBin from './TabPanelItemBin';
 // WebSocket init
 
 const Map1 = () => {
-  console.log('Map1');
   const { t } = useTranslation();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
@@ -54,14 +53,13 @@ const Map1 = () => {
   useEffect(() => {
     // receive data from server
 
-   ws.onmessage = (event) => {
+    ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
       console.log("data received", data);
-      if (data[0] !== "alert") {
-        setData(data);
+      if (data[0] === "no-alert") {
+        setDataAlert(data);
       }
-
-      if (data[0] === "alert") {
+      else if (data[0] === "alert") {
         enqueueSnackbar(JSON.stringify(data),
           {
             variant: "error",
@@ -84,31 +82,27 @@ const Map1 = () => {
               </Alert>
             ),
           });
-
         setDataAlert(data);
         dispatch(addNoti(data));
         dispatch(increment());
+      }
+      else if (data[0] !== "alert") {
+        setData(data);
       }
       // const angle = _getAngle(position[0], position[1], data[1], data[2]);
       // if (Math.abs(angle) !== 90) {
       //   setPosition([data[1], data[2]]);
       //   setHeading(angle);
-      //   console.log(angle);
       // }
-
     }
-
   }, []);
 
-  console.log('vehicles', vehicles);
   if (!!vehicles && vehicles?.length > 0) {
-    let vehicle = vehicles.find(item => item.id.toString() === data[0]);
-    // console.log("vehicle", vehicle);
+    let vehicle = vehicles.find(item => item.code.toString() === data[0]);
     if (vehicle) {
       let oldLat = vehicle.latitude;
       let oldLong = vehicle.longitude;
       const angle = _getAngle(oldLat, oldLong, data[1], data[2]);
-      console.log(angle);
       if (Math.abs(angle) !== 90) {
         const vehicleData = {
           ...vehicle,
@@ -116,69 +110,28 @@ const Map1 = () => {
           longitude: data[2],
           angle: angle
         }
-        console.log("vehicleData", vehicleData);
         const vehiclesUpdate = [...vehicles.filter(item => item.id.toString() !== data[0]), vehicleData];
         setVehicles(vehiclesUpdate);
       }
     }
   }
 
-  // console.log('bins', bins);
   useEffect(() => {
-    if (dataAlert[0] === "alert") {
-      // console.log("alert", dataAlert);
+    if (dataAlert[0] === "alert" || dataAlert[0] === "no-alert") {
       if (!!bins && bins?.length > 0) {
-        let bin = bins.find(item => item.id.toString() === dataAlert[1].id.toString());
+        let bin = bins.find(item => item.code.toString() === dataAlert[1].code.toString());
         if (bin) {
           const binData = {
             ...bin,
             status: dataAlert[1].status
           }
-          // console.log("bin", binData);
-          const binsUpdate = [...bins.filter(item => item.id.toString() !== dataAlert[1].id.toString()), binData];
+          const binsUpdate = [...bins.filter(item => item.code.toString() !== dataAlert[1].code.toString()), binData];
           setBins(binsUpdate);
+          console.log("update bin in map");
         }
       }
     }
   }, [dataAlert]);
-
-  // useEffect(() => {
-  //   const script = document.createElement('script');
-
-  //   script.src = "https://cdn.jsdelivr.net/npm/hls.js@latest";
-  //   script.async = true;
-
-  //   document.body.appendChild(script);
-
-  //   return () => {
-  //     document.body.removeChild(script);
-  //   }
-  // }, []);
-
-
-  // useEffect(() => {
-  //   if (Hls.isSupported()) {
-  //     var video = document.getElementById('video');
-  //     console.log("check video", video);
-  //     var hls = new Hls();
-  //     hls.on(Hls.Events.MEDIA_ATTACHED, function () {
-  //       console.log('video tag and hls.js are now bound together !');
-  //     });
-  //     hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
-  //       console.log(
-  //         'manifest loaded, found ' + data.levels.length + ' quality level'
-  //       );
-  //     });
-  //     hls.loadSource('https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8');
-  //     // bind them together
-  //     hls.attachMedia(video);
-  //     video.play();
-  //   }
-  // }, []);
-
-  // socket.onclose = () => {
-  //   console.log('Disconnected from server')
-  // }
 
   const [openVehicle, setOpenVehicle] = useState(false);
   const [openBin, setOpenBin] = useState(false);
@@ -205,10 +158,6 @@ const Map1 = () => {
     setOpenBin(false);
     setItem({});
   };
-
-  const handleClick = event => {
-    console.log(event);
-  }
 
   const iconxeUrl = green_vehicle;
   const iconXe = new L.Icon({ iconUrl: iconxeUrl, iconSize: [35, 16], className: "leaflet-rotated-icon-move-smoothing" });

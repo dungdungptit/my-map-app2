@@ -52,6 +52,7 @@
         "detailed": "Detailed",
         "table": {
             "id": "ID",
+            "code": "Code",
             "plate": "License Plate",
             "model": "Model",
             "angle": "Angle",
@@ -163,6 +164,7 @@
         "preview": "View Details",
         "table": {
             "id": "ID",
+            "code": "Code",
             "weight": "Weight",
             "maxWeight": "Max Weight",
             "address": "Address",
