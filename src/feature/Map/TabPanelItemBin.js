@@ -284,6 +284,7 @@ export default function TabPanelItemBin({ open, handleClose, item }) {
                                     },
                                 },
                             }}
+                            playsinline
                         />
                     </TabPanel>
                     <TabPanel value={value} index={3}>
@@ -301,6 +302,7 @@ export default function TabPanelItemBin({ open, handleClose, item }) {
                                     },
                                 },
                             }}
+                            playsinline
                         />
                     </TabPanel>
                     <TabPanel value={value} index={4}>
@@ -318,6 +320,7 @@ export default function TabPanelItemBin({ open, handleClose, item }) {
                                     },
                                 },
                             }}
+                            playsinline
                         />
                     </TabPanel>
                 </Box>

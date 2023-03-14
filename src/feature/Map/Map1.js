@@ -142,18 +142,18 @@ const Map1 = () => {
     }
   }, [dataAlert]);
 
-  useEffect(() => {
-    const script = document.createElement('script');
+  // useEffect(() => {
+  //   const script = document.createElement('script');
 
-    script.src = "https://cdn.jsdelivr.net/npm/hls.js@latest";
-    script.async = true;
+  //   script.src = "https://cdn.jsdelivr.net/npm/hls.js@latest";
+  //   script.async = true;
 
-    document.body.appendChild(script);
+  //   document.body.appendChild(script);
 
-    return () => {
-      document.body.removeChild(script);
-    }
-  }, []);
+  //   return () => {
+  //     document.body.removeChild(script);
+  //   }
+  // }, []);
 
 
   // useEffect(() => {
