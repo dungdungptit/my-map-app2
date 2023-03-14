@@ -22,7 +22,6 @@ import PopupBinMarker from './PopupBinMarker';
 import AlertContent from './AlertContent';
 import TabPanelVehicle from './TabPanelVehicle';
 import TabPanelItemBin from './TabPanelItemBin';
-import Hls from 'hls.js'
 
 // WebSocket init
 
@@ -55,7 +54,7 @@ const Map1 = () => {
   useEffect(() => {
     // receive data from server
 
-    ws.onmessage = (event) => {
+   ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
       console.log("data received", data);
       if (data[0] !== "alert") {
@@ -156,25 +155,26 @@ const Map1 = () => {
     }
   }, []);
 
-  useEffect(() => {
-    if (Hls.isSupported()) {
-      var video = document.getElementById('video');
-      console.log("check video", video);
-      var hls = new Hls();
-      hls.on(Hls.Events.MEDIA_ATTACHED, function () {
-        console.log('video tag and hls.js are now bound together !');
-      });
-      hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
-        console.log(
-          'manifest loaded, found ' + data.levels.length + ' quality level'
-        );
-      });
-      hls.loadSource('https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8');
-      // bind them together
-      hls.attachMedia(video);
-      video.play();
-    }
-  }, []);
+
+  // useEffect(() => {
+  //   if (Hls.isSupported()) {
+  //     var video = document.getElementById('video');
+  //     console.log("check video", video);
+  //     var hls = new Hls();
+  //     hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+  //       console.log('video tag and hls.js are now bound together !');
+  //     });
+  //     hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+  //       console.log(
+  //         'manifest loaded, found ' + data.levels.length + ' quality level'
+  //       );
+  //     });
+  //     hls.loadSource('https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8');
+  //     // bind them together
+  //     hls.attachMedia(video);
+  //     video.play();
+  //   }
+  // }, []);
 
   // socket.onclose = () => {
   //   console.log('Disconnected from server')
@@ -258,7 +258,7 @@ const Map1 = () => {
 
           </MapContainer>
         </Box>
-        <video id='video' height={"360px"} width={"640px"} muted controls></video>
+        
         <TabPanelItemBin open={openBin} handleClose={handleCloseBin} item={item} ></TabPanelItemBin>
         <TabPanelVehicle open={openVehicle} handleClose={handleCloseVehicle} item={item} ></TabPanelVehicle>
       </Box>

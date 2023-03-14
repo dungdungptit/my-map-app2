@@ -17,3 +17,16 @@ export const _getAngle = (startx, starty, endx, endy) => {
 
   return rotate;
 }
+
+// export const checkDistance = (vehicles, bins) => {
+//     for (let i = 0; i < bins.length; i++) {
+//         let marker = L.marker(bins[i], { icon: iconGreen }).addTo(map);
+//         let binCoor = new L.latLng(area[i][j])
+//         vehicles.forEach((vehicle, index) => {
+//             let vehicleCoor = new L.latLng(vehicle)
+//             if(binCoor.distanceTo(vehicleCoor) < 100) {
+//                 marker.setIcon(iconRed);
+//             }
+//         })
+//     }
+// }

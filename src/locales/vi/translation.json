@@ -21,6 +21,10 @@
     "map": {
         "event": "Sự kiện",
         "events": "Sự kiện",
+        "cameras": "Camera",
+        "cameras1": "Camera 1",
+        "cameras2": "Camera 2",
+        "cameras3": "Camera 3",
         "noEvent": "Không có sự kiện",
         "sendRequest": "Gửi yêu cầu"
     },
